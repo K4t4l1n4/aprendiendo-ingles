@@ -9,305 +9,190 @@
 <link rel="manifest" href="manifest.json">
 <title>Learning English</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --p1:#6c63ff;--p2:#5a52d5;--p-light:#ede9ff;--p-text:#fff;
+  --bg:#f4f3ff;--card-bg:#fff;--text:#2d2d2d;--muted:#888;
+  --border:#e0deff;--stat-bg:#fff;--radius:20px;
+  --shadow:0 8px 30px rgba(108,99,255,0.13);
+}
+[data-theme="blue"]  {--p1:#2196F3;--p2:#1976D2;--p-light:#e3f2fd;--border:#bbdefb;--shadow:0 8px 30px rgba(33,150,243,0.13)}
+[data-theme="purple"]{--p1:#6c63ff;--p2:#5a52d5;--p-light:#ede9ff;--border:#e0deff;--shadow:0 8px 30px rgba(108,99,255,0.13)}
+[data-theme="yellow"]{--p1:#f0b429;--p2:#d4991a;--p-light:#fff8e1;--p-text:#2d2d2d;--border:#ffe082;--shadow:0 8px 30px rgba(240,180,41,0.18)}
+[data-theme="green"] {--p1:#2ecc71;--p2:#27ae60;--p-light:#e8f8f0;--border:#a9dfbf;--shadow:0 8px 30px rgba(46,204,113,0.13)}
+[data-theme="pink"]  {--p1:#f06292;--p2:#e91e8c;--p-light:#fce4ec;--border:#f8bbd0;--shadow:0 8px 30px rgba(240,98,146,0.13)}
+[data-theme="teal"]  {--p1:#00bcd4;--p2:#0097a7;--p-light:#e0f7fa;--border:#b2ebf2;--shadow:0 8px 30px rgba(0,188,212,0.13)}
+[data-theme="lilac"] {--p1:#ab47bc;--p2:#7b1fa2;--p-light:#f3e5f5;--border:#e1bee7;--shadow:0 8px 30px rgba(171,71,188,0.13)}
 
-  :root {
-    --p1: #6c63ff;
-    --p2: #5a52d5;
-    --p-light: #ede9ff;
-    --p-text: #fff;
-    --bg: #f4f3ff;
-    --card-bg: #fff;
-    --text: #2d2d2d;
-    --muted: #888;
-    --border: #e0deff;
-    --stat-bg: #fff;
-    --radius: 20px;
-    --shadow: 0 8px 30px rgba(108,99,255,0.13);
-  }
+body.dark{--bg:#12111a;--card-bg:#1e1c2e;--text:#e8e8f0;--muted:#8888aa;--border:#2e2c45;--stat-bg:#1e1c2e;--shadow:0 8px 30px rgba(0,0,0,0.5)}
+body.dark .tabs,.dark .option,.dark .stat-chip,.dark .word-item,.dark .streak-bar,.dark .quiz-question,.dark .score-card,.dark .prog-block{background:#1e1c2e}
+body.dark .write-input{background:#1e1c2e;color:var(--text)}
+body.dark .btn-ghost{background:#2a2840}
+body.dark .card-back{background:#1e1c2e}
+body.dark .color-panel{background:#1e1c2e;border-color:#2e2c45}
+body.dark .cat-select{background:#1e1c2e;color:var(--text);border-color:#2e2c45}
+body.dark .prog-bar-bg{background:#2e2c45}
+body.dark .day-dot{background:#2e2c45}
+body.dark .word-mastered{background:linear-gradient(90deg,#2a2510 0%,var(--stat-bg) 60%)}
 
-  /* ── PALETTES ── */
-  [data-theme="blue"]     { --p1:#2196F3; --p2:#1976D2; --p-light:#e3f2fd; --border:#bbdefb; --shadow:0 8px 30px rgba(33,150,243,0.13); }
-  [data-theme="purple"]   { --p1:#6c63ff; --p2:#5a52d5; --p-light:#ede9ff; --border:#e0deff; --shadow:0 8px 30px rgba(108,99,255,0.13); }
-  [data-theme="yellow"]   { --p1:#f0b429; --p2:#d4991a; --p-light:#fff8e1; --p-text:#2d2d2d; --border:#ffe082; --shadow:0 8px 30px rgba(240,180,41,0.18); }
-  [data-theme="green"]    { --p1:#2ecc71; --p2:#27ae60; --p-light:#e8f8f0; --border:#a9dfbf; --shadow:0 8px 30px rgba(46,204,113,0.13); }
-  [data-theme="pink"]     { --p1:#f06292; --p2:#e91e8c; --p-light:#fce4ec; --border:#f8bbd0; --shadow:0 8px 30px rgba(240,98,146,0.13); }
-  [data-theme="teal"]     { --p1:#00bcd4; --p2:#0097a7; --p-light:#e0f7fa; --border:#b2ebf2; --shadow:0 8px 30px rgba(0,188,212,0.13); }
-  [data-theme="lilac"]    { --p1:#ab47bc; --p2:#7b1fa2; --p-light:#f3e5f5; --border:#e1bee7; --shadow:0 8px 30px rgba(171,71,188,0.13); }
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  background:var(--bg);color:var(--text);
+  min-height:100vh;display:flex;flex-direction:column;
+  max-width:480px;margin:0 auto;
+  transition:background .3s,color .3s;
+}
 
-  /* ── DARK MODE ── */
-  body.dark {
-    --bg: #12111a;
-    --card-bg: #1e1c2e;
-    --text: #e8e8f0;
-    --muted: #8888aa;
-    --border: #2e2c45;
-    --stat-bg: #1e1c2e;
-    --shadow: 0 8px 30px rgba(0,0,0,0.5);
-  }
-  body.dark .tabs        { background: #1e1c2e; }
-  body.dark .option      { background: #1e1c2e; }
-  body.dark .stat-chip   { background: #1e1c2e; }
-  body.dark .word-item   { background: #1e1c2e; }
-  body.dark .streak-bar  { background: #1e1c2e; }
-  body.dark .quiz-question { background: #1e1c2e; }
-  body.dark .score-card  { background: #1e1c2e; }
-  body.dark .write-input { background: #1e1c2e; color: var(--text); }
-  body.dark .btn-ghost   { background: #2a2840; }
-  body.dark .card-back   { background: #1e1c2e; }
-  body.dark .color-panel { background: #1e1c2e; border-color: #2e2c45; }
+/* NAV */
+nav{background:var(--p1);padding:14px 16px 60px;border-radius:0 0 32px 32px;position:relative;display:flex;align-items:flex-start;justify-content:space-between}
+.nav-title h1{color:var(--p-text);font-size:20px;font-weight:700;letter-spacing:-.5px}
+.nav-title p{color:rgba(255,255,255,.75);font-size:12px;margin-top:2px}
+.nav-streak{display:flex;align-items:center;gap:4px;color:rgba(255,255,255,.95);font-size:13px;font-weight:700;margin-top:5px}
+.nav-actions{display:flex;gap:8px;margin-top:2px}
+.nav-btn{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.2);border:none;color:#fff;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.nav-btn:active{background:rgba(255,255,255,.35)}
 
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    max-width: 480px;
-    margin: 0 auto;
-    transition: background 0.3s, color 0.3s;
-  }
+/* Color panel */
+.color-panel{display:none;position:absolute;top:58px;right:16px;background:#fff;border:1.5px solid var(--border);border-radius:16px;padding:12px 14px;z-index:100;box-shadow:0 8px 32px rgba(0,0,0,.18)}
+.color-panel.open{display:block}
+.color-panel-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.color-swatches{display:flex;gap:8px;flex-wrap:wrap}
+.swatch{width:30px;height:30px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:transform .15s,border-color .15s}
+.swatch:active{transform:scale(.9)}
+.swatch.active{border-color:var(--text)}
+.swatch[data-c="blue"]{background:#2196F3}.swatch[data-c="purple"]{background:#6c63ff}
+.swatch[data-c="yellow"]{background:#f0b429}.swatch[data-c="green"]{background:#2ecc71}
+.swatch[data-c="pink"]{background:#f06292}.swatch[data-c="teal"]{background:#00bcd4}
+.swatch[data-c="lilac"]{background:#ab47bc}
 
-  /* ── NAV ── */
-  nav {
-    background: var(--p1);
-    padding: 14px 16px 60px;
-    border-radius: 0 0 32px 32px;
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-  }
-  .nav-title h1 { color: var(--p-text); font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
-  .nav-title p  { color: rgba(255,255,255,0.75); font-size: 12px; margin-top: 2px; }
-  .nav-actions  { display: flex; gap: 8px; margin-top: 2px; }
-  .nav-btn {
-    width: 36px; height: 36px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.2);
-    border: none;
-    color: #fff;
-    font-size: 17px;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    position: relative;
-    transition: background 0.15s;
-  }
-  .nav-btn:active { background: rgba(255,255,255,0.35); }
+/* TABS — scrollable */
+.tabs{display:flex;background:#fff;border-radius:16px;padding:4px;margin:-28px 20px 0;box-shadow:var(--shadow);position:relative;z-index:10;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;transition:background .3s}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;min-width:72px;text-align:center;padding:10px 6px;border-radius:12px;font-size:10px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .2s;user-select:none}
+.tab.active{background:var(--p1);color:var(--p-text)}
+.tab-icon{font-size:17px;display:block;margin-bottom:2px}
 
-  /* Color panel */
-  .color-panel {
-    display: none;
-    position: absolute;
-    top: 58px; right: 16px;
-    background: #fff;
-    border: 1.5px solid var(--border);
-    border-radius: 16px;
-    padding: 12px 14px;
-    z-index: 100;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-  }
-  .color-panel.open { display: block; }
-  .color-panel-label {
-    font-size: 11px; font-weight: 700; color: var(--muted);
-    text-transform: uppercase; letter-spacing: 0.8px;
-    margin-bottom: 10px;
-  }
-  .color-swatches { display: flex; gap: 8px; flex-wrap: wrap; }
-  .swatch {
-    width: 30px; height: 30px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 3px solid transparent;
-    transition: transform 0.15s, border-color 0.15s;
-  }
-  .swatch:active { transform: scale(0.9); }
-  .swatch.active { border-color: var(--text); }
-  .swatch[data-c="blue"]   { background: #2196F3; }
-  .swatch[data-c="purple"] { background: #6c63ff; }
-  .swatch[data-c="yellow"] { background: #f0b429; }
-  .swatch[data-c="green"]  { background: #2ecc71; }
-  .swatch[data-c="pink"]   { background: #f06292; }
-  .swatch[data-c="teal"]   { background: #00bcd4; }
-  .swatch[data-c="lilac"]  { background: #ab47bc; }
+/* MAIN */
+main{padding:24px 20px 100px;flex:1}
+.section{display:none}
+.section.active{display:block}
 
-  /* ── TABS ── */
-  .tabs {
-    display: flex; background: #fff;
-    border-radius: 16px; padding: 4px;
-    margin: -28px 20px 0;
-    box-shadow: var(--shadow);
-    position: relative; z-index: 10;
-    transition: background 0.3s;
-  }
-  .tab {
-    flex: 1; text-align: center;
-    padding: 10px 4px;
-    border-radius: 12px;
-    font-size: 11px; font-weight: 600;
-    color: var(--muted);
-    cursor: pointer;
-    transition: all 0.2s;
-    user-select: none;
-  }
-  .tab.active { background: var(--p1); color: var(--p-text); }
-  .tab-icon { font-size: 17px; display: block; margin-bottom: 2px; }
+/* CATEGORY FILTER */
+.cat-filter{margin-bottom:16px}
+.cat-select{width:100%;padding:10px 36px 10px 14px;border:2px solid var(--border);border-radius:12px;font-size:14px;font-weight:600;color:var(--text);background:var(--card-bg);outline:none;transition:border .2s;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M0 0l6 8 6-8z' fill='%23888'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.cat-select:focus{border-color:var(--p1)}
 
-  /* ── MAIN ── */
-  main { padding: 24px 20px 100px; flex: 1; }
-  .section { display: none; }
-  .section.active { display: block; }
+/* PROGRESS */
+.progress-bar-wrap{background:var(--p-light);border-radius:99px;height:8px;margin-bottom:18px;overflow:hidden}
+.progress-bar{background:var(--p1);height:100%;border-radius:99px;transition:width .4s ease}
+.progress-label{font-size:13px;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between}
 
-  /* ── PROGRESS ── */
-  .progress-bar-wrap { background: var(--p-light); border-radius: 99px; height: 8px; margin-bottom: 18px; overflow: hidden; }
-  .progress-bar { background: var(--p1); height: 100%; border-radius: 99px; transition: width 0.4s ease; }
-  .progress-label { font-size: 13px; color: var(--muted); margin-bottom: 8px; display: flex; justify-content: space-between; }
+/* FLASHCARD */
+.card-scene{perspective:1000px;margin:0 auto 28px;height:230px}
+.card-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,0,.2,1);cursor:pointer}
+.card-inner.flipped{transform:rotateY(180deg)}
+.card-face{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center;box-shadow:var(--shadow)}
+.card-front{background:var(--p1);color:var(--p-text)}
+.card-back{background:var(--card-bg);transform:rotateY(180deg);border:2px solid var(--p1);transition:background .3s}
+.card-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.7;margin-bottom:8px}
+.card-word{font-size:32px;font-weight:800;letter-spacing:-1px;line-height:1.1}
+.card-pron{font-size:13px;font-style:italic;margin-top:8px;background:rgba(255,255,255,.18);padding:3px 10px;border-radius:99px;display:flex;align-items:center;gap:6px}
+.card-ex{font-size:11px;margin-top:10px;font-style:italic;opacity:.7;line-height:1.4;width:100%}
+.speak-btn{background:none;border:none;cursor:pointer;font-size:16px;padding:0;opacity:.85;transition:transform .15s}
+.speak-btn:active{transform:scale(.8)}
+.card-tap-hint{font-size:12px;color:rgba(255,255,255,.6);margin-top:10px}
+.card-back .card-word{color:var(--p1)}
+.card-back .card-label{color:var(--muted)}
+.card-back .card-pron{background:var(--p-light);color:var(--p2)}
 
-  /* ── FLASHCARD ── */
-  .card-scene { perspective: 1000px; margin: 0 auto 28px; height: 230px; }
-  .card-inner {
-    width: 100%; height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
-    cursor: pointer;
-  }
-  .card-inner.flipped { transform: rotateY(180deg); }
-  .card-face {
-    position: absolute; width: 100%; height: 100%;
-    backface-visibility: hidden;
-    border-radius: var(--radius);
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    padding: 24px; text-align: center;
-    box-shadow: var(--shadow);
-  }
-  .card-front { background: var(--p1); color: var(--p-text); }
-  .card-back { background: var(--card-bg); transform: rotateY(180deg); border: 2px solid var(--p1); transition: background 0.3s; }
-  .card-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: 0.7; margin-bottom: 8px; }
-  .card-word  { font-size: 32px; font-weight: 800; letter-spacing: -1px; line-height: 1.1; }
-  .card-pron  {
-    font-size: 13px;
-    font-style: italic;
-    margin-top: 8px;
-    background: rgba(255,255,255,0.18);
-    padding: 3px 10px;
-    border-radius: 99px;
-    letter-spacing: 0.3px;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .speak-btn {
-    background: none; border: none;
-    cursor: pointer; font-size: 16px;
-    padding: 0; line-height: 1;
-    opacity: 0.85;
-    transition: transform 0.15s;
-  }
-  .speak-btn:active { transform: scale(0.8); }
-  .card-tap-hint { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 12px; }
-  .card-back .card-word { color: var(--p1); }
-  .card-back .card-label { color: var(--muted); }
-  .card-back .card-pron {
-    background: var(--p-light);
-    color: var(--p2);
-  }
+/* CARD ACTIONS */
+.card-actions{display:flex;gap:12px;justify-content:center}
+.btn{border:none;border-radius:14px;padding:13px 20px;font-size:15px;font-weight:600;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px}
+.btn:active{transform:scale(.96)}
+.btn-primary{background:var(--p1);color:var(--p-text)}
+.btn-success{background:#43c67a;color:#fff}
+.btn-danger{background:#ff6584;color:#fff;flex:1}
+.btn-outline{background:var(--card-bg);color:var(--p1);border:2px solid var(--p1);flex:1}
+.btn-ghost{background:var(--p-light);color:var(--p1)}
+.btn-lg{padding:16px 32px;font-size:17px;width:100%;justify-content:center;border-radius:16px}
 
-  /* ── CARD ACTIONS ── */
-  .card-actions { display: flex; gap: 12px; justify-content: center; }
-  .btn {
-    border: none; border-radius: 14px;
-    padding: 13px 20px; font-size: 15px; font-weight: 600;
-    cursor: pointer; transition: all 0.15s;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .btn:active { transform: scale(0.96); }
-  .btn-primary { background: var(--p1); color: var(--p-text); }
-  .btn-success { background: #43c67a; color: #fff; }
-  .btn-danger  { background: #ff6584; color: #fff; flex: 1; }
-  .btn-outline { background: var(--card-bg); color: var(--p1); border: 2px solid var(--p1); flex: 1; }
-  .btn-ghost   { background: var(--p-light); color: var(--p1); }
-  .btn-lg      { padding: 16px 32px; font-size: 17px; width: 100%; justify-content: center; border-radius: 16px; }
+/* QUIZ */
+.quiz-question{background:var(--card-bg);border-radius:var(--radius);padding:24px 20px 18px;text-align:center;margin-bottom:20px;box-shadow:var(--shadow);transition:background .3s}
+.q-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--p1);margin-bottom:10px}
+.q-word{font-size:34px;font-weight:800;color:var(--p1);letter-spacing:-1px}
+.q-context{font-size:12px;color:var(--muted);margin-top:6px}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.option{background:var(--card-bg);border:2px solid var(--border);border-radius:14px;padding:14px 12px;font-size:14px;font-weight:600;text-align:center;cursor:pointer;transition:all .15s;user-select:none;color:var(--text)}
+.option:active{transform:scale(.97)}
+.option.correct{background:#d4f5e4;border-color:#43c67a;color:#1d8a50}
+.option.wrong{background:#ffe0e7;border-color:#ff6584;color:#c0334e}
+.option.reveal{background:#d4f5e4;border-color:#43c67a;color:#1d8a50}
+.option.disabled{pointer-events:none}
 
-  /* ── QUIZ ── */
-  .quiz-question { background: var(--card-bg); border-radius: var(--radius); padding: 28px 24px 22px; text-align: center; margin-bottom: 20px; box-shadow: var(--shadow); transition: background 0.3s; }
-  .quiz-question .q-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--p1); margin-bottom: 10px; }
-  .quiz-question .q-word  { font-size: 36px; font-weight: 800; color: var(--p1); letter-spacing: -1px; }
-  .quiz-question .q-context { font-size: 12px; color: var(--muted); margin-top: 6px; }
-  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-  .option {
-    background: var(--card-bg); border: 2px solid var(--border);
-    border-radius: 14px; padding: 14px 12px;
-    font-size: 14px; font-weight: 600; text-align: center;
-    cursor: pointer; transition: all 0.15s; user-select: none;
-    color: var(--text);
-  }
-  .option:active { transform: scale(0.97); }
-  .option.correct { background: #d4f5e4; border-color: #43c67a; color: #1d8a50; }
-  .option.wrong   { background: #ffe0e7; border-color: #ff6584; color: #c0334e; }
-  .option.reveal  { background: #d4f5e4; border-color: #43c67a; color: #1d8a50; }
-  .option.disabled { pointer-events: none; }
+/* WRITE */
+.write-input-wrap{position:relative;margin-bottom:12px}
+.write-input{width:100%;background:var(--card-bg);border:2px solid var(--border);border-radius:14px;padding:16px 18px;font-size:18px;font-weight:600;color:var(--text);outline:none;transition:border .2s;text-align:center}
+.write-input:focus{border-color:var(--p1)}
+.write-input.correct{border-color:#43c67a;background:#d4f5e4;color:#1d8a50}
+.write-input.wrong{border-color:#ff6584;background:#ffe0e7;color:#c0334e}
+.write-answer-reveal{background:#fff7e0;border:2px solid #f7c948;border-radius:12px;padding:12px 16px;font-size:14px;text-align:center;margin-bottom:14px;display:none}
+.write-answer-reveal strong{color:var(--p2)}
 
-  /* ── WRITE ── */
-  .write-input-wrap { position: relative; margin-bottom: 12px; }
-  .write-input {
-    width: 100%; background: var(--card-bg);
-    border: 2px solid var(--border);
-    border-radius: 14px; padding: 16px 18px;
-    font-size: 18px; font-weight: 600; color: var(--text);
-    outline: none; transition: border 0.2s; text-align: center;
-  }
-  .write-input:focus { border-color: var(--p1); }
-  .write-input.correct { border-color: #43c67a; background: #d4f5e4; color: #1d8a50; }
-  .write-input.wrong   { border-color: #ff6584; background: #ffe0e7; color: #c0334e; }
-  .write-answer-reveal {
-    background: #fff7e0; border: 2px solid #f7c948;
-    border-radius: 12px; padding: 12px 16px;
-    font-size: 14px; text-align: center; margin-bottom: 14px; display: none;
-  }
-  .write-answer-reveal strong { color: var(--p2); }
+/* SCORE */
+.score-card{background:var(--card-bg);border-radius:var(--radius);padding:36px 24px;text-align:center;box-shadow:var(--shadow);transition:background .3s}
+.score-emoji{font-size:56px;margin-bottom:12px}
+.score-title{font-size:24px;font-weight:800;margin-bottom:6px}
+.score-subtitle{color:var(--muted);font-size:15px;margin-bottom:28px}
+.score-num{font-size:52px;font-weight:900;color:var(--p1);line-height:1}
+.score-total{font-size:16px;color:var(--muted);margin-bottom:28px}
 
-  /* ── SCORE ── */
-  .score-card { background: var(--card-bg); border-radius: var(--radius); padding: 36px 24px; text-align: center; box-shadow: var(--shadow); transition: background 0.3s; }
-  .score-emoji { font-size: 56px; margin-bottom: 12px; }
-  .score-title { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
-  .score-subtitle { color: var(--muted); font-size: 15px; margin-bottom: 28px; }
-  .score-num   { font-size: 52px; font-weight: 900; color: var(--p1); line-height: 1; }
-  .score-total { font-size: 16px; color: var(--muted); margin-bottom: 28px; }
+/* STATS */
+.stats-row{display:flex;gap:10px;margin-bottom:20px}
+.stat-chip{flex:1;background:var(--stat-bg);border-radius:14px;padding:14px 10px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:background .3s}
+.stat-num{font-size:24px;font-weight:800;color:var(--p1)}
+.stat-label{font-size:11px;color:var(--muted);margin-top:2px}
 
-  /* ── STATS ── */
-  .stats-row { display: flex; gap: 10px; margin-bottom: 20px; }
-  .stat-chip { flex: 1; background: var(--stat-bg); border-radius: 14px; padding: 14px 10px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.06); transition: background 0.3s; }
-  .stat-num   { font-size: 24px; font-weight: 800; color: var(--p1); }
-  .stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+/* SECTION TITLE */
+.section-title{font-size:18px;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:8px}
 
-  /* ── SECTION TITLE ── */
-  .section-title { font-size: 18px; font-weight: 700; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+/* STREAK BAR */
+.streak-bar{background:var(--stat-bg);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:background .3s}
+.streak-icon{font-size:22px}
+.streak-text{font-size:13px;font-weight:600}
+.streak-text span{color:#ff6584}
 
-  /* ── STREAK ── */
-  .streak-bar { background: var(--stat-bg); border-radius: 14px; padding: 12px 16px; display: flex; align-items: center; gap: 10px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); transition: background 0.3s; }
-  .streak-icon { font-size: 22px; }
-  .streak-text { font-size: 13px; font-weight: 600; }
-  .streak-text span { color: #ff6584; }
+/* WORD LIST */
+.word-list{display:grid;gap:8px}
+.word-item{background:var(--stat-bg);border-radius:12px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:background .3s}
+.word-en{font-weight:700;color:var(--p1)}
+.word-es{color:var(--muted);font-size:12px}
+.word-known{border-left:3px solid #43c67a}
+.word-hard{border-left:3px solid #ff6584}
+.word-mastered{border-left:3px solid #f7c948;background:linear-gradient(90deg,#fffbea 0%,var(--stat-bg) 60%)}
+.cat-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;background:var(--p-light);color:var(--p1);padding:2px 8px;border-radius:99px;white-space:nowrap}
+.swipe-hint{text-align:center;color:var(--muted);font-size:12px;margin-top:12px}
 
-  /* ── WORD LIST ── */
-  .word-list { display: grid; gap: 8px; }
-  .word-item { background: var(--stat-bg); border-radius: 12px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; font-size: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: background 0.3s; }
-  .word-en   { font-weight: 700; color: var(--p1); }
-  .word-es   { color: var(--muted); font-size: 12px; }
-  .word-known    { border-left: 3px solid #43c67a; }
-  .word-hard     { border-left: 3px solid #ff6584; }
-  .word-mastered { border-left: 3px solid #f7c948; background: linear-gradient(90deg, #fffbea 0%, var(--stat-bg) 60%); }
-  body.dark .word-mastered { background: linear-gradient(90deg, #2a2510 0%, var(--stat-bg) 60%); }
-  .cat-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; background: var(--p-light); color: var(--p1); padding: 2px 8px; border-radius: 99px; white-space: nowrap; }
-  .swipe-hint { text-align: center; color: var(--muted); font-size: 12px; margin-top: 12px; }
+/* PROGRESS SECTION */
+.prog-block{background:var(--card-bg);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:16px;transition:background .3s}
+.prog-block-title{font-size:14px;font-weight:700;margin-bottom:14px;color:var(--text)}
+.prog-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.prog-cat-label{font-size:12px;font-weight:600;color:var(--text);min-width:80px}
+.prog-bar-bg{background:var(--border);border-radius:99px;height:8px;flex:1;overflow:hidden}
+.prog-bar-fill{background:var(--p1);height:100%;border-radius:99px;transition:width .5s ease}
+.prog-pct{font-size:11px;font-weight:700;color:var(--p1);min-width:32px;text-align:right}
+.daily-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.day-dot{height:32px;border-radius:8px;background:var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:9px;color:var(--muted);font-weight:600;gap:2px}
+.day-dot.done{background:var(--p1);color:#fff}
+.day-dot.today{outline:2px solid var(--p2)}
+.big-streak{font-size:52px;font-weight:900;color:var(--p1);text-align:center;line-height:1}
+.big-streak-label{font-size:13px;color:var(--muted);text-align:center;margin-top:4px;margin-bottom:16px}
 
-  @keyframes popIn {
-    0% { transform: scale(0.5); opacity: 0; }
-    70% { transform: scale(1.1); }
-    100% { transform: scale(1); opacity: 1; }
-  }
-  .pop-in { animation: popIn 0.4s ease forwards; }
+/* ESCUCHA */
+.listen-btn{font-size:28px;background:var(--p1);color:#fff;border:none;border-radius:20px;padding:18px 32px;cursor:pointer;display:flex;align-items:center;gap:10px;margin:8px auto;transition:transform .15s}
+.listen-btn:active{transform:scale(.95)}
+
+@keyframes popIn{0%{transform:scale(.5);opacity:0}70%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+.pop-in{animation:popIn .4s ease forwards}
 </style>
 </head>
 <body>
@@ -316,797 +201,1090 @@
   <div class="nav-title">
     <h1>📚 Learning English</h1>
     <p>¡Aprende vocabulario paso a paso!</p>
+    <div class="nav-streak">🔥 <span id="nav-streak-num">0</span> días seguidos</div>
   </div>
   <div class="nav-actions">
-    <button class="nav-btn" id="dark-btn" onclick="toggleDark()" title="Modo oscuro">🌙</button>
-    <button class="nav-btn" id="color-btn" onclick="toggleColorPanel()" title="Cambiar color">🎨</button>
+    <button class="nav-btn" id="dark-btn" onclick="toggleDark()">🌙</button>
+    <button class="nav-btn" id="color-btn" onclick="toggleColorPanel()">🎨</button>
   </div>
-  <!-- Color picker panel -->
   <div class="color-panel" id="color-panel">
     <div class="color-panel-label">Elige un color</div>
     <div class="color-swatches">
-      <div class="swatch" data-c="blue"   title="Azul"     onclick="setTheme('blue')"></div>
-      <div class="swatch active" data-c="purple" title="Morado"  onclick="setTheme('purple')"></div>
-      <div class="swatch" data-c="yellow" title="Amarillo" onclick="setTheme('yellow')"></div>
-      <div class="swatch" data-c="green"  title="Verde"    onclick="setTheme('green')"></div>
-      <div class="swatch" data-c="pink"   title="Rosado"   onclick="setTheme('pink')"></div>
-      <div class="swatch" data-c="teal"   title="Turquesa" onclick="setTheme('teal')"></div>
-      <div class="swatch" data-c="lilac"  title="Lila"     onclick="setTheme('lilac')"></div>
+      <div class="swatch" data-c="blue"   onclick="setTheme('blue')"></div>
+      <div class="swatch active" data-c="purple" onclick="setTheme('purple')"></div>
+      <div class="swatch" data-c="yellow" onclick="setTheme('yellow')"></div>
+      <div class="swatch" data-c="green"  onclick="setTheme('green')"></div>
+      <div class="swatch" data-c="pink"   onclick="setTheme('pink')"></div>
+      <div class="swatch" data-c="teal"   onclick="setTheme('teal')"></div>
+      <div class="swatch" data-c="lilac"  onclick="setTheme('lilac')"></div>
     </div>
   </div>
 </nav>
 
-<div class="tabs">
+<div class="tabs" id="main-tabs">
   <div class="tab active" onclick="switchTab('flash')"><span class="tab-icon">🃏</span>Tarjetas</div>
+  <div class="tab" onclick="switchTab('escucha')"><span class="tab-icon">🎧</span>Escucha</div>
   <div class="tab" onclick="switchTab('quiz')"><span class="tab-icon">🎯</span>Quiz</div>
+  <div class="tab" onclick="switchTab('frases')"><span class="tab-icon">📝</span>Frases</div>
   <div class="tab" onclick="switchTab('write')"><span class="tab-icon">✏️</span>Escribir</div>
   <div class="tab" onclick="switchTab('words')"><span class="tab-icon">📖</span>Glosario</div>
+  <div class="tab" onclick="switchTab('progreso')"><span class="tab-icon">📊</span>Progreso</div>
 </div>
 
 <main>
 
-  <!-- FLASHCARDS -->
-  <div id="section-flash" class="section active">
-    <div class="streak-bar">
-      <span class="streak-icon">🔥</span>
-      <span class="streak-text">Racha: <span id="streak-count">0</span> correctas seguidas</span>
+<!-- ═══ FLASHCARDS ═══ -->
+<div id="section-flash" class="section active">
+  <div class="cat-filter">
+    <select class="cat-select" id="flash-cat" onchange="initFlash()"></select>
+  </div>
+  <div class="streak-bar">
+    <span class="streak-icon">🔥</span>
+    <span class="streak-text">Racha: <span id="streak-count">0</span> correctas seguidas</span>
+  </div>
+  <div class="progress-label">
+    <span>Progreso de sesión</span>
+    <span id="flash-count">0 / 0</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="flash-progress" style="width:0%"></div></div>
+  <div class="card-scene">
+    <div class="card-inner" id="flashcard">
+      <div class="card-face card-front">
+        <span class="card-label">🇬🇧 inglés</span>
+        <span class="card-word" id="flash-word">...</span>
+        <span class="card-pron">
+          <button class="speak-btn" onclick="speakWord()">🔊</button>
+          <span id="flash-pron-text"></span>
+        </span>
+        <span class="card-tap-hint">👆 Toca para ver la traducción</span>
+      </div>
+      <div class="card-face card-back">
+        <span class="card-label">🇨🇱 español</span>
+        <span class="card-word" id="flash-translation"></span>
+        <span class="card-pron">
+          <button class="speak-btn" onclick="speakWord()">🔊</button>
+          <span id="flash-pron-back-text"></span>
+        </span>
+        <span class="card-ex" id="flash-ex"></span>
+      </div>
     </div>
+  </div>
+  <div class="swipe-hint">¿La sabes?</div>
+  <div class="card-actions" style="margin-top:12px">
+    <button class="btn btn-danger"  onclick="markCard(false)">❌ Difícil</button>
+    <button class="btn btn-outline" onclick="flipCard()">🔄 Ver</button>
+    <button class="btn btn-success" onclick="markCard(true)">✅ La sé</button>
+  </div>
+  <div id="flash-done" style="display:none;margin-top:24px">
+    <div class="score-card pop-in">
+      <div class="score-emoji">🎉</div>
+      <div class="score-title">¡Vuelta completada!</div>
+      <div class="score-subtitle" id="flash-done-msg"></div>
+      <button class="btn btn-primary btn-lg" style="margin-top:16px" onclick="restartFlash()">🔄 Otra vuelta</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ESCUCHA ═══ -->
+<div id="section-escucha" class="section">
+  <div class="cat-filter">
+    <select class="cat-select" id="escucha-cat" onchange="startEscucha()"></select>
+  </div>
+  <div id="escucha-game">
     <div class="progress-label">
-      <span>Progreso de sesión</span>
-      <span id="flash-count">0 / 0</span>
+      <span>Pregunta <span id="esc-num">1</span> de <span id="esc-total">10</span></span>
+      <span id="esc-score-live">⭐ 0</span>
     </div>
-    <div class="progress-bar-wrap">
-      <div class="progress-bar" id="flash-progress" style="width:0%"></div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="esc-progress" style="width:0%"></div></div>
+    <div class="quiz-question">
+      <div class="q-label">🎧 Escucha y elige la traducción correcta</div>
+      <button class="listen-btn" id="esc-play-btn" onclick="playEscucha()">🔊 Escuchar</button>
+      <div class="q-context" id="esc-hint" style="margin-top:6px"></div>
     </div>
-
-    <div class="card-scene">
-      <div class="card-inner" id="flashcard">
-        <div class="card-face card-front">
-          <span class="card-label">🇬🇧 inglés</span>
-          <span class="card-word" id="flash-word">...</span>
-          <span class="card-pron" id="flash-pron">
-            <button class="speak-btn" title="Escuchar">🔊</button>
-            <span id="flash-pron-text"></span>
-          </span>
-          <span class="card-tap-hint">👆 Toca para ver la traducción</span>
-        </div>
-        <div class="card-face card-back">
-          <span class="card-label">🇨🇱 español</span>
-          <span class="card-word" id="flash-translation"></span>
-          <span class="card-pron" id="flash-pron-back">
-            <button class="speak-btn" title="Escuchar">🔊</button>
-            <span id="flash-pron-back-text"></span>
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <div class="swipe-hint">¿La sabes?</div>
-    <div class="card-actions" style="margin-top:12px">
-      <button class="btn btn-danger"  onclick="markCard(false)">❌ Difícil</button>
-      <button class="btn btn-outline" onclick="flipCard()">🔄 Ver</button>
-      <button class="btn btn-success" onclick="markCard(true)">✅ La sé</button>
-    </div>
-
-    <div id="flash-done" style="display:none; margin-top:24px">
-      <div class="score-card pop-in">
-        <div class="score-emoji">🎉</div>
-        <div class="score-title">¡Vuelta completada!</div>
-        <div class="score-subtitle" id="flash-done-msg"></div>
-        <button class="btn btn-primary btn-lg" style="margin-top:16px" onclick="restartFlash()">🔄 Otra vuelta</button>
-      </div>
+    <div class="options" id="esc-options"></div>
+    <button class="btn btn-primary btn-lg" id="esc-next-btn" style="display:none" onclick="nextEscuchaQ()">Siguiente →</button>
+  </div>
+  <div id="escucha-result" style="display:none">
+    <div class="score-card pop-in">
+      <div class="score-emoji" id="esc-emoji">🎧</div>
+      <div class="score-title">¡Resultado!</div>
+      <div class="score-num" id="esc-score">-</div>
+      <div class="score-total" id="esc-total-label">de 10 preguntas</div>
+      <div class="score-subtitle" id="esc-msg"></div>
+      <button class="btn btn-primary btn-lg" onclick="startEscucha()">🔄 Jugar de nuevo</button>
     </div>
   </div>
+</div>
 
-  <!-- QUIZ MULTIPLE CHOICE -->
-  <div id="section-quiz" class="section">
-    <div id="quiz-game">
-      <div class="progress-label">
-        <span>Pregunta <span id="quiz-num">1</span> de <span id="quiz-total">12</span></span>
-        <span id="quiz-score-live">⭐ 0</span>
-      </div>
-      <div class="progress-bar-wrap">
-        <div class="progress-bar" id="quiz-progress" style="width:0%"></div>
-      </div>
-      <div class="quiz-question">
-        <div class="q-label">¿Cómo se dice en español?</div>
-        <div class="q-word" id="quiz-word">-</div>
-        <div class="q-context" id="quiz-context"></div>
-      </div>
-      <div class="options" id="quiz-options"></div>
-      <button class="btn btn-primary btn-lg" id="quiz-next-btn" style="display:none" onclick="nextQuizQuestion()">Siguiente →</button>
+<!-- ═══ QUIZ ═══ -->
+<div id="section-quiz" class="section">
+  <div class="cat-filter">
+    <select class="cat-select" id="quiz-cat" onchange="startQuiz()"></select>
+  </div>
+  <div id="quiz-game">
+    <div class="progress-label">
+      <span>Pregunta <span id="quiz-num">1</span> de <span id="quiz-total">12</span></span>
+      <span id="quiz-score-live">⭐ 0</span>
     </div>
-    <div id="quiz-result" style="display:none">
-      <div class="score-card pop-in">
-        <div class="score-emoji" id="quiz-result-emoji">🏆</div>
-        <div class="score-title">¡Resultado!</div>
-        <div class="score-num" id="quiz-final-score">-</div>
-        <div class="score-total" id="quiz-final-total">de 12 preguntas</div>
-        <div class="score-subtitle" id="quiz-result-msg"></div>
-        <button class="btn btn-primary btn-lg" onclick="startQuiz()">🔄 Jugar de nuevo</button>
-      </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="quiz-progress" style="width:0%"></div></div>
+    <div class="quiz-question">
+      <div class="q-label">¿Cómo se dice en español?</div>
+      <div class="q-word" id="quiz-word">-</div>
+      <button class="btn btn-ghost" onclick="speakCurrent('quiz')" style="margin:8px auto;display:flex">🔊 Escuchar</button>
+      <div class="q-context" id="quiz-context"></div>
+    </div>
+    <div class="options" id="quiz-options"></div>
+    <button class="btn btn-primary btn-lg" id="quiz-next-btn" style="display:none" onclick="nextQuizQ()">Siguiente →</button>
+  </div>
+  <div id="quiz-result" style="display:none">
+    <div class="score-card pop-in">
+      <div class="score-emoji" id="quiz-emoji">🏆</div>
+      <div class="score-title">¡Resultado!</div>
+      <div class="score-num" id="quiz-final">-</div>
+      <div class="score-total" id="quiz-final-total">de 12 preguntas</div>
+      <div class="score-subtitle" id="quiz-msg"></div>
+      <button class="btn btn-primary btn-lg" onclick="startQuiz()">🔄 Jugar de nuevo</button>
     </div>
   </div>
+</div>
 
-  <!-- WRITE QUIZ -->
-  <div id="section-write" class="section">
-    <div id="write-game">
-      <div class="progress-label">
-        <span>Pregunta <span id="write-num">1</span> de <span id="write-total">10</span></span>
-        <span id="write-score-live">⭐ 0</span>
-      </div>
-      <div class="progress-bar-wrap">
-        <div class="progress-bar" id="write-progress" style="width:0%"></div>
-      </div>
-      <div class="quiz-question">
-        <div class="q-label">Escribe en inglés 🇬🇧</div>
-        <div class="q-word" id="write-word" style="color:var(--text);font-size:28px">-</div>
-        <div class="q-context">¿Cómo se dice esta palabra en inglés?</div>
-      </div>
-      <div class="write-input-wrap">
-        <input class="write-input" id="write-input" type="text"
-          placeholder="Escribe en inglés..."
-          autocomplete="off" autocorrect="off" spellcheck="false"
-          onkeydown="if(event.key==='Enter') checkWrite()" />
-      </div>
-      <div class="write-answer-reveal" id="write-reveal">
-        La respuesta correcta es: <strong id="write-correct-answer"></strong>
-      </div>
-      <div style="display:flex; gap:10px">
-        <button class="btn btn-primary btn-lg" id="write-check-btn" onclick="checkWrite()">✓ Verificar</button>
-        <button class="btn btn-ghost btn-lg" id="write-next-btn" style="display:none;flex:1" onclick="nextWriteQuestion()">Siguiente →</button>
-      </div>
+<!-- ═══ FRASES / FILL-IN-BLANK ═══ -->
+<div id="section-frases" class="section">
+  <div class="cat-filter">
+    <select class="cat-select" id="frases-cat" onchange="startFrases()"></select>
+  </div>
+  <div id="frases-game">
+    <div class="progress-label">
+      <span>Oración <span id="fr-num">1</span> de <span id="fr-total">10</span></span>
+      <span id="fr-score-live">⭐ 0</span>
     </div>
-    <div id="write-result" style="display:none">
-      <div class="score-card pop-in">
-        <div class="score-emoji" id="write-result-emoji">✏️</div>
-        <div class="score-title">¡Resultado!</div>
-        <div class="score-num" id="write-final-score">-</div>
-        <div class="score-total" id="write-final-total">de 10 preguntas</div>
-        <div class="score-subtitle" id="write-result-msg"></div>
-        <button class="btn btn-primary btn-lg" onclick="startWrite()">🔄 Intentar de nuevo</button>
-      </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="fr-progress" style="width:0%"></div></div>
+    <div class="quiz-question">
+      <div class="q-label">📝 Completa la oración en inglés</div>
+      <div class="q-word" id="fr-sentence" style="font-size:18px;line-height:1.5;color:var(--text);min-height:50px">-</div>
+      <div class="q-context" id="fr-hint"></div>
+    </div>
+    <div class="options" id="fr-options"></div>
+    <button class="btn btn-primary btn-lg" id="fr-next-btn" style="display:none" onclick="nextFraseQ()">Siguiente →</button>
+  </div>
+  <div id="frases-result" style="display:none">
+    <div class="score-card pop-in">
+      <div class="score-emoji" id="fr-emoji">📝</div>
+      <div class="score-title">¡Resultado!</div>
+      <div class="score-num" id="fr-score">-</div>
+      <div class="score-total" id="fr-total-label">de 10 oraciones</div>
+      <div class="score-subtitle" id="fr-msg"></div>
+      <button class="btn btn-primary btn-lg" onclick="startFrases()">🔄 Intentar de nuevo</button>
     </div>
   </div>
+</div>
 
-  <!-- GLOSARIO -->
-  <div id="section-words" class="section">
-    <div class="stats-row">
-      <div class="stat-chip"><div class="stat-num" id="stat-total">0</div><div class="stat-label">Total</div></div>
-      <div class="stat-chip"><div class="stat-num" id="stat-mastered" style="color:#f7c948">0</div><div class="stat-label">🏆 Dominadas</div></div>
-      <div class="stat-chip"><div class="stat-num" id="stat-known" style="color:#43c67a">0</div><div class="stat-label">Practicadas</div></div>
-      <div class="stat-chip"><div class="stat-num" id="stat-hard" style="color:#ff6584">0</div><div class="stat-label">Difíciles</div></div>
-    </div>
-    <div class="section-title">📖 Todas las palabras</div>
-    <div class="word-list" id="word-list"></div>
+<!-- ═══ ESCRIBIR ═══ -->
+<div id="section-write" class="section">
+  <div class="cat-filter">
+    <select class="cat-select" id="write-cat" onchange="startWrite()"></select>
   </div>
+  <div id="write-game">
+    <div class="progress-label">
+      <span>Pregunta <span id="write-num">1</span> de <span id="write-total">10</span></span>
+      <span id="write-score-live">⭐ 0</span>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="write-progress" style="width:0%"></div></div>
+    <div class="quiz-question">
+      <div class="q-label">Escribe en inglés 🇬🇧</div>
+      <div class="q-word" id="write-word" style="color:var(--text);font-size:28px">-</div>
+      <div class="q-context">¿Cómo se dice esta palabra en inglés?</div>
+    </div>
+    <div class="write-input-wrap">
+      <input class="write-input" id="write-input" type="text" placeholder="Escribe en inglés..."
+        autocomplete="off" autocorrect="off" spellcheck="false"
+        onkeydown="if(event.key==='Enter')checkWrite()"/>
+    </div>
+    <div class="write-answer-reveal" id="write-reveal">
+      La respuesta correcta es: <strong id="write-correct-answer"></strong>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-ghost" onclick="speakCurrent('write')" style="padding:13px 16px">🔊</button>
+      <button class="btn btn-primary btn-lg" id="write-check-btn" onclick="checkWrite()" style="flex:1">✓ Verificar</button>
+      <button class="btn btn-ghost btn-lg" id="write-next-btn" style="display:none;flex:1" onclick="nextWriteQ()">Siguiente →</button>
+    </div>
+  </div>
+  <div id="write-result" style="display:none">
+    <div class="score-card pop-in">
+      <div class="score-emoji" id="write-emoji">✏️</div>
+      <div class="score-title">¡Resultado!</div>
+      <div class="score-num" id="write-final">-</div>
+      <div class="score-total" id="write-final-total">de 10 preguntas</div>
+      <div class="score-subtitle" id="write-msg"></div>
+      <button class="btn btn-primary btn-lg" onclick="startWrite()">🔄 Intentar de nuevo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ GLOSARIO ═══ -->
+<div id="section-words" class="section">
+  <div class="stats-row">
+    <div class="stat-chip"><div class="stat-num" id="stat-total">0</div><div class="stat-label">Total</div></div>
+    <div class="stat-chip"><div class="stat-num" id="stat-mastered" style="color:#f7c948">0</div><div class="stat-label">🏆 Dom.</div></div>
+    <div class="stat-chip"><div class="stat-num" id="stat-known" style="color:#43c67a">0</div><div class="stat-label">Practicadas</div></div>
+    <div class="stat-chip"><div class="stat-num" id="stat-hard" style="color:#ff6584">0</div><div class="stat-label">Difíciles</div></div>
+  </div>
+  <div class="cat-filter">
+    <select class="cat-select" id="words-cat" onchange="renderWordList()"></select>
+  </div>
+  <div class="section-title">📖 Todas las palabras</div>
+  <div class="word-list" id="word-list"></div>
+</div>
+
+<!-- ═══ PROGRESO ═══ -->
+<div id="section-progreso" class="section">
+  <div class="prog-block" style="text-align:center">
+    <div class="big-streak" id="prog-streak-num">0</div>
+    <div class="big-streak-label">días de racha 🔥</div>
+    <div class="daily-grid" id="prog-daily-grid"></div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-chip"><div class="stat-num" id="prog-total">0</div><div class="stat-label">Total</div></div>
+    <div class="stat-chip"><div class="stat-num" id="prog-mastered" style="color:#f7c948">0</div><div class="stat-label">🏆 Dom.</div></div>
+    <div class="stat-chip"><div class="stat-num" id="prog-pct">0%</div><div class="stat-label">Avance</div></div>
+    <div class="stat-chip"><div class="stat-num" id="prog-hard" style="color:#ff6584">0</div><div class="stat-label">Difíciles</div></div>
+  </div>
+  <div class="prog-block">
+    <div class="prog-block-title">📂 Progreso por categoría</div>
+    <div id="prog-cats"></div>
+  </div>
+  <div class="prog-block">
+    <div class="prog-block-title">🔴 Palabras difíciles — enfócate en estas</div>
+    <div class="word-list" id="prog-hard-list"></div>
+    <div id="prog-no-hard" style="color:var(--muted);font-size:13px;text-align:center;padding:8px">¡Sin palabras difíciles! 🎉</div>
+  </div>
+</div>
 
 </main>
-
 <script>
-// ══════════════════════════════════════════════════════════
-// VOCABULARY — en, es, pron (fonética amigable), cat
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
+// VOCABULARY  (en, es, pron, cat, ex)
+// ═══════════════════════════════════════════════════════════
 const vocab = [
-  // ── GLOSARIO ──
-  { en:"siblings",       es:"hermanos/as",            pron:"SIB-lingz",      cat:"Glosario" },
-  { en:"withdrawing",    es:"retirando",               pron:"wiz-DRAW-ing",   cat:"Glosario" },
-  { en:"cushions",       es:"cojines",                 pron:"CUSH-enz",       cat:"Glosario" },
-  { en:"rug",            es:"alfombra",                pron:"rag",            cat:"Glosario" },
-  { en:"pouring",        es:"torrencial",              pron:"POR-ing",        cat:"Glosario" },
-  { en:"fill",           es:"llenar",                  pron:"fil",            cat:"Glosario" },
-  { en:"both",           es:"ambos/as",                pron:"bouth",          cat:"Glosario" },
-  { en:"building",       es:"edificio",                pron:"BIL-ding",       cat:"Glosario" },
-  { en:"near",           es:"cerca / cercano",         pron:"nir",            cat:"Glosario" },
-  { en:"also",           es:"también",                 pron:"OL-so",          cat:"Glosario" },
-  { en:"dusty",          es:"empolvado/a",             pron:"DAS-ti",         cat:"Glosario" },
-  { en:"thin",           es:"flaco/a",                 pron:"zin",            cat:"Glosario" },
-  { en:"some",           es:"algo / algunos",          pron:"sam",            cat:"Glosario" },
-  { en:"often",          es:"a menudo",                pron:"OF-en",          cat:"Glosario" },
-  { en:"a few",          es:"algunos / unas pocas",    pron:"a fiu",          cat:"Glosario" },
-  { en:"which",          es:"cuál / cuáles / que",     pron:"wich",           cat:"Glosario" },
-  { en:"even if",        es:"aunque / incluso si",     pron:"I-ven if",       cat:"Glosario" },
-  { en:"over there",     es:"allá / allí / por allá",  pron:"O-ver zer",      cat:"Glosario" },
-  { en:"aloud",          es:"en voz alta",             pron:"a-LAUD",         cat:"Glosario" },
-
   // ── CASA ──
-  { en:"living room",    es:"sala de estar",           pron:"LIV-ing rum",    cat:"Casa" },
-  { en:"dining room",    es:"comedor",                 pron:"DAI-ning rum",   cat:"Casa" },
-  { en:"kitchen",        es:"cocina",                  pron:"KICH-en",        cat:"Casa" },
-  { en:"bedroom",        es:"dormitorio",              pron:"BED-rum",        cat:"Casa" },
-  { en:"bathroom",       es:"baño",                    pron:"BATH-rum",       cat:"Casa" },
-  { en:"attic",          es:"ático",                   pron:"AT-ik",          cat:"Casa" },
-  { en:"basement",       es:"sótano",                  pron:"BEIS-ment",      cat:"Casa" },
-  { en:"backyard",       es:"patio trasero",           pron:"BAK-yard",       cat:"Casa" },
-  { en:"yard",           es:"patio",                   pron:"yard",           cat:"Casa" },
-  { en:"garden",         es:"jardín",                  pron:"GAR-den",        cat:"Casa" },
-  { en:"garage",         es:"garaje",                  pron:"ga-RAZH",        cat:"Casa" },
-  { en:"sofa",           es:"sofá",                    pron:"SO-fa",          cat:"Casa" },
-  { en:"table",          es:"mesa",                    pron:"TEI-bel",        cat:"Casa" },
-  { en:"chair",          es:"silla",                   pron:"cher",           cat:"Casa" },
-  { en:"window",         es:"ventana",                 pron:"WIN-do",         cat:"Casa" },
-  { en:"door",           es:"puerta",                  pron:"dor",            cat:"Casa" },
-  { en:"floor",          es:"piso",                    pron:"flor",           cat:"Casa" },
-  { en:"entrance",       es:"entrada",                 pron:"EN-trans",       cat:"Casa" },
-  { en:"swimming pool",  es:"piscina",                 pron:"SWIM-ing pul",   cat:"Casa" },
+  {en:"living room",  es:"sala de estar",        pron:"LIV-ing rum",   cat:"Casa",        ex:"We watch TV in the living room."},
+  {en:"dining room",  es:"comedor",              pron:"DAI-ning rum",  cat:"Casa",        ex:"We eat dinner in the dining room."},
+  {en:"kitchen",      es:"cocina",               pron:"KICH-en",       cat:"Casa",        ex:"She cooks in the kitchen."},
+  {en:"bedroom",      es:"dormitorio",           pron:"BED-rum",       cat:"Casa",        ex:"My bedroom is very clean."},
+  {en:"bathroom",     es:"baño",                 pron:"BATH-rum",      cat:"Casa",        ex:"The bathroom is next to my bedroom."},
+  {en:"attic",        es:"ático",                pron:"AT-ik",         cat:"Casa",        ex:"We store old boxes in the attic."},
+  {en:"basement",     es:"sótano",               pron:"BEIS-ment",     cat:"Casa",        ex:"The basement is cold and dark."},
+  {en:"backyard",     es:"patio trasero",        pron:"BAK-yard",      cat:"Casa",        ex:"The children play in the backyard."},
+  {en:"yard",         es:"patio",                pron:"yard",          cat:"Casa",        ex:"There is a big tree in the yard."},
+  {en:"garden",       es:"jardín",               pron:"GAR-den",       cat:"Casa",        ex:"My mother loves her garden."},
+  {en:"garage",       es:"garaje",               pron:"ga-RAZH",       cat:"Casa",        ex:"The car is in the garage."},
+  {en:"sofa",         es:"sofá",                 pron:"SO-fa",         cat:"Casa",        ex:"I sit on the sofa to relax."},
+  {en:"table",        es:"mesa",                 pron:"TEI-bel",       cat:"Casa",        ex:"Put the food on the table."},
+  {en:"chair",        es:"silla",                pron:"cher",          cat:"Casa",        ex:"Please sit on the chair."},
+  {en:"window",       es:"ventana",              pron:"WIN-do",        cat:"Casa",        ex:"Open the window, it is hot."},
+  {en:"door",         es:"puerta",               pron:"dor",           cat:"Casa",        ex:"Please close the door."},
+  {en:"floor",        es:"piso",                 pron:"flor",          cat:"Casa",        ex:"The floor is very clean."},
+  {en:"entrance",     es:"entrada",              pron:"EN-trans",      cat:"Casa",        ex:"Leave your shoes at the entrance."},
+  {en:"swimming pool",es:"piscina",              pron:"SWIM-ing pul",  cat:"Casa",        ex:"We swim in the swimming pool."},
+  {en:"cushions",     es:"cojines",              pron:"CUSH-enz",      cat:"Casa",        ex:"The cushions on the sofa are soft."},
+  {en:"rug",          es:"alfombra",             pron:"rag",           cat:"Casa",        ex:"There is a rug under the table."},
 
   // ── PROFESIONES ──
-  { en:"nurse",          es:"enfermera/o",             pron:"ners",           cat:"Profesiones" },
-  { en:"engineer",       es:"ingeniera/o",             pron:"en-yi-NIAR",     cat:"Profesiones" },
-  { en:"architect",      es:"arquitecta/o",            pron:"AR-ki-tekt",     cat:"Profesiones" },
-  { en:"doctor",         es:"médica/o",                pron:"DOK-tor",        cat:"Profesiones" },
-  { en:"lawyer",         es:"abogada/o",               pron:"LOI-yer",        cat:"Profesiones" },
-  { en:"teacher",        es:"profesora/or",            pron:"TI-cher",        cat:"Profesiones" },
-  { en:"student",        es:"estudiante",              pron:"STIU-dent",      cat:"Profesiones" },
-  { en:"boss",           es:"jefe/a",                  pron:"bos",            cat:"Profesiones" },
-  { en:"assistant",      es:"asistente",               pron:"a-SIS-tant",     cat:"Profesiones" },
+  {en:"nurse",        es:"enfermera/o",          pron:"ners",          cat:"Profesiones", ex:"The nurse helps the doctor."},
+  {en:"engineer",     es:"ingeniera/o",          pron:"en-yi-NIAR",    cat:"Profesiones", ex:"My father is an engineer."},
+  {en:"architect",    es:"arquitecta/o",         pron:"AR-ki-tekt",    cat:"Profesiones", ex:"The architect designed the building."},
+  {en:"doctor",       es:"médica/o",             pron:"DOK-tor",       cat:"Profesiones", ex:"I went to see the doctor today."},
+  {en:"lawyer",       es:"abogada/o",            pron:"LOI-yer",       cat:"Profesiones", ex:"She is a very good lawyer."},
+  {en:"teacher",      es:"profesora/or",         pron:"TI-cher",       cat:"Profesiones", ex:"My teacher is very patient."},
+  {en:"student",      es:"estudiante",           pron:"STIU-dent",     cat:"Profesiones", ex:"I am a student at the university."},
+  {en:"boss",         es:"jefe/a",               pron:"bos",           cat:"Profesiones", ex:"My boss is very strict."},
+  {en:"assistant",    es:"asistente",            pron:"a-SIS-tant",    cat:"Profesiones", ex:"The assistant answers the phone."},
+  {en:"chef",         es:"cocinero/a jefe",      pron:"shef",          cat:"Profesiones", ex:"The chef cooks amazing food."},
+  {en:"police officer",es:"policía",             pron:"po-LIS OF-i-ser",cat:"Profesiones",ex:"The police officer helps people."},
+  {en:"firefighter",  es:"bombero/a",            pron:"FAIR-fai-ter",  cat:"Profesiones", ex:"The firefighter saves lives."},
 
   // ── VERBOS ──
-  { en:"cook",           es:"cocinar",                 pron:"kuk",            cat:"Verbos" },
-  { en:"run",            es:"correr",                  pron:"ran",            cat:"Verbos" },
-  { en:"dance",          es:"bailar",                  pron:"dans",           cat:"Verbos" },
-  { en:"study",          es:"estudiar",                pron:"STAH-di",        cat:"Verbos" },
-  { en:"sleep",          es:"dormir",                  pron:"slip",           cat:"Verbos" },
-  { en:"eat",            es:"comer",                   pron:"it",             cat:"Verbos" },
-  { en:"drink",          es:"beber / tomar",           pron:"drink",          cat:"Verbos" },
-  { en:"work",           es:"trabajar",                pron:"werk",           cat:"Verbos" },
-  { en:"play",           es:"jugar",                   pron:"plei",           cat:"Verbos" },
-  { en:"read",           es:"leer",                    pron:"rid",            cat:"Verbos" },
-  { en:"clean",          es:"limpiar",                 pron:"klin",           cat:"Verbos" },
-  { en:"fix",            es:"arreglar",                pron:"fiks",           cat:"Verbos" },
-  { en:"drive",          es:"manejar / conducir",      pron:"draiv",          cat:"Verbos" },
-  { en:"walk",           es:"caminar",                 pron:"wok",            cat:"Verbos" },
-  { en:"help",           es:"ayudar",                  pron:"help",           cat:"Verbos" },
-  { en:"open",           es:"abrir",                   pron:"O-pen",          cat:"Verbos" },
-  { en:"sell",           es:"vender",                  pron:"sel",            cat:"Verbos" },
-  { en:"fish",           es:"pescar",                  pron:"fish",           cat:"Verbos" },
-  { en:"mix",            es:"mezclar",                 pron:"miks",           cat:"Verbos" },
-  { en:"swim",           es:"nadar",                   pron:"swim",           cat:"Verbos" },
-  { en:"jog",            es:"trotar",                  pron:"yog",            cat:"Verbos" },
-  { en:"travel",         es:"viajar",                  pron:"TRAV-el",        cat:"Verbos" },
-  { en:"listen",         es:"escuchar",                pron:"LIS-en",         cat:"Verbos" },
-  { en:"watch",          es:"ver / mirar",             pron:"woch",           cat:"Verbos" },
-  { en:"learn",          es:"aprender",                pron:"lern",           cat:"Verbos" },
-  { en:"grow",           es:"crecer / cultivar",       pron:"grou",           cat:"Verbos" },
-  { en:"spend",          es:"gastar / pasar (tiempo)", pron:"spend",          cat:"Verbos" },
-  { en:"enjoys",         es:"disfruta / le gusta",     pron:"en-YOIZ",        cat:"Verbos" },
-  { en:"belongs",        es:"pertenece",               pron:"bi-LONGZ",       cat:"Verbos" },
-  { en:"saw",            es:"vio / sierra",            pron:"so",             cat:"Verbos" },
-  { en:"made",           es:"hizo / hecho / fabricado",pron:"meid",           cat:"Verbos" },
-  { en:"passed away",    es:"falleció / murió",        pron:"past a-WEI",     cat:"Verbos" },
+  {en:"cook",         es:"cocinar",              pron:"kuk",           cat:"Verbos",      ex:"I cook dinner every night."},
+  {en:"run",          es:"correr",               pron:"ron",           cat:"Verbos",      ex:"She likes to run in the park."},
+  {en:"dance",        es:"bailar",               pron:"dans",          cat:"Verbos",      ex:"We dance at parties."},
+  {en:"study",        es:"estudiar",             pron:"STAH-di",       cat:"Verbos",      ex:"I study English every day."},
+  {en:"sleep",        es:"dormir",               pron:"slip",          cat:"Verbos",      ex:"I sleep eight hours every night."},
+  {en:"eat",          es:"comer",                pron:"it",            cat:"Verbos",      ex:"We eat breakfast together."},
+  {en:"drink",        es:"beber / tomar",        pron:"drink",         cat:"Verbos",      ex:"I drink coffee in the morning."},
+  {en:"work",         es:"trabajar",             pron:"werk",          cat:"Verbos",      ex:"My parents work hard every day."},
+  {en:"play",         es:"jugar",                pron:"plei",          cat:"Verbos",      ex:"The children play in the park."},
+  {en:"read",         es:"leer",                 pron:"rid",           cat:"Verbos",      ex:"I read a book before bed."},
+  {en:"clean",        es:"limpiar",              pron:"klin",          cat:"Verbos",      ex:"I clean my room every Saturday."},
+  {en:"fix",          es:"arreglar",             pron:"fiks",          cat:"Verbos",      ex:"Can you fix this chair?"},
+  {en:"drive",        es:"manejar / conducir",   pron:"draiv",         cat:"Verbos",      ex:"She can drive very well."},
+  {en:"walk",         es:"caminar",              pron:"wok",           cat:"Verbos",      ex:"I walk to school every day."},
+  {en:"help",         es:"ayudar",               pron:"help",          cat:"Verbos",      ex:"Can you help me, please?"},
+  {en:"open",         es:"abrir",                pron:"O-pen",         cat:"Verbos",      ex:"Please open the window."},
+  {en:"sell",         es:"vender",               pron:"sel",           cat:"Verbos",      ex:"They sell fresh fruit here."},
+  {en:"swim",         es:"nadar",                pron:"swim",          cat:"Verbos",      ex:"I swim every summer."},
+  {en:"travel",       es:"viajar",               pron:"TRAV-el",       cat:"Verbos",      ex:"I love to travel to new places."},
+  {en:"listen",       es:"escuchar",             pron:"LIS-en",        cat:"Verbos",      ex:"Listen to the teacher carefully."},
+  {en:"watch",        es:"ver / mirar",          pron:"woch",          cat:"Verbos",      ex:"We watch movies on weekends."},
+  {en:"learn",        es:"aprender",             pron:"lern",          cat:"Verbos",      ex:"I want to learn English fast."},
+  {en:"grow",         es:"crecer / cultivar",    pron:"grou",          cat:"Verbos",      ex:"Children grow very fast."},
+  {en:"spend",        es:"gastar / pasar tiempo",pron:"spend",         cat:"Verbos",      ex:"I spend time with my family."},
+  {en:"fill",         es:"llenar",               pron:"fil",           cat:"Verbos",      ex:"Fill the glass with water."},
+  {en:"try",          es:"intentar / tratar",    pron:"trai",          cat:"Verbos",      ex:"Always try your best."},
+  {en:"buy",          es:"comprar",              pron:"bai",           cat:"Verbos",      ex:"I want to buy a new phone."},
+  {en:"call",         es:"llamar",               pron:"kol",           cat:"Verbos",      ex:"Call me when you arrive."},
+  {en:"teach",        es:"enseñar",              pron:"tich",          cat:"Verbos",      ex:"She teaches math at school."},
+  {en:"speak",        es:"hablar",               pron:"spik",          cat:"Verbos",      ex:"I speak a little English."},
+  {en:"write",        es:"escribir",             pron:"rait",          cat:"Verbos",      ex:"Write your name on the paper."},
+  {en:"think",        es:"pensar",               pron:"zink",          cat:"Verbos",      ex:"Think before you answer."},
+  {en:"know",         es:"saber / conocer",      pron:"nou",           cat:"Verbos",      ex:"I know the answer."},
+  {en:"feel",         es:"sentir",               pron:"fil",           cat:"Verbos",      ex:"I feel happy today."},
+  {en:"need",         es:"necesitar",            pron:"nid",           cat:"Verbos",      ex:"I need more time."},
+  {en:"want",         es:"querer",               pron:"wont",          cat:"Verbos",      ex:"I want to learn English."},
+  {en:"use",          es:"usar / utilizar",      pron:"yus",           cat:"Verbos",      ex:"Use a pencil, not a pen."},
 
   // ── ADJETIVOS ──
-  { en:"red",            es:"rojo/a",                  pron:"red",            cat:"Adjetivos" },
-  { en:"blue",           es:"azul",                    pron:"blu",            cat:"Adjetivos" },
-  { en:"old",            es:"viejo/a",                 pron:"old",            cat:"Adjetivos" },
-  { en:"new",            es:"nuevo/a",                 pron:"niu",            cat:"Adjetivos" },
-  { en:"big",            es:"grande",                  pron:"big",            cat:"Adjetivos" },
-  { en:"beautiful",      es:"hermoso/a",               pron:"BIU-ti-ful",     cat:"Adjetivos" },
-  { en:"incredible",     es:"increíble",               pron:"in-KRED-i-bel",  cat:"Adjetivos" },
-  { en:"unusual",        es:"inusual",                 pron:"an-YU-zhual",    cat:"Adjetivos" },
-  { en:"fat",            es:"gordo/a",                 pron:"fat",            cat:"Adjetivos" },
-  { en:"black",          es:"negro/a",                 pron:"blak",           cat:"Adjetivos" },
-  { en:"pink",           es:"rosado/a",                pron:"pink",           cat:"Adjetivos" },
-  { en:"orange",         es:"naranja",                 pron:"OR-eny",         cat:"Adjetivos" },
-  { en:"purple",         es:"morado/a",                pron:"PER-pel",        cat:"Adjetivos" },
-  { en:"honest",         es:"honesto/a",               pron:"ON-est",         cat:"Adjetivos" },
-  { en:"unfair",         es:"injusto/a",               pron:"an-FER",         cat:"Adjetivos" },
-  { en:"huge",           es:"enorme / gigante",        pron:"hyuy",           cat:"Adjetivos" },
-  { en:"shy",            es:"tímido/a",                pron:"shai",           cat:"Adjetivos" },
-  { en:"better",         es:"mejor",                   pron:"BET-er",         cat:"Adjetivos" },
-  { en:"daily",          es:"diario / a diario",       pron:"DEI-li",         cat:"Adjetivos" },
+  {en:"red",          es:"rojo/a",               pron:"red",           cat:"Adjetivos",   ex:"She wears a red dress."},
+  {en:"blue",         es:"azul",                 pron:"blu",           cat:"Adjetivos",   ex:"The sky is blue today."},
+  {en:"old",          es:"viejo/a",              pron:"old",           cat:"Adjetivos",   ex:"This is a very old house."},
+  {en:"new",          es:"nuevo/a",              pron:"niu",           cat:"Adjetivos",   ex:"I have a new phone."},
+  {en:"big",          es:"grande",               pron:"big",           cat:"Adjetivos",   ex:"They live in a big house."},
+  {en:"small",        es:"pequeño/a",            pron:"smol",          cat:"Adjetivos",   ex:"She has a small dog."},
+  {en:"beautiful",    es:"hermoso/a",            pron:"BIU-ti-ful",    cat:"Adjetivos",   ex:"What a beautiful sunset!"},
+  {en:"happy",        es:"feliz / contento/a",   pron:"JAP-i",         cat:"Adjetivos",   ex:"I am very happy today."},
+  {en:"sad",          es:"triste",               pron:"sad",           cat:"Adjetivos",   ex:"She feels sad today."},
+  {en:"tired",        es:"cansado/a",            pron:"TAIR-d",        cat:"Adjetivos",   ex:"I am tired after work."},
+  {en:"hungry",       es:"hambriento/a",         pron:"JAN-gri",       cat:"Adjetivos",   ex:"I am so hungry right now."},
+  {en:"hot",          es:"caliente / caluroso",  pron:"jot",           cat:"Adjetivos",   ex:"It is very hot today."},
+  {en:"cold",         es:"frío/a",               pron:"kold",          cat:"Adjetivos",   ex:"The water is cold."},
+  {en:"fast",         es:"rápido/a",             pron:"fast",          cat:"Adjetivos",   ex:"He is a fast runner."},
+  {en:"slow",         es:"lento/a",              pron:"slou",          cat:"Adjetivos",   ex:"This is a slow computer."},
+  {en:"easy",         es:"fácil",                pron:"I-si",          cat:"Adjetivos",   ex:"This exercise is easy."},
+  {en:"difficult",    es:"difícil",              pron:"DIF-i-kalt",    cat:"Adjetivos",   ex:"English grammar is difficult."},
+  {en:"honest",       es:"honesto/a",            pron:"ON-est",        cat:"Adjetivos",   ex:"Always be honest."},
+  {en:"shy",          es:"tímido/a",             pron:"shai",          cat:"Adjetivos",   ex:"She is very shy in public."},
+  {en:"better",       es:"mejor",                pron:"BET-er",        cat:"Adjetivos",   ex:"Practice makes you better."},
+  {en:"huge",         es:"enorme / gigante",     pron:"hyuy",          cat:"Adjetivos",   ex:"The elephant is huge."},
 
   // ── OBJETOS ──
-  { en:"dog",            es:"perro/a",                 pron:"dog",            cat:"Objetos" },
-  { en:"cat",            es:"gato/a",                  pron:"kat",            cat:"Objetos" },
-  { en:"car",            es:"carro / auto",            pron:"kar",            cat:"Objetos" },
-  { en:"flower",         es:"flor",                    pron:"FLAU-er",        cat:"Objetos" },
-  { en:"apple",          es:"manzana",                 pron:"AP-el",          cat:"Objetos" },
-  { en:"book",           es:"libro",                   pron:"buk",            cat:"Objetos" },
-  { en:"money",          es:"dinero",                  pron:"MAN-i",          cat:"Objetos" },
-  { en:"water",          es:"agua",                    pron:"WO-ter",         cat:"Objetos" },
-  { en:"milk",           es:"leche",                   pron:"milk",           cat:"Objetos" },
-  { en:"sugar",          es:"azúcar",                  pron:"SHU-gar",        cat:"Objetos" },
-  { en:"keys",           es:"llaves",                  pron:"kiz",            cat:"Objetos" },
-  { en:"laptop",         es:"computadora portátil",    pron:"LAP-top",        cat:"Objetos" },
-  { en:"cell phone",     es:"teléfono celular",        pron:"sel fon",        cat:"Objetos" },
-  { en:"sword",          es:"espada",                  pron:"sord",           cat:"Objetos" },
-  { en:"cows",           es:"vacas",                   pron:"kaus",           cat:"Objetos" },
+  {en:"dog",          es:"perro/a",              pron:"dog",           cat:"Objetos",     ex:"My dog is very friendly."},
+  {en:"cat",          es:"gato/a",               pron:"kat",           cat:"Objetos",     ex:"The cat sleeps all day."},
+  {en:"car",          es:"carro / auto",         pron:"kar",           cat:"Objetos",     ex:"I drive my car to work."},
+  {en:"book",         es:"libro",                pron:"buk",           cat:"Objetos",     ex:"I read a book every week."},
+  {en:"phone",        es:"teléfono",             pron:"fon",           cat:"Objetos",     ex:"I lost my phone yesterday."},
+  {en:"computer",     es:"computadora",          pron:"kom-PIU-ter",   cat:"Objetos",     ex:"I use my computer for work."},
+  {en:"keys",         es:"llaves",               pron:"kiz",           cat:"Objetos",     ex:"I can not find my keys."},
+  {en:"money",        es:"dinero",               pron:"MAN-i",         cat:"Objetos",     ex:"I do not have enough money."},
+  {en:"water",        es:"agua",                 pron:"WO-ter",        cat:"Objetos",     ex:"Drink water every day."},
+  {en:"flower",       es:"flor",                 pron:"FLAU-er",       cat:"Objetos",     ex:"She gave me a beautiful flower."},
 
   // ── LUGARES ──
-  { en:"park",           es:"parque",                  pron:"park",           cat:"Lugares" },
-  { en:"library",        es:"biblioteca",              pron:"LAI-brer-i",     cat:"Lugares" },
-  { en:"hospital",       es:"hospital",                pron:"HOS-pi-tal",     cat:"Lugares" },
-  { en:"office",         es:"oficina",                 pron:"OF-is",          cat:"Lugares" },
-  { en:"restaurant",     es:"restaurante",             pron:"RES-to-rant",    cat:"Lugares" },
-  { en:"store",          es:"tienda",                  pron:"stor",           cat:"Lugares" },
-  { en:"school",         es:"escuela",                 pron:"skul",           cat:"Lugares" },
-  { en:"bank",           es:"banco",                   pron:"bank",           cat:"Lugares" },
-  { en:"river",          es:"río",                     pron:"RIV-er",         cat:"Lugares" },
-  { en:"street",         es:"calle",                   pron:"strit",          cat:"Lugares" },
+  {en:"park",         es:"parque",               pron:"park",          cat:"Lugares",     ex:"We walk in the park every morning."},
+  {en:"library",      es:"biblioteca",           pron:"LAI-brer-i",    cat:"Lugares",     ex:"I study at the library."},
+  {en:"hospital",     es:"hospital",             pron:"JOS-pi-tal",    cat:"Lugares",     ex:"My aunt works at the hospital."},
+  {en:"office",       es:"oficina",              pron:"OF-is",         cat:"Lugares",     ex:"My office is on the third floor."},
+  {en:"restaurant",   es:"restaurante",          pron:"RES-to-rant",   cat:"Lugares",     ex:"Let's eat at that restaurant."},
+  {en:"store",        es:"tienda",               pron:"stor",          cat:"Lugares",     ex:"I buy food at the store."},
+  {en:"school",       es:"escuela",              pron:"skul",          cat:"Lugares",     ex:"My children go to school every day."},
+  {en:"bank",         es:"banco",                pron:"bank",          cat:"Lugares",     ex:"I need to go to the bank."},
+  {en:"airport",      es:"aeropuerto",           pron:"ER-port",       cat:"Lugares",     ex:"We arrive at the airport at 6 AM."},
+  {en:"hotel",        es:"hotel",                pron:"jo-TEL",        cat:"Lugares",     ex:"We stay at a nice hotel."},
+  {en:"supermarket",  es:"supermercado",         pron:"SU-per-mar-ket",cat:"Lugares",     ex:"I shop at the supermarket on Sundays."},
+  {en:"gym",          es:"gimnasio",             pron:"yim",           cat:"Lugares",     ex:"I go to the gym three times a week."},
 
   // ── FAMILIA ──
-  { en:"mother",         es:"madre",                   pron:"MAZ-er",         cat:"Familia" },
-  { en:"father",         es:"padre",                   pron:"FA-zer",         cat:"Familia" },
-  { en:"sister",         es:"hermana",                 pron:"SIS-ter",        cat:"Familia" },
-  { en:"brother",        es:"hermano",                 pron:"BRAZ-er",        cat:"Familia" },
-  { en:"husband",        es:"esposo / marido",         pron:"HAS-band",       cat:"Familia" },
-  { en:"wife",           es:"esposa",                  pron:"waif",           cat:"Familia" },
-  { en:"friend",         es:"amigo/a",                 pron:"frend",          cat:"Familia" },
-  { en:"daughter",       es:"hija",                    pron:"DO-ter",         cat:"Familia" },
-  { en:"aunt",           es:"tía",                     pron:"ant",            cat:"Familia" },
-  { en:"us",             es:"nos / nosotros",          pron:"as",             cat:"Familia" },
-  { en:"our",            es:"nuestro/a/s",             pron:"AU-er",          cat:"Familia" },
+  {en:"mother",       es:"madre",                pron:"MAZ-er",        cat:"Familia",     ex:"My mother cooks very well."},
+  {en:"father",       es:"padre",                pron:"FA-zer",        cat:"Familia",     ex:"My father works at a bank."},
+  {en:"sister",       es:"hermana",              pron:"SIS-ter",       cat:"Familia",     ex:"My sister is a teacher."},
+  {en:"brother",      es:"hermano",              pron:"BRAZ-er",       cat:"Familia",     ex:"My brother lives in Canada."},
+  {en:"husband",      es:"esposo / marido",      pron:"JAS-band",      cat:"Familia",     ex:"Her husband is a doctor."},
+  {en:"wife",         es:"esposa",               pron:"waif",          cat:"Familia",     ex:"His wife is very kind."},
+  {en:"daughter",     es:"hija",                 pron:"DO-ter",        cat:"Familia",     ex:"My daughter is five years old."},
+  {en:"son",          es:"hijo",                 pron:"san",           cat:"Familia",     ex:"My son loves football."},
+  {en:"friend",       es:"amigo/a",              pron:"frend",         cat:"Familia",     ex:"She is my best friend."},
+  {en:"aunt",         es:"tía",                  pron:"ant",           cat:"Familia",     ex:"My aunt lives in the city."},
+  {en:"uncle",        es:"tío",                  pron:"AN-kel",        cat:"Familia",     ex:"My uncle has a big farm."},
+  {en:"grandmother",  es:"abuela",               pron:"GRAND-maz-er",  cat:"Familia",     ex:"My grandmother tells great stories."},
+  {en:"grandfather",  es:"abuelo",               pron:"GRAND-fa-zer",  cat:"Familia",     ex:"My grandfather is 80 years old."},
+  {en:"siblings",     es:"hermanos/as",          pron:"SIB-lingz",     cat:"Familia",     ex:"I have two siblings, a brother and a sister."},
 
   // ── TIEMPO ──
-  { en:"morning",        es:"mañana (AM)",             pron:"MOR-ning",       cat:"Tiempo" },
-  { en:"night",          es:"noche",                   pron:"nait",           cat:"Tiempo" },
-  { en:"day",            es:"día",                     pron:"dei",            cat:"Tiempo" },
-  { en:"weekend",        es:"fin de semana",           pron:"WIK-end",        cat:"Tiempo" },
-  { en:"soon",           es:"pronto / en breve",       pron:"sun",            cat:"Tiempo" },
+  {en:"morning",      es:"mañana (AM)",          pron:"MOR-ning",      cat:"Tiempo",      ex:"I drink coffee every morning."},
+  {en:"afternoon",    es:"tarde (PM)",           pron:"af-ter-NUN",    cat:"Tiempo",      ex:"I study in the afternoon."},
+  {en:"evening",      es:"noche temprana",       pron:"IV-ning",       cat:"Tiempo",      ex:"We walk in the evening."},
+  {en:"night",        es:"noche",                pron:"nait",          cat:"Tiempo",      ex:"I read at night."},
+  {en:"today",        es:"hoy",                  pron:"tu-DEI",        cat:"Tiempo",      ex:"Today is a great day."},
+  {en:"yesterday",    es:"ayer",                 pron:"YES-ter-dei",   cat:"Tiempo",      ex:"I was tired yesterday."},
+  {en:"tomorrow",     es:"mañana (día siguiente)",pron:"tu-MOR-ou",    cat:"Tiempo",      ex:"I will study tomorrow."},
+  {en:"weekend",      es:"fin de semana",        pron:"WIK-end",       cat:"Tiempo",      ex:"I rest on the weekend."},
+  {en:"soon",         es:"pronto / en breve",    pron:"sun",           cat:"Tiempo",      ex:"I will call you soon."},
+  {en:"now",          es:"ahora",                pron:"nau",           cat:"Tiempo",      ex:"Come here now, please."},
+  {en:"later",        es:"después / más tarde",  pron:"LEI-ter",       cat:"Tiempo",      ex:"I will do it later."},
+  {en:"always",       es:"siempre",              pron:"OL-weiz",       cat:"Tiempo",      ex:"I always brush my teeth."},
+  {en:"never",        es:"nunca",                pron:"NEV-er",        cat:"Tiempo",      ex:"I never eat fast food."},
+  {en:"sometimes",    es:"a veces",              pron:"SAM-taimz",     cat:"Tiempo",      ex:"Sometimes I feel nervous."},
+  {en:"often",        es:"a menudo",             pron:"OF-en",         cat:"Tiempo",      ex:"I often go to the gym."},
+
+  // ── DÍAS Y MESES ──
+  {en:"Monday",       es:"lunes",                pron:"MAN-dei",       cat:"Días y Meses",ex:"I go to the gym on Monday."},
+  {en:"Tuesday",      es:"martes",               pron:"TIUZ-dei",      cat:"Días y Meses",ex:"We have class on Tuesday."},
+  {en:"Wednesday",    es:"miércoles",            pron:"WENZ-dei",      cat:"Días y Meses",ex:"Wednesday is the middle of the week."},
+  {en:"Thursday",     es:"jueves",               pron:"ZERZ-dei",      cat:"Días y Meses",ex:"I meet my friends on Thursday."},
+  {en:"Friday",       es:"viernes",              pron:"FRAI-dei",      cat:"Días y Meses",ex:"Friday is my favorite day."},
+  {en:"Saturday",     es:"sábado",               pron:"SAT-er-dei",    cat:"Días y Meses",ex:"I sleep late on Saturday."},
+  {en:"Sunday",       es:"domingo",              pron:"SAN-dei",       cat:"Días y Meses",ex:"My family eats together on Sunday."},
+  {en:"January",      es:"enero",                pron:"YAN-yu-er-i",   cat:"Días y Meses",ex:"January is the first month."},
+  {en:"February",     es:"febrero",              pron:"FEB-ru-er-i",   cat:"Días y Meses",ex:"February is the shortest month."},
+  {en:"March",        es:"marzo",                pron:"march",         cat:"Días y Meses",ex:"Spring starts in March."},
+  {en:"April",        es:"abril",                pron:"EI-pril",       cat:"Días y Meses",ex:"It rains a lot in April."},
+  {en:"May",          es:"mayo",                 pron:"mei",           cat:"Días y Meses",ex:"Flowers bloom in May."},
+  {en:"June",         es:"junio",                pron:"yun",           cat:"Días y Meses",ex:"School ends in June."},
+  {en:"July",         es:"julio",                pron:"yu-LAI",        cat:"Días y Meses",ex:"July is very hot."},
+  {en:"August",       es:"agosto",               pron:"O-gast",        cat:"Días y Meses",ex:"We go on vacation in August."},
+  {en:"September",    es:"septiembre",           pron:"sep-TEM-ber",   cat:"Días y Meses",ex:"School starts in September."},
+  {en:"October",      es:"octubre",              pron:"ok-TO-ber",     cat:"Días y Meses",ex:"Halloween is in October."},
+  {en:"November",     es:"noviembre",            pron:"no-VEM-ber",    cat:"Días y Meses",ex:"It gets cold in November."},
+  {en:"December",     es:"diciembre",            pron:"di-SEM-ber",    cat:"Días y Meses",ex:"Christmas is in December."},
+
+  // ── NÚMEROS ──
+  {en:"one",          es:"uno",                  pron:"wan",           cat:"Números",     ex:"I have one brother."},
+  {en:"two",          es:"dos",                  pron:"tu",            cat:"Números",     ex:"I need two eggs."},
+  {en:"three",        es:"tres",                 pron:"zri",           cat:"Números",     ex:"I wake up at three in the afternoon."},
+  {en:"four",         es:"cuatro",               pron:"for",           cat:"Números",     ex:"She has four cats."},
+  {en:"five",         es:"cinco",                pron:"faiv",          cat:"Números",     ex:"We meet at five o'clock."},
+  {en:"six",          es:"seis",                 pron:"siks",          cat:"Números",     ex:"The baby is six months old."},
+  {en:"seven",        es:"siete",                pron:"SEV-en",        cat:"Números",     ex:"There are seven days in a week."},
+  {en:"eight",        es:"ocho",                 pron:"eit",           cat:"Números",     ex:"I sleep eight hours a night."},
+  {en:"nine",         es:"nueve",                pron:"nain",          cat:"Números",     ex:"The store closes at nine."},
+  {en:"ten",          es:"diez",                 pron:"ten",           cat:"Números",     ex:"Count from one to ten."},
+  {en:"twenty",       es:"veinte",               pron:"TWEN-ti",       cat:"Números",     ex:"She is twenty years old."},
+  {en:"thirty",       es:"treinta",              pron:"ZER-ti",        cat:"Números",     ex:"I walk thirty minutes every day."},
+  {en:"fifty",        es:"cincuenta",            pron:"FIF-ti",        cat:"Números",     ex:"The ticket costs fifty dollars."},
+  {en:"hundred",      es:"cien / ciento",        pron:"JAN-dred",      cat:"Números",     ex:"There are a hundred students."},
+  {en:"first",        es:"primero/a",            pron:"ferst",         cat:"Números",     ex:"January is the first month."},
+  {en:"second",       es:"segundo/a",            pron:"SEK-ond",       cat:"Números",     ex:"She finished in second place."},
+  {en:"third",        es:"tercero/a",            pron:"zerd",          cat:"Números",     ex:"My office is on the third floor."},
+
+  // ── SALUDOS Y FRASES ──
+  {en:"hello",        es:"hola",                 pron:"je-LOU",        cat:"Saludos",     ex:"Hello, how are you?"},
+  {en:"goodbye",      es:"adiós / hasta luego",  pron:"gud-BAI",       cat:"Saludos",     ex:"Goodbye, see you tomorrow!"},
+  {en:"please",       es:"por favor",            pron:"pliz",          cat:"Saludos",     ex:"Can you help me, please?"},
+  {en:"thank you",    es:"gracias",              pron:"zank yu",       cat:"Saludos",     ex:"Thank you for your help."},
+  {en:"sorry",        es:"lo siento / perdón",   pron:"SOR-i",         cat:"Saludos",     ex:"Sorry, I am late."},
+  {en:"excuse me",    es:"disculpe / permiso",   pron:"eks-KIUZ mi",   cat:"Saludos",     ex:"Excuse me, where is the bathroom?"},
+  {en:"you're welcome",es:"de nada",             pron:"yor WEL-kom",   cat:"Saludos",     ex:"You're welcome, anytime!"},
+  {en:"good morning", es:"buenos días",          pron:"gud MOR-ning",  cat:"Saludos",     ex:"Good morning! Did you sleep well?"},
+  {en:"good night",   es:"buenas noches",        pron:"gud nait",      cat:"Saludos",     ex:"Good night, sweet dreams."},
+  {en:"how are you",  es:"¿cómo estás?",         pron:"jau ar yu",     cat:"Saludos",     ex:"Hi! How are you today?"},
+  {en:"I'm fine",     es:"estoy bien",           pron:"aim fain",      cat:"Saludos",     ex:"How are you? I'm fine, thanks."},
+  {en:"nice to meet you",es:"mucho gusto",       pron:"nais tu mit yu",cat:"Saludos",     ex:"Nice to meet you, I'm Catalina."},
+  {en:"see you later",es:"hasta luego",          pron:"si yu LEI-ter", cat:"Saludos",     ex:"I have to go. See you later!"},
+
+  // ── COMIDA ──
+  {en:"bread",        es:"pan",                  pron:"bred",          cat:"Comida",      ex:"I eat bread for breakfast."},
+  {en:"rice",         es:"arroz",                pron:"rais",          cat:"Comida",      ex:"We eat rice every day."},
+  {en:"egg",          es:"huevo",                pron:"eg",            cat:"Comida",      ex:"I eat an egg every morning."},
+  {en:"chicken",      es:"pollo",                pron:"CHIK-en",       cat:"Comida",      ex:"I love grilled chicken."},
+  {en:"meat",         es:"carne",                pron:"mit",           cat:"Comida",      ex:"She does not eat meat."},
+  {en:"fish",         es:"pescado",              pron:"fish",          cat:"Comida",      ex:"We eat fish on Fridays."},
+  {en:"fruit",        es:"fruta",                pron:"frut",          cat:"Comida",      ex:"Eat more fruit every day."},
+  {en:"vegetable",    es:"verdura / vegetal",    pron:"VEY-yi-ta-bel", cat:"Comida",      ex:"Eat your vegetables!"},
+  {en:"soup",         es:"sopa",                 pron:"sup",           cat:"Comida",      ex:"I love hot soup in winter."},
+  {en:"salad",        es:"ensalada",             pron:"SAL-ad",        cat:"Comida",      ex:"I eat a salad for lunch."},
+  {en:"coffee",       es:"café",                 pron:"KOF-i",         cat:"Comida",      ex:"I need coffee to wake up."},
+  {en:"juice",        es:"jugo",                 pron:"yus",           cat:"Comida",      ex:"Orange juice is my favorite."},
+  {en:"milk",         es:"leche",                pron:"milk",          cat:"Comida",      ex:"I drink milk every morning."},
+  {en:"water",        es:"agua",                 pron:"WO-ter",        cat:"Comida",      ex:"Drink eight glasses of water a day."},
+  {en:"cake",         es:"torta / pastel",       pron:"keik",          cat:"Comida",      ex:"We eat cake on birthdays."},
+  {en:"cheese",       es:"queso",                pron:"chiz",          cat:"Comida",      ex:"I love cheese on my sandwich."},
+  {en:"sugar",        es:"azúcar",               pron:"SHU-gar",       cat:"Comida",      ex:"Do not add too much sugar."},
+
+  // ── ROPA ──
+  {en:"shirt",        es:"camisa",               pron:"shert",         cat:"Ropa",        ex:"I wear a white shirt to work."},
+  {en:"pants",        es:"pantalón",             pron:"pants",         cat:"Ropa",        ex:"These pants are too tight."},
+  {en:"shoes",        es:"zapatos",              pron:"shuz",          cat:"Ropa",        ex:"I bought new shoes yesterday."},
+  {en:"dress",        es:"vestido",              pron:"dres",          cat:"Ropa",        ex:"She wears a blue dress."},
+  {en:"jacket",       es:"chaqueta",             pron:"YAK-et",        cat:"Ropa",        ex:"Take your jacket, it is cold."},
+  {en:"hat",          es:"sombrero / gorra",     pron:"jat",           cat:"Ropa",        ex:"Wear a hat in the sun."},
+  {en:"socks",        es:"calcetines / medias",  pron:"soks",          cat:"Ropa",        ex:"I always wear warm socks."},
+  {en:"bag",          es:"bolso / bolsa",        pron:"bag",           cat:"Ropa",        ex:"She carries a big bag."},
+  {en:"scarf",        es:"bufanda",              pron:"skarf",         cat:"Ropa",        ex:"I wear a scarf in winter."},
+  {en:"glasses",      es:"lentes / gafas",       pron:"GLAS-ez",       cat:"Ropa",        ex:"I wear glasses to read."},
+
+  // ── CUERPO ──
+  {en:"head",         es:"cabeza",               pron:"jed",           cat:"Cuerpo",      ex:"My head hurts today."},
+  {en:"eyes",         es:"ojos",                 pron:"aiz",           cat:"Cuerpo",      ex:"She has beautiful blue eyes."},
+  {en:"ear",          es:"oreja / oído",         pron:"ir",            cat:"Cuerpo",      ex:"I can not hear, my ear hurts."},
+  {en:"nose",         es:"nariz",                pron:"nouz",          cat:"Cuerpo",      ex:"My nose is cold."},
+  {en:"mouth",        es:"boca",                 pron:"mauZ",          cat:"Cuerpo",      ex:"Open your mouth."},
+  {en:"hand",         es:"mano",                 pron:"jand",          cat:"Cuerpo",      ex:"Wash your hands before eating."},
+  {en:"arm",          es:"brazo",                pron:"arm",           cat:"Cuerpo",      ex:"My arm is tired from writing."},
+  {en:"leg",          es:"pierna",               pron:"leg",           cat:"Cuerpo",      ex:"My leg hurts after running."},
+  {en:"foot",         es:"pie",                  pron:"fut",           cat:"Cuerpo",      ex:"I hurt my foot playing soccer."},
+  {en:"hair",         es:"cabello / pelo",       pron:"jer",           cat:"Cuerpo",      ex:"She has long dark hair."},
+  {en:"heart",        es:"corazón",              pron:"jart",          cat:"Cuerpo",      ex:"Exercise is good for your heart."},
+  {en:"back",         es:"espalda",              pron:"bak",           cat:"Cuerpo",      ex:"My back hurts from sitting."},
 
   // ── PALABRAS CLAVE ──
-  { en:"already",        es:"ya",                      pron:"ol-RED-i",       cat:"Claves" },
-  { en:"languages",      es:"idiomas",                 pron:"LANG-guiy-es",   cat:"Claves" },
-  { en:"until",          es:"hasta",                   pron:"an-TIL",         cat:"Claves" },
-  { en:"late",           es:"tarde",                   pron:"leit",           cat:"Claves" },
-  { en:"every day",      es:"todos los días",          pron:"EV-ri dei",      cat:"Claves" },
-  { en:"a lot",          es:"mucho / muchos",          pron:"a LOT",          cat:"Claves" },
-  { en:"a little",       es:"un poco",                 pron:"a LIT-el",       cat:"Claves" },
-  { en:"should",         es:"debería",                 pron:"shud",           cat:"Claves" },
-  { en:"mistakes",       es:"errores / equivocaciones",pron:"mis-TEIKS",      cat:"Claves" },
-  { en:"grammar",        es:"gramática",               pron:"GRAM-ar",        cat:"Claves" },
-  { en:"rhythm",         es:"ritmo",                   pron:"RIZ-em",         cat:"Claves" },
-  { en:"strength",       es:"fuerza",                  pron:"strenkz",        cat:"Claves" },
-  { en:"fights",         es:"peleas / batallas",       pron:"faits",          cat:"Claves" },
-  { en:"try me",         es:"pruébame / atrévete",     pron:"trai mi",        cat:"Claves" },
-  { en:"quote",          es:"cita / cotización / frase",pron:"kwot",          cat:"Claves" },
-  { en:"stories",        es:"cuentos / historias",     pron:"STOR-iz",        cat:"Claves" },
+  {en:"already",      es:"ya",                   pron:"ol-RED-i",      cat:"Claves",      ex:"I have already done my homework."},
+  {en:"still",        es:"todavía / aún",        pron:"stil",          cat:"Claves",      ex:"I still have a lot to learn."},
+  {en:"also",         es:"también",              pron:"OL-so",         cat:"Claves",      ex:"She also speaks French."},
+  {en:"but",          es:"pero",                 pron:"bat",           cat:"Claves",      ex:"I want to go, but I am tired."},
+  {en:"because",      es:"porque",               pron:"bi-KOS",        cat:"Claves",      ex:"I study because I want to improve."},
+  {en:"if",           es:"si (condicional)",     pron:"if",            cat:"Claves",      ex:"If you study, you will learn."},
+  {en:"although",     es:"aunque",               pron:"ol-ZOU",        cat:"Claves",      ex:"Although it is hard, I keep going."},
+  {en:"maybe",        es:"tal vez / quizás",     pron:"MEI-bi",        cat:"Claves",      ex:"Maybe I will go to the gym today."},
+  {en:"enough",       es:"suficiente",           pron:"i-NAF",         cat:"Claves",      ex:"I do not have enough time."},
+  {en:"every day",    es:"todos los días",       pron:"EV-ri dei",     cat:"Claves",      ex:"Practice English every day."},
+  {en:"a lot",        es:"mucho / muchos",       pron:"a LOT",         cat:"Claves",      ex:"I have a lot of homework today."},
+  {en:"a little",     es:"un poco",              pron:"a LIT-el",      cat:"Claves",      ex:"I speak a little English."},
+  {en:"should",       es:"debería",              pron:"shud",          cat:"Claves",      ex:"You should drink more water."},
+  {en:"must",         es:"debo / tengo que",     pron:"mast",          cat:"Claves",      ex:"I must finish this today."},
+  {en:"can",          es:"puedo / poder",        pron:"kan",           cat:"Claves",      ex:"Can you help me, please?"},
+  {en:"very",         es:"muy",                  pron:"VER-i",         cat:"Claves",      ex:"English is very important."},
+  {en:"really",       es:"realmente / de verdad",pron:"RI-li",         cat:"Claves",      ex:"I really want to learn English."},
+  {en:"almost",       es:"casi",                 pron:"OL-moust",      cat:"Claves",      ex:"I am almost done."},
+  {en:"languages",    es:"idiomas",              pron:"LANG-guiy-es",  cat:"Claves",      ex:"She speaks three languages."},
+  {en:"mistakes",     es:"errores",              pron:"mis-TEIKS",     cat:"Claves",      ex:"Do not be afraid of mistakes."},
+  {en:"grammar",      es:"gramática",            pron:"GRAM-ar",       cat:"Claves",      ex:"Grammar is important in English."},
 ];
 
-// ══════════════════════════════════════════════════════════
-// THEME / DARK MODE
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
+// THEME & DARK MODE
+// ═══════════════════════════════════════════════════════════
 let currentTheme = localStorage.getItem('theme') || 'purple';
 let isDark = localStorage.getItem('dark') === '1';
 
-function applyTheme(t) {
-  document.documentElement.setAttribute('data-theme', t);
-  document.querySelectorAll('.swatch').forEach(s => {
-    s.classList.toggle('active', s.dataset.c === t);
-  });
-  currentTheme = t;
-  localStorage.setItem('theme', t);
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  document.querySelectorAll('.swatch').forEach(s=>s.classList.toggle('active',s.dataset.c===t));
+  currentTheme=t; localStorage.setItem('theme',t);
 }
-
-function setTheme(t) {
-  applyTheme(t);
-  document.getElementById('color-panel').classList.remove('open');
+function setTheme(t){ applyTheme(t); document.getElementById('color-panel').classList.remove('open'); }
+function toggleDark(){
+  isDark=!isDark; document.body.classList.toggle('dark',isDark);
+  document.getElementById('dark-btn').textContent=isDark?'☀️':'🌙';
+  localStorage.setItem('dark',isDark?'1':'0');
 }
-
-function toggleDark() {
-  isDark = !isDark;
-  document.body.classList.toggle('dark', isDark);
-  document.getElementById('dark-btn').textContent = isDark ? '☀️' : '🌙';
-  localStorage.setItem('dark', isDark ? '1' : '0');
-}
-
-function toggleColorPanel() {
-  document.getElementById('color-panel').classList.toggle('open');
-}
-
-// Close panel on outside click
-document.addEventListener('click', e => {
-  const panel = document.getElementById('color-panel');
-  const btn = document.getElementById('color-btn');
-  if (!panel.contains(e.target) && e.target !== btn) {
-    panel.classList.remove('open');
-  }
+function toggleColorPanel(){ document.getElementById('color-panel').classList.toggle('open'); }
+document.addEventListener('click',e=>{
+  const p=document.getElementById('color-panel'),b=document.getElementById('color-btn');
+  if(!p.contains(e.target)&&e.target!==b) p.classList.remove('open');
 });
 
-// ══════════════════════════════════════════════════════════
-// SPEECH SYNTHESIS
-// ══════════════════════════════════════════════════════════
-let currentWord = '';
-function speakWord() {
-  if (!currentWord || !window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
-  const utt = new SpeechSynthesisUtterance(currentWord);
-  utt.lang = 'en-US';
-  utt.rate = 0.85;
-  window.speechSynthesis.speak(utt);
+// ═══════════════════════════════════════════════════════════
+// DAILY STREAK
+// ═══════════════════════════════════════════════════════════
+function todayStr(){ return new Date().toISOString().slice(0,10); }
+function loadStreak(){
+  const last = localStorage.getItem('lastPractice') || '';
+  let streak = parseInt(localStorage.getItem('dailyStreak') || '0');
+  const today = todayStr();
+  const yesterday = new Date(Date.now()-86400000).toISOString().slice(0,10);
+  if(last === today){ /* already counted */ }
+  else if(last === yesterday){ /* streak continues, will increment on practice */ }
+  else if(last && last < yesterday){ streak = 0; localStorage.setItem('dailyStreak','0'); }
+  return streak;
+}
+function markPracticed(){
+  const today = todayStr();
+  const last = localStorage.getItem('lastPractice') || '';
+  if(last === today) return;
+  const yesterday = new Date(Date.now()-86400000).toISOString().slice(0,10);
+  let streak = parseInt(localStorage.getItem('dailyStreak') || '0');
+  if(last === yesterday) streak++; else streak = 1;
+  localStorage.setItem('dailyStreak', streak);
+  localStorage.setItem('lastPractice', today);
+  // record in history
+  const hist = JSON.parse(localStorage.getItem('practiceHist') || '{}');
+  hist[today] = true;
+  localStorage.setItem('practiceHist', JSON.stringify(hist));
+  updateNavStreak();
+}
+function updateNavStreak(){
+  const s = loadStreak();
+  document.getElementById('nav-streak-num').textContent = s;
 }
 
-// ══════════════════════════════════════════════════════════
-// STATE
-// ══════════════════════════════════════════════════════════
-let knownWords    = JSON.parse(localStorage.getItem('known')    || '[]');
-let hardWords     = JSON.parse(localStorage.getItem('hard')     || '[]');
-let masteredWords = JSON.parse(localStorage.getItem('mastered') || '[]');
-let wordStreaks   = JSON.parse(localStorage.getItem('streaks')  || '{}');
+// ═══════════════════════════════════════════════════════════
+// CATEGORIES — populate all selects
+// ═══════════════════════════════════════════════════════════
+const CATS = [...new Set(vocab.map(v=>v.cat))].sort();
+function populateSelects(){
+  const ids = ['flash-cat','escucha-cat','quiz-cat','frases-cat','write-cat','words-cat'];
+  ids.forEach(id=>{
+    const sel = document.getElementById(id);
+    if(!sel) return;
+    sel.innerHTML = '<option value="all">📚 Todas las categorías</option>';
+    CATS.forEach(c=>{ const o=document.createElement('option'); o.value=c; o.textContent=c; sel.appendChild(o); });
+  });
+}
+function getFiltered(selectId){
+  const val = document.getElementById(selectId).value;
+  return val==='all' ? vocab : vocab.filter(v=>v.cat===val);
+}
 
-const MASTERY_THRESHOLD = 10;
+// ═══════════════════════════════════════════════════════════
+// SPEECH
+// ═══════════════════════════════════════════════════════════
+let currentWord = '';
+function speak(word){
+  if(!word||!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(word);
+  u.lang='en-US'; u.rate=0.85;
+  window.speechSynthesis.speak(u);
+}
+function speakWord(){ speak(currentWord); }
+function speakCurrent(mode){
+  if(mode==='quiz') speak(quizQuestions[quizIdx]?.en||'');
+  if(mode==='write') speak(writeQuestions[writeIdx]?.en||'');
+}
 
-function saveState() {
+// ═══════════════════════════════════════════════════════════
+// PROGRESS STATE
+// ═══════════════════════════════════════════════════════════
+let knownWords    = JSON.parse(localStorage.getItem('known')    ||'[]');
+let hardWords     = JSON.parse(localStorage.getItem('hard')     ||'[]');
+let masteredWords = JSON.parse(localStorage.getItem('mastered') ||'[]');
+let wordStreaks   = JSON.parse(localStorage.getItem('streaks')  ||'{}');
+const MASTERY = 10;
+
+function saveState(){
   localStorage.setItem('known',    JSON.stringify(knownWords));
   localStorage.setItem('hard',     JSON.stringify(hardWords));
   localStorage.setItem('mastered', JSON.stringify(masteredWords));
   localStorage.setItem('streaks',  JSON.stringify(wordStreaks));
 }
-
-function recordCorrect(word) {
-  wordStreaks[word] = (wordStreaks[word] || 0) + 1;
-  knownWords = [...new Set([...knownWords, word])];
-  hardWords  = hardWords.filter(w => w !== word);
-  if (wordStreaks[word] >= MASTERY_THRESHOLD && !masteredWords.includes(word)) {
-    masteredWords = [...masteredWords, word];
-    saveState();
-    showMasteryToast(word);
-    return;
+function recordCorrect(w){
+  wordStreaks[w]=(wordStreaks[w]||0)+1;
+  knownWords=[...new Set([...knownWords,w])];
+  hardWords=hardWords.filter(x=>x!==w);
+  if(wordStreaks[w]>=MASTERY&&!masteredWords.includes(w)){
+    masteredWords=[...masteredWords,w];
+    saveState(); showMasteryToast(w); return;
   }
   saveState();
 }
-
-function recordWrong(word) {
-  wordStreaks[word] = 0;
-  hardWords  = [...new Set([...hardWords, word])];
-  knownWords = knownWords.filter(w => w !== word);
+function recordWrong(w){
+  wordStreaks[w]=0;
+  hardWords=[...new Set([...hardWords,w])];
+  knownWords=knownWords.filter(x=>x!==w);
   saveState();
 }
-
-// Toast notification when a word is mastered
-function showMasteryToast(word) {
-  let toast = document.getElementById('mastery-toast');
-  if (!toast) {
-    toast = document.createElement('div');
-    toast.id = 'mastery-toast';
-    toast.style.cssText = `
-      position:fixed; bottom:90px; left:50%; transform:translateX(-50%) translateY(20px);
-      background:#f7c948; color:#2d2d2d; border-radius:16px;
-      padding:12px 20px; font-size:14px; font-weight:700;
-      box-shadow:0 8px 24px rgba(0,0,0,0.2);
-      opacity:0; transition:all 0.3s ease; z-index:999;
-      white-space:nowrap; pointer-events:none;
-    `;
-    document.body.appendChild(toast);
+function showMasteryToast(w){
+  let t=document.getElementById('mastery-toast');
+  if(!t){ t=document.createElement('div'); t.id='mastery-toast';
+    t.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:#f7c948;color:#2d2d2d;border-radius:16px;padding:12px 20px;font-size:14px;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.2);opacity:0;transition:all .3s ease;z-index:999;white-space:nowrap;pointer-events:none';
+    document.body.appendChild(t);
   }
-  toast.textContent = '🏆 ¡Dominaste "' + word + '"!';
-  toast.style.opacity = '1';
-  toast.style.transform = 'translateX(-50%) translateY(0)';
-  clearTimeout(toast._timer);
-  toast._timer = setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateX(-50%) translateY(20px)';
-  }, 2800);
+  t.textContent='🏆 ¡Dominaste "'+w+'"!';
+  t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(0)';
+  clearTimeout(t._t);
+  t._t=setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(-50%) translateY(20px)'; },2800);
 }
 
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
 // TABS
-// ══════════════════════════════════════════════════════════
-function switchTab(id) {
-  document.querySelectorAll('.tab').forEach((t,i) => {
-    t.classList.toggle('active', ['flash','quiz','write','words'][i] === id);
-  });
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.getElementById('section-' + id).classList.add('active');
-  if (id === 'quiz')  startQuiz();
-  if (id === 'write') startWrite();
-  if (id === 'words') renderWordList();
+// ═══════════════════════════════════════════════════════════
+const TAB_IDS = ['flash','escucha','quiz','frases','write','words','progreso'];
+function switchTab(id){
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',TAB_IDS[i]===id));
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('section-'+id).classList.add('active');
+  if(id==='quiz')    startQuiz();
+  if(id==='write')   startWrite();
+  if(id==='escucha') startEscucha();
+  if(id==='frases')  startFrases();
+  if(id==='words')   renderWordList();
+  if(id==='progreso')renderProgress();
 }
 
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
 // FLASHCARDS
-// ══════════════════════════════════════════════════════════
-let flashQueue = [], flashIndex = 0, flashStreak = 0, flashTotal = 0, isFlipped = false;
+// ═══════════════════════════════════════════════════════════
+let flashQueue=[],flashIdx=0,flashStreak=0,flashTotal=0,isFlipped=false;
 
-function shuffleArr(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
+function shuffleArr(a){ const r=[...a]; for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];} return r; }
+
+function initFlash(){
+  const pool = getFiltered('flash-cat');
+  let q=[...pool];
+  hardWords.forEach(w=>{ const f=pool.find(v=>v.en===w); if(f) q.push(f); });
+  flashQueue=shuffleArr(q); flashIdx=0; flashStreak=0; flashTotal=flashQueue.length;
+  document.getElementById('flash-done').style.display='none';
+  showFlashCard(); updateStreakUI();
 }
-
-function buildFlashQueue() {
-  let q = [...vocab];
-  hardWords.forEach(w => { const f = vocab.find(v => v.en === w); if (f) q.push(f); });
-  return shuffleArr(q);
-}
-
-function initFlash() {
-  flashQueue = buildFlashQueue();
-  flashIndex = 0; flashStreak = 0; flashTotal = flashQueue.length;
-  document.getElementById('flash-done').style.display = 'none';
-  showFlashCard();
-  updateStreakDisplay();
-}
-
-function showFlashCard() {
-  if (flashIndex >= flashQueue.length) { showFlashDone(); return; }
-  const card = flashQueue[flashIndex];
-  currentWord = card.en;
-
-  // 1. Borrar el reverso ANTES de animar → durante el giro el reverso está vacío
-  document.getElementById('flash-translation').textContent = '';
-  document.getElementById('flash-pron-back-text').textContent = '';
-
-  // 2. Actualizar el frente
-  document.getElementById('flash-word').textContent = card.en;
-  document.getElementById('flash-pron-text').textContent = card.pron || '';
-
-  // 3. Girar de vuelta al frente
+function showFlashCard(){
+  if(flashIdx>=flashQueue.length){ showFlashDone(); return; }
+  const card=flashQueue[flashIdx];
+  currentWord=card.en;
+  document.getElementById('flash-translation').textContent='';
+  document.getElementById('flash-pron-back-text').textContent='';
+  document.getElementById('flash-ex').textContent='';
+  document.getElementById('flash-word').textContent=card.en;
+  document.getElementById('flash-pron-text').textContent=card.pron||'';
   document.getElementById('flashcard').classList.remove('flipped');
-  isFlipped = false;
-
-  // 4. Poner el español en el reverso solo DESPUÉS de que terminó la animación
-  setTimeout(() => {
-    document.getElementById('flash-translation').textContent = card.es;
-    document.getElementById('flash-pron-back-text').textContent = card.pron || '';
-  }, 520);
-
-  const pct = Math.round((flashIndex / flashTotal) * 100);
-  document.getElementById('flash-progress').style.width = pct + '%';
-  document.getElementById('flash-count').textContent = flashIndex + ' / ' + flashTotal;
+  isFlipped=false;
+  setTimeout(()=>{
+    document.getElementById('flash-translation').textContent=card.es;
+    document.getElementById('flash-pron-back-text').textContent=card.pron||'';
+    document.getElementById('flash-ex').textContent=card.ex||'';
+  },520);
+  const pct=Math.round((flashIdx/flashTotal)*100);
+  document.getElementById('flash-progress').style.width=pct+'%';
+  document.getElementById('flash-count').textContent=flashIdx+' / '+flashTotal;
 }
-
-function flipCard() {
-  isFlipped = !isFlipped;
-  document.getElementById('flashcard').classList.toggle('flipped', isFlipped);
-}
-
-// Card click: flip only if not tapping the speak button
-document.getElementById('flashcard').addEventListener('click', function(e) {
-  if (e.target.closest('.speak-btn')) {
-    speakWord();
-  } else {
-    flipCard();
-  }
+function flipCard(){ isFlipped=!isFlipped; document.getElementById('flashcard').classList.toggle('flipped',isFlipped); }
+document.getElementById('flashcard').addEventListener('click',function(e){
+  if(e.target.closest('.speak-btn')) speakWord(); else flipCard();
 });
+function markCard(known){
+  const w=flashQueue[flashIdx].en;
+  if(known){ flashStreak++; recordCorrect(w); } else { flashStreak=0; recordWrong(w); }
+  markPracticed(); updateStreakUI(); flashIdx++; showFlashCard();
+}
+function updateStreakUI(){ document.getElementById('streak-count').textContent=flashStreak; }
+function showFlashDone(){
+  document.getElementById('flash-done').style.display='block';
+  document.getElementById('flash-count').textContent=flashTotal+' / '+flashTotal;
+  document.getElementById('flash-progress').style.width='100%';
+  document.getElementById('flash-done-msg').textContent=
+    '🏆 Dominadas: '+masteredWords.length+' · ✅ Practicadas: '+knownWords.length+' · Total: '+vocab.length;
+}
+function restartFlash(){ document.getElementById('flash-done').style.display='none'; initFlash(); }
 
-function markCard(known) {
-  const word = flashQueue[flashIndex].en;
-  if (known) { flashStreak++; recordCorrect(word); }
-  else        { flashStreak = 0; recordWrong(word); }
-  updateStreakDisplay(); flashIndex++; showFlashCard();
+// ═══════════════════════════════════════════════════════════
+// ESCUCHA (Listening)
+// ═══════════════════════════════════════════════════════════
+let escQs=[],escIdx=0,escScore=0;
+const ESC_LEN=10;
+
+function startEscucha(){
+  const pool=getFiltered('escucha-cat');
+  if(pool.length<4){ alert('Necesitas al menos 4 palabras en esta categoría.'); return; }
+  let p=[...pool];
+  hardWords.forEach(w=>{ const f=pool.find(v=>v.en===w); if(f) p.push(f); });
+  escQs=shuffleArr(p).slice(0,Math.min(ESC_LEN,p.length));
+  escIdx=0; escScore=0;
+  document.getElementById('escucha-game').style.display='block';
+  document.getElementById('escucha-result').style.display='none';
+  document.getElementById('esc-total').textContent=escQs.length;
+  showEscuchaQ();
+}
+function showEscuchaQ(){
+  const q=escQs[escIdx];
+  document.getElementById('esc-num').textContent=escIdx+1;
+  document.getElementById('esc-score-live').textContent='⭐ '+escScore;
+  document.getElementById('esc-progress').style.width=Math.round((escIdx/escQs.length)*100)+'%';
+  document.getElementById('esc-hint').textContent='📂 '+q.cat+' · '+q.pron;
+  document.getElementById('esc-next-btn').style.display='none';
+  document.getElementById('esc-play-btn').disabled=false;
+  // Build 4 options (Spanish translations)
+  const others=vocab.filter(v=>v.en!==q.en);
+  const wrong=shuffleArr(others).slice(0,3).map(v=>v.es);
+  const opts=shuffleArr([q.es,...wrong]);
+  const div=document.getElementById('esc-options');
+  div.innerHTML='';
+  opts.forEach(opt=>{
+    const b=document.createElement('div'); b.className='option'; b.textContent=opt;
+    b.onclick=()=>selectEscuchaOpt(b,opt,q.es,q.en);
+    div.appendChild(b);
+  });
+  // auto-play after short delay
+  setTimeout(()=>speak(q.en),400);
+}
+function playEscucha(){ speak(escQs[escIdx].en); }
+function selectEscuchaOpt(el,sel,correct,word){
+  document.querySelectorAll('#esc-options .option').forEach(o=>o.classList.add('disabled'));
+  if(sel===correct){ el.classList.add('correct'); escScore++; recordCorrect(word); }
+  else { el.classList.add('wrong'); document.querySelectorAll('#esc-options .option').forEach(o=>{ if(o.textContent===correct) o.classList.add('reveal'); }); recordWrong(word); }
+  markPracticed();
+  document.getElementById('esc-next-btn').style.display='flex';
+}
+function nextEscuchaQ(){ escIdx++; if(escIdx>=escQs.length) showEscuchaResult(); else showEscuchaQ(); }
+function showEscuchaResult(){
+  document.getElementById('escucha-game').style.display='none';
+  document.getElementById('escucha-result').style.display='block';
+  document.getElementById('esc-score').textContent=escScore;
+  document.getElementById('esc-total-label').textContent='de '+escQs.length+' preguntas';
+  const pct=Math.round((escScore/escQs.length)*100);
+  const [e,m]=pct===100?['🏆','¡Oído perfecto!']:pct>=80?['🌟','¡Muy bien! Tu oído mejora.']:pct>=60?['💪','Buen trabajo, sigue practicando.']:['🎧','Escucha más y vuelve a intentarlo.'];
+  document.getElementById('esc-emoji').textContent=e;
+  document.getElementById('esc-msg').textContent=m;
 }
 
-function updateStreakDisplay() {
-  document.getElementById('streak-count').textContent = flashStreak;
+// ═══════════════════════════════════════════════════════════
+// QUIZ (Multiple Choice)
+// ═══════════════════════════════════════════════════════════
+let quizQuestions=[],quizIdx=0,quizScore=0;
+const QUIZ_LEN=12;
+
+function startQuiz(){
+  const pool=getFiltered('quiz-cat');
+  if(pool.length<4){ alert('Necesitas al menos 4 palabras en esta categoría.'); return; }
+  let p=[...pool];
+  hardWords.forEach(w=>{ const f=pool.find(v=>v.en===w); if(f) p.push(f); });
+  const sel=shuffleArr(p).slice(0,Math.min(QUIZ_LEN,p.length));
+  quizQuestions=sel.map(item=>{
+    const others=vocab.filter(v=>v.en!==item.en);
+    const wrong=shuffleArr(others).slice(0,3).map(v=>v.es);
+    return{...item,options:shuffleArr([item.es,...wrong]),correct:item.es};
+  });
+  quizIdx=0; quizScore=0;
+  document.getElementById('quiz-game').style.display='block';
+  document.getElementById('quiz-result').style.display='none';
+  document.getElementById('quiz-total').textContent=quizQuestions.length;
+  showQuizQ();
 }
-
-function showFlashDone() {
-  document.getElementById('flash-done').style.display = 'block';
-  document.getElementById('flash-count').textContent = flashTotal + ' / ' + flashTotal;
-  document.getElementById('flash-progress').style.width = '100%';
-  const pct = Math.round((knownWords.length / vocab.length) * 100);
-  document.getElementById('flash-done-msg').textContent =
-    `🏆 Dominadas: ${masteredWords.length} · ✅ Practicadas: ${knownWords.length} · Total: ${vocab.length}`;
-}
-
-function restartFlash() {
-  document.getElementById('flash-done').style.display = 'none';
-  initFlash();
-}
-
-// ══════════════════════════════════════════════════════════
-// QUIZ MULTIPLE CHOICE
-// ══════════════════════════════════════════════════════════
-let quizQuestions = [], quizIdx = 0, quizScore = 0;
-const QUIZ_LEN = 12;
-
-function buildQuizQuestions() {
-  let pool = [...vocab];
-  hardWords.forEach(w => { const f = vocab.find(v => v.en === w); if (f) pool.push(f); });
-  const selected = shuffleArr(pool).slice(0, QUIZ_LEN);
-  return selected.map(item => {
-    const others = vocab.filter(v => v.en !== item.en);
-    const wrong = shuffleArr(others).slice(0, 3).map(v => v.es);
-    return { ...item, options: shuffleArr([item.es, ...wrong]), correct: item.es };
+function showQuizQ(){
+  const q=quizQuestions[quizIdx];
+  document.getElementById('quiz-num').textContent=quizIdx+1;
+  document.getElementById('quiz-word').textContent=q.en;
+  document.getElementById('quiz-context').textContent='📂 '+q.cat+'  ·  🔉 '+q.pron;
+  document.getElementById('quiz-score-live').textContent='⭐ '+quizScore;
+  document.getElementById('quiz-progress').style.width=Math.round((quizIdx/quizQuestions.length)*100)+'%';
+  document.getElementById('quiz-next-btn').style.display='none';
+  const div=document.getElementById('quiz-options'); div.innerHTML='';
+  q.options.forEach(opt=>{
+    const b=document.createElement('div'); b.className='option'; b.textContent=opt;
+    b.onclick=()=>selectQuizOpt(b,opt,q.correct,q.en);
+    div.appendChild(b);
   });
 }
-
-function startQuiz() {
-  quizQuestions = buildQuizQuestions(); quizIdx = 0; quizScore = 0;
-  document.getElementById('quiz-game').style.display = 'block';
-  document.getElementById('quiz-result').style.display = 'none';
-  document.getElementById('quiz-total').textContent = QUIZ_LEN;
-  showQuizQuestion();
+function selectQuizOpt(el,sel,correct,word){
+  document.querySelectorAll('#quiz-options .option').forEach(o=>o.classList.add('disabled'));
+  if(sel===correct){ el.classList.add('correct'); quizScore++; recordCorrect(word); }
+  else { el.classList.add('wrong'); document.querySelectorAll('#quiz-options .option').forEach(o=>{ if(o.textContent===correct) o.classList.add('reveal'); }); recordWrong(word); }
+  markPracticed();
+  document.getElementById('quiz-next-btn').style.display='flex';
+}
+function nextQuizQ(){ quizIdx++; if(quizIdx>=quizQuestions.length) showQuizResult(); else showQuizQ(); }
+function showQuizResult(){
+  document.getElementById('quiz-game').style.display='none';
+  document.getElementById('quiz-result').style.display='block';
+  document.getElementById('quiz-final').textContent=quizScore;
+  document.getElementById('quiz-final-total').textContent='de '+quizQuestions.length+' preguntas';
+  const pct=Math.round((quizScore/quizQuestions.length)*100);
+  const [e,m]=pct===100?['🏆','¡Perfecto! ¡Eres increíble!']:pct>=80?['🌟','¡Muy bien!']:pct>=60?['💪','¡Buen trabajo!']:['🔄','¡Sigue practicando!'];
+  document.getElementById('quiz-emoji').textContent=e;
+  document.getElementById('quiz-msg').textContent=m;
 }
 
-function showQuizQuestion() {
-  const q = quizQuestions[quizIdx];
-  currentWord = q.en;
-  document.getElementById('quiz-num').textContent = quizIdx + 1;
-  document.getElementById('quiz-word').textContent = q.en;
-  document.getElementById('quiz-context').textContent = '📂 ' + q.cat + '  •  🔉 ' + q.pron;
-  document.getElementById('quiz-score-live').textContent = '⭐ ' + quizScore;
-  document.getElementById('quiz-progress').style.width = Math.round((quizIdx/QUIZ_LEN)*100) + '%';
-  document.getElementById('quiz-next-btn').style.display = 'none';
-  const optDiv = document.getElementById('quiz-options');
-  optDiv.innerHTML = '';
-  q.options.forEach(opt => {
-    const btn = document.createElement('div');
-    btn.className = 'option';
-    btn.textContent = opt;
-    btn.onclick = () => selectQuizOption(btn, opt, q.correct, q.en);
-    optDiv.appendChild(btn);
+// ═══════════════════════════════════════════════════════════
+// FRASES — Fill in the blank
+// ═══════════════════════════════════════════════════════════
+let fraseQs=[],frIdx=0,frScore=0;
+const FR_LEN=10;
+
+function startFrases(){
+  const pool=getFiltered('frases-cat').filter(v=>v.ex);
+  if(pool.length<4){ alert('No hay suficientes palabras con oraciones en esta categoría.'); return; }
+  let p=[...pool];
+  hardWords.forEach(w=>{ const f=pool.find(v=>v.en===w); if(f) p.push(f); });
+  fraseQs=shuffleArr(p).slice(0,Math.min(FR_LEN,p.length));
+  frIdx=0; frScore=0;
+  document.getElementById('frases-game').style.display='block';
+  document.getElementById('frases-result').style.display='none';
+  document.getElementById('fr-total').textContent=fraseQs.length;
+  showFraseQ();
+}
+function buildBlank(item){
+  // Replace the target word in the example sentence with ___
+  const re=new RegExp('\\b'+item.en.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b','i');
+  return item.ex.replace(re,'___');
+}
+function showFraseQ(){
+  const q=fraseQs[frIdx];
+  document.getElementById('fr-num').textContent=frIdx+1;
+  document.getElementById('fr-score-live').textContent='⭐ '+frScore;
+  document.getElementById('fr-progress').style.width=Math.round((frIdx/fraseQs.length)*100)+'%';
+  document.getElementById('fr-sentence').textContent=buildBlank(q);
+  document.getElementById('fr-hint').textContent='💡 Traducción: '+q.es;
+  document.getElementById('fr-next-btn').style.display='none';
+  // 4 options: English words
+  const others=vocab.filter(v=>v.en!==q.en&&v.ex);
+  const wrong=shuffleArr(others).slice(0,3).map(v=>v.en);
+  const opts=shuffleArr([q.en,...wrong]);
+  const div=document.getElementById('fr-options'); div.innerHTML='';
+  opts.forEach(opt=>{
+    const b=document.createElement('div'); b.className='option'; b.textContent=opt;
+    b.onclick=()=>selectFraseOpt(b,opt,q.en);
+    div.appendChild(b);
   });
 }
-
-function selectQuizOption(el, selected, correct, word) {
-  document.querySelectorAll('.option').forEach(o => o.classList.add('disabled'));
-  if (selected === correct) {
-    el.classList.add('correct'); quizScore++;
-    recordCorrect(word);
-  } else {
-    el.classList.add('wrong');
-    document.querySelectorAll('.option').forEach(o => { if (o.textContent === correct) o.classList.add('reveal'); });
-    recordWrong(word);
-  }
-  document.getElementById('quiz-next-btn').style.display = 'flex';
+function selectFraseOpt(el,sel,correct){
+  document.querySelectorAll('#fr-options .option').forEach(o=>o.classList.add('disabled'));
+  if(sel===correct){ el.classList.add('correct'); frScore++; recordCorrect(correct); }
+  else { el.classList.add('wrong'); document.querySelectorAll('#fr-options .option').forEach(o=>{ if(o.textContent===correct) o.classList.add('reveal'); }); recordWrong(correct); }
+  markPracticed();
+  // Show completed sentence
+  document.getElementById('fr-sentence').textContent=fraseQs[frIdx].ex;
+  document.getElementById('fr-next-btn').style.display='flex';
+}
+function nextFraseQ(){ frIdx++; if(frIdx>=fraseQs.length) showFraseResult(); else showFraseQ(); }
+function showFraseResult(){
+  document.getElementById('frases-game').style.display='none';
+  document.getElementById('frases-result').style.display='block';
+  document.getElementById('fr-score').textContent=frScore;
+  document.getElementById('fr-total-label').textContent='de '+fraseQs.length+' oraciones';
+  const pct=Math.round((frScore/fraseQs.length)*100);
+  const [e,m]=pct===100?['🏆','¡Perfecto! Entiendes el contexto.']:pct>=80?['✨','¡Muy bien!']:pct>=60?['💪','¡Buen esfuerzo!']:['📖','Repasa las tarjetas y vuelve.'];
+  document.getElementById('fr-emoji').textContent=e;
+  document.getElementById('fr-msg').textContent=m;
 }
 
-function nextQuizQuestion() {
-  quizIdx++;
-  if (quizIdx >= QUIZ_LEN) showQuizResult(); else showQuizQuestion();
-}
-
-function showQuizResult() {
-  document.getElementById('quiz-game').style.display = 'none';
-  document.getElementById('quiz-result').style.display = 'block';
-  document.getElementById('quiz-final-score').textContent = quizScore;
-  document.getElementById('quiz-final-total').textContent = 'de ' + QUIZ_LEN + ' preguntas';
-  const pct = Math.round((quizScore/QUIZ_LEN)*100);
-  const [emoji, msg] = pct===100 ? ['🏆','¡Perfecto! ¡Eres increíble!']
-    : pct>=80 ? ['🌟','¡Muy bien! Casi perfecta.']
-    : pct>=60 ? ['💪','¡Buen trabajo! Sigue practicando.']
-    : pct>=40 ? ['📚','Vas bien, pero hay que repasar.']
-    : ['🔄','¡Hay que practicar más! Tú puedes.'];
-  document.getElementById('quiz-result-emoji').textContent = emoji;
-  document.getElementById('quiz-result-msg').textContent = msg;
-}
-
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
 // WRITE QUIZ
-// ══════════════════════════════════════════════════════════
-let writeQuestions = [], writeIdx = 0, writeScore = 0, writeAnswered = false;
-const WRITE_LEN = 10;
+// ═══════════════════════════════════════════════════════════
+let writeQuestions=[],writeIdx=0,writeScore=0,writeAnswered=false;
+const WRITE_LEN=10;
 
-function buildWriteQuestions() {
-  let pool = [...vocab];
-  hardWords.forEach(w => { const f = vocab.find(v => v.en === w); if (f) pool.push(f); });
-  return shuffleArr(pool).slice(0, WRITE_LEN);
+function startWrite(){
+  const pool=getFiltered('write-cat');
+  if(pool.length<1){ alert('No hay palabras en esta categoría.'); return; }
+  let p=[...pool];
+  hardWords.forEach(w=>{ const f=pool.find(v=>v.en===w); if(f) p.push(f); });
+  writeQuestions=shuffleArr(p).slice(0,Math.min(WRITE_LEN,p.length));
+  writeIdx=0; writeScore=0;
+  document.getElementById('write-game').style.display='block';
+  document.getElementById('write-result').style.display='none';
+  document.getElementById('write-total').textContent=writeQuestions.length;
+  showWriteQ();
 }
-
-function startWrite() {
-  writeQuestions = buildWriteQuestions(); writeIdx = 0; writeScore = 0;
-  document.getElementById('write-game').style.display = 'block';
-  document.getElementById('write-result').style.display = 'none';
-  document.getElementById('write-total').textContent = WRITE_LEN;
-  showWriteQuestion();
+function showWriteQ(){
+  const q=writeQuestions[writeIdx];
+  writeAnswered=false;
+  document.getElementById('write-num').textContent=writeIdx+1;
+  document.getElementById('write-word').textContent=q.es;
+  document.getElementById('write-score-live').textContent='⭐ '+writeScore;
+  document.getElementById('write-progress').style.width=Math.round((writeIdx/writeQuestions.length)*100)+'%';
+  const inp=document.getElementById('write-input');
+  inp.value=''; inp.className='write-input'; inp.disabled=false; inp.focus();
+  document.getElementById('write-reveal').style.display='none';
+  document.getElementById('write-check-btn').style.display='flex';
+  document.getElementById('write-next-btn').style.display='none';
 }
-
-function showWriteQuestion() {
-  const q = writeQuestions[writeIdx];
-  currentWord = q.en;
-  writeAnswered = false;
-  document.getElementById('write-num').textContent = writeIdx + 1;
-  document.getElementById('write-word').textContent = q.es;
-  document.getElementById('write-score-live').textContent = '⭐ ' + writeScore;
-  document.getElementById('write-progress').style.width = Math.round((writeIdx/WRITE_LEN)*100) + '%';
-  const input = document.getElementById('write-input');
-  input.value = ''; input.className = 'write-input'; input.disabled = false; input.focus();
-  document.getElementById('write-reveal').style.display = 'none';
-  document.getElementById('write-check-btn').style.display = 'flex';
-  document.getElementById('write-next-btn').style.display = 'none';
-}
-
-function normalize(s) {
-  return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9\s]/g,'').trim();
-}
-
-function checkWrite() {
-  if (writeAnswered) return;
-  const q = writeQuestions[writeIdx];
-  const input = document.getElementById('write-input');
-  const userAnswer = input.value.trim();
-  if (!userAnswer) return;
-  writeAnswered = true; input.disabled = true;
-  const acceptable = q.en.split('/').map(s => normalize(s.trim()));
-  const correct = acceptable.some(a => normalize(userAnswer) === a);
-  if (correct) {
-    input.classList.add('correct'); writeScore++;
-    recordCorrect(q.en);
-  } else {
-    input.classList.add('wrong');
-    document.getElementById('write-correct-answer').textContent = q.en;
-    document.getElementById('write-reveal').style.display = 'block';
+function norm(s){ return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9\s]/g,'').trim(); }
+function checkWrite(){
+  if(writeAnswered) return;
+  const q=writeQuestions[writeIdx];
+  const inp=document.getElementById('write-input');
+  const ans=inp.value.trim();
+  if(!ans) return;
+  writeAnswered=true; inp.disabled=true;
+  const acceptable=q.en.split('/').map(s=>norm(s.trim()));
+  const ok=acceptable.some(a=>norm(ans)===a);
+  if(ok){ inp.classList.add('correct'); writeScore++; recordCorrect(q.en); }
+  else{
+    inp.classList.add('wrong');
+    document.getElementById('write-correct-answer').textContent=q.en;
+    document.getElementById('write-reveal').style.display='block';
     recordWrong(q.en);
   }
-  document.getElementById('write-check-btn').style.display = 'none';
-  document.getElementById('write-next-btn').style.display = 'flex';
+  markPracticed();
+  document.getElementById('write-check-btn').style.display='none';
+  document.getElementById('write-next-btn').style.display='flex';
+}
+function nextWriteQ(){ writeIdx++; if(writeIdx>=writeQuestions.length) showWriteResult(); else showWriteQ(); }
+function showWriteResult(){
+  document.getElementById('write-game').style.display='none';
+  document.getElementById('write-result').style.display='block';
+  document.getElementById('write-final').textContent=writeScore;
+  document.getElementById('write-final-total').textContent='de '+writeQuestions.length+' preguntas';
+  const pct=Math.round((writeScore/writeQuestions.length)*100);
+  const [e,m]=pct===100?['🏆','¡Todas correctas!']:pct>=80?['✨','¡Tu ortografía mejora!']:pct>=60?['💪','¡Buen esfuerzo!']:['📖','Repasa las tarjetas.'];
+  document.getElementById('write-emoji').textContent=e;
+  document.getElementById('write-msg').textContent=m;
 }
 
-function nextWriteQuestion() {
-  writeIdx++;
-  if (writeIdx >= WRITE_LEN) showWriteResult(); else showWriteQuestion();
-}
-
-function showWriteResult() {
-  document.getElementById('write-game').style.display = 'none';
-  document.getElementById('write-result').style.display = 'block';
-  document.getElementById('write-final-score').textContent = writeScore;
-  document.getElementById('write-final-total').textContent = 'de ' + WRITE_LEN + ' preguntas';
-  const pct = Math.round((writeScore/WRITE_LEN)*100);
-  const [emoji, msg] = pct===100 ? ['🏆','¡Increíble! ¡Todas correctas!']
-    : pct>=80 ? ['✨','¡Muy bien! Tu ortografía mejora.']
-    : pct>=60 ? ['💪','¡Buen esfuerzo! Sigue practicando.']
-    : ['📖','Repasa las tarjetas y vuelve a intentarlo.'];
-  document.getElementById('write-result-emoji').textContent = emoji;
-  document.getElementById('write-result-msg').textContent = msg;
-}
-
-// ══════════════════════════════════════════════════════════
-// WORD LIST
-// ══════════════════════════════════════════════════════════
-function renderWordList() {
-  const list = document.getElementById('word-list');
-  list.innerHTML = '';
-
-  // Sort: mastered first, then known, then hard, then neutral
-  const sorted = [...vocab].sort((a, b) => {
-    const rank = w => masteredWords.includes(w.en) ? 0 : knownWords.includes(w.en) ? 1 : hardWords.includes(w.en) ? 3 : 2;
-    return rank(a) - rank(b);
+// ═══════════════════════════════════════════════════════════
+// GLOSARIO
+// ═══════════════════════════════════════════════════════════
+function renderWordList(){
+  const pool=getFiltered('words-cat');
+  const list=document.getElementById('word-list');
+  list.innerHTML='';
+  const sorted=[...pool].sort((a,b)=>{
+    const r=w=>masteredWords.includes(w.en)?0:knownWords.includes(w.en)?1:hardWords.includes(w.en)?3:2;
+    return r(a)-r(b);
   });
-
-  sorted.forEach(item => {
-    const isMastered = masteredWords.includes(item.en);
-    const isKnown    = knownWords.includes(item.en);
-    const isHard     = hardWords.includes(item.en);
-    const streak     = wordStreaks[item.en] || 0;
-    const cls = isMastered ? ' word-mastered' : isKnown ? ' word-known' : isHard ? ' word-hard' : '';
-    const badge = isMastered
-      ? `<span style="font-size:16px">🏆</span>`
-      : `<span class="cat-tag">${item.cat}</span>`;
-    const progressBar = !isMastered && streak > 0
-      ? `<div style="margin-top:4px;height:3px;width:100%;background:var(--border);border-radius:99px;overflow:hidden">
-           <div style="height:100%;width:${Math.min(streak/MASTERY_THRESHOLD*100,100)}%;background:var(--p1);border-radius:99px"></div>
-         </div>`
-      : '';
-    const div = document.createElement('div');
-    div.className = 'word-item' + cls;
-    div.innerHTML = `
-      <div style="flex:1;min-width:0">
-        <span class="word-en">${item.en}</span>
-        <span style="color:var(--muted)"> — </span>
-        <span class="word-es">${item.es}</span>
-        <div style="font-size:11px;color:var(--muted);margin-top:2px;font-style:italic">${item.pron}${streak>0 && !isMastered ? ' · '+streak+'/'+MASTERY_THRESHOLD : ''}</div>
-        ${progressBar}
-      </div>
-      <div style="margin-left:8px">${badge}</div>`;
-    list.appendChild(div);
+  sorted.forEach(item=>{
+    const isMast=masteredWords.includes(item.en);
+    const isKnown=knownWords.includes(item.en);
+    const isHard=hardWords.includes(item.en);
+    const streak=wordStreaks[item.en]||0;
+    const cls=isMast?' word-mastered':isKnown?' word-known':isHard?' word-hard':'';
+    const badge=isMast?'<span style="font-size:16px">🏆</span>':'<span class="cat-tag">'+item.cat+'</span>';
+    const bar=!isMast&&streak>0?'<div style="margin-top:4px;height:3px;background:var(--border);border-radius:99px;overflow:hidden"><div style="height:100%;width:'+Math.min(streak/MASTERY*100,100)+'%;background:var(--p1);border-radius:99px"></div></div>':'';
+    const d=document.createElement('div'); d.className='word-item'+cls;
+    d.innerHTML='<div style="flex:1;min-width:0"><span class="word-en">'+item.en+'</span><span style="color:var(--muted)"> — </span><span class="word-es">'+item.es+'</span><div style="font-size:11px;color:var(--muted);margin-top:2px;font-style:italic">'+item.pron+(streak>0&&!isMast?' · '+streak+'/'+MASTERY:'')+'</div>'+bar+'</div><div style="margin-left:8px">'+badge+'</div>';
+    list.appendChild(d);
   });
-
-  document.getElementById('stat-total').textContent    = vocab.length;
-  document.getElementById('stat-mastered').textContent = masteredWords.length;
-  document.getElementById('stat-known').textContent    = knownWords.length;
-  document.getElementById('stat-hard').textContent     = hardWords.length;
+  document.getElementById('stat-total').textContent=vocab.length;
+  document.getElementById('stat-mastered').textContent=masteredWords.length;
+  document.getElementById('stat-known').textContent=knownWords.length;
+  document.getElementById('stat-hard').textContent=hardWords.length;
 }
 
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
+// PROGRESO
+// ═══════════════════════════════════════════════════════════
+function renderProgress(){
+  const streak=loadStreak();
+  document.getElementById('prog-streak-num').textContent=streak;
+  // last 7 days grid
+  const hist=JSON.parse(localStorage.getItem('practiceHist')||'{}');
+  const grid=document.getElementById('prog-daily-grid');
+  grid.innerHTML='';
+  const dayNames=['Do','Lu','Ma','Mi','Ju','Vi','Sá'];
+  for(let i=6;i>=0;i--){
+    const d=new Date(Date.now()-i*86400000);
+    const key=d.toISOString().slice(0,10);
+    const isToday=i===0;
+    const done=hist[key];
+    const dot=document.createElement('div');
+    dot.className='day-dot'+(done?' done':'')+(isToday?' today':'');
+    dot.innerHTML='<span>'+dayNames[d.getDay()]+'</span><span>'+(done?'✓':'')+'</span>';
+    grid.appendChild(dot);
+  }
+  // stats
+  document.getElementById('prog-total').textContent=vocab.length;
+  document.getElementById('prog-mastered').textContent=masteredWords.length;
+  document.getElementById('prog-pct').textContent=Math.round((knownWords.length/vocab.length)*100)+'%';
+  document.getElementById('prog-hard').textContent=hardWords.length;
+  // category bars
+  const catDiv=document.getElementById('prog-cats'); catDiv.innerHTML='';
+  CATS.forEach(cat=>{
+    const catWords=vocab.filter(v=>v.cat===cat);
+    const learned=catWords.filter(v=>knownWords.includes(v.en)||masteredWords.includes(v.en)).length;
+    const pct=catWords.length?Math.round((learned/catWords.length)*100):0;
+    catDiv.innerHTML+='<div class="prog-row"><span class="prog-cat-label">'+cat+'</span><div class="prog-bar-bg"><div class="prog-bar-fill" style="width:'+pct+'%"></div></div><span class="prog-pct">'+pct+'%</span></div>';
+  });
+  // hard words
+  const hardList=document.getElementById('prog-hard-list');
+  hardList.innerHTML='';
+  const noHard=document.getElementById('prog-no-hard');
+  if(hardWords.length===0){ noHard.style.display='block'; }
+  else{
+    noHard.style.display='none';
+    hardWords.slice(0,10).forEach(w=>{
+      const v=vocab.find(x=>x.en===w); if(!v) return;
+      const d=document.createElement('div'); d.className='word-item word-hard';
+      d.innerHTML='<div><span class="word-en">'+v.en+'</span> — <span class="word-es">'+v.es+'</span></div><span class="cat-tag">'+v.cat+'</span>';
+      hardList.appendChild(d);
+    });
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
 // INIT
-// ══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════
 applyTheme(currentTheme);
-if (isDark) {
-  document.body.classList.add('dark');
-  document.getElementById('dark-btn').textContent = '☀️';
-}
+if(isDark){ document.body.classList.add('dark'); document.getElementById('dark-btn').textContent='☀️'; }
+populateSelects();
+updateNavStreak();
 initFlash();
-
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js');
-}
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
 </script>
 </body>
 </html>
