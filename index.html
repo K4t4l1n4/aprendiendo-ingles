@@ -826,12 +826,22 @@ function showFlashCard() {
   if (flashIndex >= flashQueue.length) { showFlashDone(); return; }
   const card = flashQueue[flashIndex];
   currentWord = card.en;
+
+  // Actualizar el frente de inmediato
   document.getElementById('flash-word').textContent = card.en;
-  document.getElementById('flash-translation').textContent = card.es;
   document.getElementById('flash-pron-text').textContent = card.pron || '';
-  document.getElementById('flash-pron-back-text').textContent = card.pron || '';
+
+  // Girar de vuelta al frente primero
   document.getElementById('flashcard').classList.remove('flipped');
   isFlipped = false;
+
+  // Actualizar el reverso DESPUÉS de que termine la transición (500ms),
+  // así no se ve la traducción nueva mientras el card todavía está girando
+  setTimeout(() => {
+    document.getElementById('flash-translation').textContent = card.es;
+    document.getElementById('flash-pron-back-text').textContent = card.pron || '';
+  }, 520);
+
   const pct = Math.round((flashIndex / flashTotal) * 100);
   document.getElementById('flash-progress').style.width = pct + '%';
   document.getElementById('flash-count').textContent = flashIndex + ' / ' + flashTotal;
