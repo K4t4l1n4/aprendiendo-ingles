@@ -827,16 +827,19 @@ function showFlashCard() {
   const card = flashQueue[flashIndex];
   currentWord = card.en;
 
-  // Actualizar el frente de inmediato
+  // 1. Borrar el reverso ANTES de animar → durante el giro el reverso está vacío
+  document.getElementById('flash-translation').textContent = '';
+  document.getElementById('flash-pron-back-text').textContent = '';
+
+  // 2. Actualizar el frente
   document.getElementById('flash-word').textContent = card.en;
   document.getElementById('flash-pron-text').textContent = card.pron || '';
 
-  // Girar de vuelta al frente primero
+  // 3. Girar de vuelta al frente
   document.getElementById('flashcard').classList.remove('flipped');
   isFlipped = false;
 
-  // Actualizar el reverso DESPUÉS de que termine la transición (500ms),
-  // así no se ve la traducción nueva mientras el card todavía está girando
+  // 4. Poner el español en el reverso solo DESPUÉS de que terminó la animación
   setTimeout(() => {
     document.getElementById('flash-translation').textContent = card.es;
     document.getElementById('flash-pron-back-text').textContent = card.pron || '';
