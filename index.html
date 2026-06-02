@@ -193,6 +193,31 @@ main{padding:24px 20px 100px;flex:1}
 
 @keyframes popIn{0%{transform:scale(.5);opacity:0}70%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
 .pop-in{animation:popIn .4s ease forwards}
+
+/* SESSION BANNER */
+.session-banner{background:var(--p-light);border-radius:14px;padding:12px 16px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--p2)}
+.session-banner-btns{display:flex;gap:6px;flex-shrink:0}
+
+/* MIC BUTTON */
+.mic-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;margin:20px 0}
+.mic-btn{width:90px;height:90px;border-radius:50%;background:var(--p1);color:#fff;border:none;font-size:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(108,99,255,.35);transition:transform .1s,background .15s;user-select:none;-webkit-user-select:none;touch-action:none}
+.mic-btn.recording{background:#e53935;box-shadow:0 0 0 0 rgba(229,57,53,.5);animation:micPulse .9s ease infinite}
+@keyframes micPulse{0%{box-shadow:0 0 0 0 rgba(229,57,53,.5)}70%{box-shadow:0 0 0 18px rgba(229,57,53,0)}100%{box-shadow:0 0 0 0 rgba(229,57,53,0)}}
+.mic-hint{font-size:13px;color:var(--muted);text-align:center;font-weight:600;min-height:20px}
+.pron-feedback{border-radius:16px;padding:16px 18px;text-align:center;margin:14px 0;font-size:14px;font-weight:600;line-height:1.5;display:none}
+.pron-feedback.correct{background:#d4f5e4;color:#1d8a50}
+.pron-feedback.wrong{background:#ffe0e7;color:#c0334e}
+.pron-feedback.partial{background:#fff7e0;color:#9a6000}
+
+/* NOTIFICATION UI */
+.notif-time-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:15px;font-weight:600}
+.notif-time-row:last-child{border-bottom:none}
+.notif-del{background:none;border:none;cursor:pointer;font-size:20px;color:var(--muted);padding:4px 8px;line-height:1}
+.time-add-row{display:flex;gap:8px;margin-top:14px}
+.time-input{flex:1;padding:10px 14px;border:2px solid var(--border);border-radius:12px;font-size:16px;font-weight:600;color:var(--text);background:var(--card-bg);outline:none;transition:border .2s}
+.time-input:focus{border-color:var(--p1)}
+body.dark .time-input{background:#1e1c2e;color:var(--text);border-color:#2e2c45}
+.notif-status{font-size:12px;color:var(--muted);margin-top:8px;text-align:center}
 </style>
 </head>
 <body>
@@ -227,6 +252,7 @@ main{padding:24px 20px 100px;flex:1}
   <div class="tab" onclick="switchTab('quiz')"><span class="tab-icon">🎯</span>Quiz</div>
   <div class="tab" onclick="switchTab('frases')"><span class="tab-icon">📝</span>Frases</div>
   <div class="tab" onclick="switchTab('write')"><span class="tab-icon">✏️</span>Escribir</div>
+  <div class="tab" onclick="switchTab('pronun')"><span class="tab-icon">🎤</span>Pronunciar</div>
   <div class="tab" onclick="switchTab('words')"><span class="tab-icon">📖</span>Glosario</div>
   <div class="tab" onclick="switchTab('progreso')"><span class="tab-icon">📊</span>Progreso</div>
 </div>
@@ -237,6 +263,12 @@ main{padding:24px 20px 100px;flex:1}
 <div id="section-flash" class="section active">
   <div class="cat-filter">
     <select class="cat-select" id="flash-cat" onchange="initFlash()"></select>
+  </div>
+  <div class="session-banner" id="session-banner" style="display:none">
+    <span>📍 Continuaste en la <strong><span id="session-pos">0</span></strong> de <strong><span id="session-tot">0</span></strong></span>
+    <div class="session-banner-btns">
+      <button class="btn btn-ghost" style="padding:8px 12px;font-size:12px" onclick="initFlash(true)">↺ Reiniciar</button>
+    </div>
   </div>
   <div class="streak-bar">
     <span class="streak-icon">🔥</span>
@@ -421,6 +453,44 @@ main{padding:24px 20px 100px;flex:1}
   </div>
 </div>
 
+<!-- ═══ PRONUNCIAR ═══ -->
+<div id="section-pronun" class="section">
+  <div class="cat-filter">
+    <select class="cat-select" id="pronun-cat" onchange="startPronun()"></select>
+  </div>
+  <div id="pronun-game">
+    <div class="progress-label">
+      <span>Palabra <span id="pronun-num">1</span> de <span id="pronun-total">10</span></span>
+      <span id="pronun-score-live">⭐ 0</span>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="pronun-progress" style="width:0%"></div></div>
+    <div class="quiz-question">
+      <div class="q-label">🎤 Di esta palabra en inglés</div>
+      <div class="q-word" id="pronun-es-word" style="color:var(--text);font-size:30px">-</div>
+      <button class="btn btn-ghost" onclick="speakPronunModel()" style="margin:10px auto;display:flex">🔊 Escuchar pronunciación</button>
+      <div class="q-context" id="pronun-pron-hint"></div>
+    </div>
+    <div class="mic-wrap">
+      <button class="mic-btn" id="mic-btn"
+        onmousedown="startRec(event)" onmouseup="stopRec(event)"
+        ontouchstart="startRec(event)" ontouchend="stopRec(event)">🎤</button>
+      <div class="mic-hint" id="mic-hint">Mantén presionado para hablar</div>
+    </div>
+    <div class="pron-feedback" id="pron-feedback"></div>
+    <button class="btn btn-primary btn-lg" id="pronun-next-btn" style="display:none" onclick="nextPronunQ()">Siguiente →</button>
+  </div>
+  <div id="pronun-result" style="display:none">
+    <div class="score-card pop-in">
+      <div class="score-emoji" id="pron-result-emoji">🎤</div>
+      <div class="score-title">¡Resultado!</div>
+      <div class="score-num" id="pron-final-score">-</div>
+      <div class="score-total" id="pron-final-total">de 10 palabras</div>
+      <div class="score-subtitle" id="pron-result-msg"></div>
+      <button class="btn btn-primary btn-lg" onclick="startPronun()">🔄 Intentar de nuevo</button>
+    </div>
+  </div>
+</div>
+
 <!-- ═══ GLOSARIO ═══ -->
 <div id="section-words" class="section">
   <div class="stats-row">
@@ -457,6 +527,21 @@ main{padding:24px 20px 100px;flex:1}
     <div class="prog-block-title">🔴 Palabras difíciles — enfócate en estas</div>
     <div class="word-list" id="prog-hard-list"></div>
     <div id="prog-no-hard" style="color:var(--muted);font-size:13px;text-align:center;padding:8px">¡Sin palabras difíciles! 🎉</div>
+  </div>
+  <div class="prog-block">
+    <div class="prog-block-title">🔔 Recordatorios de práctica</div>
+    <div id="notif-perm-area">
+      <button class="btn btn-primary btn-lg" onclick="requestNotifPerm()" id="notif-perm-btn">🔔 Activar notificaciones</button>
+      <p class="notif-status" id="notif-perm-status"></p>
+    </div>
+    <div id="notif-times-area" style="display:none">
+      <div id="notif-times-list"></div>
+      <div class="time-add-row">
+        <input type="time" class="time-input" id="notif-time-input" value="08:00"/>
+        <button class="btn btn-primary" onclick="addNotifTime()" style="flex-shrink:0">+ Agregar</button>
+      </div>
+      <p class="notif-status" id="notif-schedule-status"></p>
+    </div>
   </div>
 </div>
 
@@ -759,7 +844,14 @@ function applyTheme(t){
   document.querySelectorAll('.swatch').forEach(s=>s.classList.toggle('active',s.dataset.c===t));
   currentTheme=t; localStorage.setItem('theme',t);
 }
-function setTheme(t){ applyTheme(t); document.getElementById('color-panel').classList.remove('open'); }
+const THEME_HEX={blue:'#2196F3',purple:'#6c63ff',yellow:'#f0b429',green:'#2ecc71',pink:'#f06292',teal:'#00bcd4',lilac:'#ab47bc'};
+function setTheme(t){
+  applyTheme(t);
+  const hex=THEME_HEX[t]||'#6c63ff';
+  document.querySelector('meta[name="theme-color"]').content=hex;
+  localStorage.setItem('themeHex',hex);
+  document.getElementById('color-panel').classList.remove('open');
+}
 function toggleDark(){
   isDark=!isDark; document.body.classList.toggle('dark',isDark);
   document.getElementById('dark-btn').textContent=isDark?'☀️':'🌙';
@@ -810,16 +902,17 @@ function updateNavStreak(){
 // ═══════════════════════════════════════════════════════════
 const CATS = [...new Set(vocab.map(v=>v.cat))].sort();
 function populateSelects(){
-  const ids = ['flash-cat','escucha-cat','quiz-cat','frases-cat','write-cat','words-cat'];
+  const ids = ['flash-cat','escucha-cat','quiz-cat','frases-cat','write-cat','pronun-cat','words-cat'];
   ids.forEach(id=>{
     const sel = document.getElementById(id);
     if(!sel) return;
-    sel.innerHTML = '<option value="all">📚 Todas las categorías</option>';
+    sel.innerHTML = '<option value="all">📚 Todas las categorías</option><option value="hard">🔴 Solo palabras difíciles</option>';
     CATS.forEach(c=>{ const o=document.createElement('option'); o.value=c; o.textContent=c; sel.appendChild(o); });
   });
 }
 function getFiltered(selectId){
   const val = document.getElementById(selectId).value;
+  if(val==='hard') return vocab.filter(v=>hardWords.includes(v.en));
   return val==='all' ? vocab : vocab.filter(v=>v.cat===val);
 }
 
@@ -886,7 +979,7 @@ function showMasteryToast(w){
 // ═══════════════════════════════════════════════════════════
 // TABS
 // ═══════════════════════════════════════════════════════════
-const TAB_IDS = ['flash','escucha','quiz','frases','write','words','progreso'];
+const TAB_IDS = ['flash','escucha','quiz','frases','write','pronun','words','progreso'];
 function switchTab(id){
   document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',TAB_IDS[i]===id));
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
@@ -895,8 +988,9 @@ function switchTab(id){
   if(id==='write')   startWrite();
   if(id==='escucha') startEscucha();
   if(id==='frases')  startFrases();
+  if(id==='pronun')  startPronun();
   if(id==='words')   renderWordList();
-  if(id==='progreso')renderProgress();
+  if(id==='progreso'){renderProgress(); renderNotifUI();}
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -906,10 +1000,41 @@ let flashQueue=[],flashIdx=0,flashStreak=0,flashTotal=0,isFlipped=false;
 
 function shuffleArr(a){ const r=[...a]; for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];} return r; }
 
-function initFlash(){
+function saveSession(){
+  localStorage.setItem('flashSession', JSON.stringify({
+    queue: flashQueue.map(v=>vocab.indexOf(v)),
+    idx: flashIdx, streak: flashStreak,
+    cat: document.getElementById('flash-cat').value
+  }));
+}
+function clearSession(){ localStorage.removeItem('flashSession'); }
+function initFlash(forceNew){
+  const currentCat = document.getElementById('flash-cat').value;
+  // Try to restore session
+  if(!forceNew){
+    const raw = localStorage.getItem('flashSession');
+    if(raw){
+      const s = JSON.parse(raw);
+      if(s.cat === currentCat && s.idx > 0 && s.idx < s.queue.length){
+        const restoredQ = s.queue.map(i=>vocab[i]).filter(Boolean);
+        if(restoredQ.length){
+          flashQueue=restoredQ; flashIdx=s.idx; flashStreak=s.streak; flashTotal=restoredQ.length;
+          document.getElementById('flash-done').style.display='none';
+          document.getElementById('session-pos').textContent=flashIdx;
+          document.getElementById('session-tot').textContent=flashTotal;
+          document.getElementById('session-banner').style.display='flex';
+          showFlashCard(); updateStreakUI(); return;
+        }
+      }
+    }
+  }
+  // New session
+  clearSession();
+  document.getElementById('session-banner').style.display='none';
   const pool = getFiltered('flash-cat');
+  if(pool.length===0){ alert('No hay palabras difíciles aún. Practica un poco primero.'); return; }
   let q=[...pool];
-  hardWords.forEach(w=>{ const f=pool.find(v=>v.en===w); if(f) q.push(f); });
+  if(currentCat!=='hard') hardWords.forEach(w=>{ const f=pool.find(v=>v.en===w); if(f) q.push(f); });
   flashQueue=shuffleArr(q); flashIdx=0; flashStreak=0; flashTotal=flashQueue.length;
   document.getElementById('flash-done').style.display='none';
   showFlashCard(); updateStreakUI();
@@ -941,7 +1066,9 @@ document.getElementById('flashcard').addEventListener('click',function(e){
 function markCard(known){
   const w=flashQueue[flashIdx].en;
   if(known){ flashStreak++; recordCorrect(w); } else { flashStreak=0; recordWrong(w); }
-  markPracticed(); updateStreakUI(); flashIdx++; showFlashCard();
+  markPracticed(); updateStreakUI(); flashIdx++;
+  saveSession();
+  showFlashCard();
 }
 function updateStreakUI(){ document.getElementById('streak-count').textContent=flashStreak; }
 function showFlashDone(){
@@ -951,7 +1078,7 @@ function showFlashDone(){
   document.getElementById('flash-done-msg').textContent=
     '🏆 Dominadas: '+masteredWords.length+' · ✅ Practicadas: '+knownWords.length+' · Total: '+vocab.length;
 }
-function restartFlash(){ document.getElementById('flash-done').style.display='none'; initFlash(); }
+function restartFlash(){ document.getElementById('flash-done').style.display='none'; initFlash(true); }
 
 // ═══════════════════════════════════════════════════════════
 // ESCUCHA (Listening)
@@ -1277,14 +1404,252 @@ function renderProgress(){
 }
 
 // ═══════════════════════════════════════════════════════════
+// NOTIFICACIONES
+// ═══════════════════════════════════════════════════════════
+function getNotifTimes(){ return JSON.parse(localStorage.getItem('notifTimes')||'[]'); }
+function saveNotifTimes(t){ localStorage.setItem('notifTimes',JSON.stringify(t)); }
+
+async function requestNotifPerm(){
+  if(!('Notification' in window)){ alert('Tu navegador no soporta notificaciones.'); return; }
+  const p = await Notification.requestPermission();
+  if(p==='granted'){
+    document.getElementById('notif-perm-btn').style.display='none';
+    document.getElementById('notif-perm-status').textContent='✅ Notificaciones activadas';
+    document.getElementById('notif-times-area').style.display='block';
+    renderNotifTimes();
+  } else {
+    document.getElementById('notif-perm-status').textContent='❌ Permiso denegado. Actívalo en Ajustes del navegador.';
+  }
+}
+
+function renderNotifUI(){
+  if(!('Notification' in window)){
+    document.getElementById('notif-perm-btn').textContent='❌ Tu navegador no soporta notificaciones';
+    return;
+  }
+  if(Notification.permission==='granted'){
+    document.getElementById('notif-perm-btn').style.display='none';
+    document.getElementById('notif-perm-status').textContent='✅ Notificaciones activadas';
+    document.getElementById('notif-times-area').style.display='block';
+    renderNotifTimes();
+  } else {
+    document.getElementById('notif-times-area').style.display='none';
+  }
+}
+
+function renderNotifTimes(){
+  const times = getNotifTimes();
+  const list = document.getElementById('notif-times-list');
+  list.innerHTML = '';
+  if(times.length===0){ list.innerHTML='<p style="color:var(--muted);font-size:13px;padding:8px 0">No hay horarios configurados.</p>'; return; }
+  times.forEach((t,i)=>{
+    const row = document.createElement('div'); row.className='notif-time-row';
+    row.innerHTML='<span>⏰ '+t+'</span><button class="notif-del" onclick="removeNotifTime('+i+')">🗑️</button>';
+    list.appendChild(row);
+  });
+}
+
+async function addNotifTime(){
+  const inp = document.getElementById('notif-time-input');
+  const t = inp.value;
+  if(!t){ alert('Elige un horario válido.'); return; }
+  const times = getNotifTimes();
+  if(times.includes(t)){ alert('Este horario ya está configurado.'); return; }
+  if(times.length>=5){ alert('Máximo 5 horarios.'); return; }
+  times.push(t);
+  times.sort();
+  saveNotifTimes(times);
+  renderNotifTimes();
+  await scheduleNotif(t);
+  document.getElementById('notif-schedule-status').textContent='✅ Horario guardado. Recibirás un recordatorio a las '+t;
+  setTimeout(()=>{ document.getElementById('notif-schedule-status').textContent=''; },4000);
+}
+
+function removeNotifTime(i){
+  const times = getNotifTimes();
+  times.splice(i,1);
+  saveNotifTimes(times);
+  renderNotifTimes();
+}
+
+async function scheduleNotif(timeStr){
+  if(Notification.permission!=='granted') return;
+  const [h,m] = timeStr.split(':').map(Number);
+  const now = new Date();
+  const fire = new Date(now);
+  fire.setHours(h,m,0,0);
+  if(fire<=now) fire.setDate(fire.getDate()+1);
+  const reg = await navigator.serviceWorker.ready;
+  const opts = {
+    body:'¡Es hora de practicar inglés! 🔥 ¡No rompas tu racha!',
+    icon:'./icon-192.png',
+    badge:'./icon-192.png',
+    tag:'practice-'+timeStr,
+    data:{timeStr}
+  };
+  if('TimestampTrigger' in window){
+    opts.showTrigger = new TimestampTrigger(fire.getTime());
+    await reg.showNotification('Learning English 📚',opts);
+  }
+  // Also schedule via setTimeout if app stays open
+  const diff = fire.getTime()-now.getTime();
+  if(diff < 86400000){
+    setTimeout(()=>{
+      if(Notification.permission==='granted') new Notification('Learning English 📚',{body:opts.body,icon:opts.icon});
+    },diff);
+  }
+}
+
+async function scheduleAllNotifs(){
+  if(Notification.permission!=='granted') return;
+  const times = getNotifTimes();
+  for(const t of times) await scheduleNotif(t);
+}
+
+// ═══════════════════════════════════════════════════════════
+// PRONUNCIACIÓN
+// ═══════════════════════════════════════════════════════════
+let pronunQs=[],pronunIdx=0,pronunScore=0;
+let recognition=null,isRecording=false;
+
+function initRecognition(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR) return false;
+  recognition=new SR();
+  recognition.lang='en-US';
+  recognition.interimResults=false;
+  recognition.maxAlternatives=5;
+  recognition.onresult=onRecResult;
+  recognition.onerror=onRecError;
+  recognition.onend=()=>{ isRecording=false; document.getElementById('mic-btn').classList.remove('recording'); };
+  return true;
+}
+
+function startPronun(){
+  const pool=getFiltered('pronun-cat');
+  if(pool.length===0){ alert('No hay palabras difíciles aún.' ); return; }
+  let p=[...pool];
+  if(document.getElementById('pronun-cat').value!=='hard')
+    hardWords.forEach(w=>{ const f=pool.find(v=>v.en===w); if(f) p.push(f); });
+  pronunQs=shuffleArr(p).slice(0,Math.min(10,p.length));
+  pronunIdx=0; pronunScore=0;
+  document.getElementById('pronun-game').style.display='block';
+  document.getElementById('pronun-result').style.display='none';
+  document.getElementById('pronun-total').textContent=pronunQs.length;
+  showPronunQ();
+}
+
+function showPronunQ(){
+  const q=pronunQs[pronunIdx];
+  document.getElementById('pronun-num').textContent=pronunIdx+1;
+  document.getElementById('pronun-score-live').textContent='⭐ '+pronunScore;
+  document.getElementById('pronun-progress').style.width=Math.round((pronunIdx/pronunQs.length)*100)+'%';
+  document.getElementById('pronun-es-word').textContent=q.es;
+  document.getElementById('pronun-pron-hint').textContent='🔉 '+q.pron;
+  document.getElementById('pron-feedback').style.display='none';
+  document.getElementById('pron-feedback').className='pron-feedback';
+  document.getElementById('pronun-next-btn').style.display='none';
+  document.getElementById('mic-hint').textContent='Mantén presionado para hablar';
+  document.getElementById('mic-btn').classList.remove('recording');
+}
+
+function speakPronunModel(){ speak(pronunQs[pronunIdx]?.en||''); }
+
+function startRec(e){
+  e.preventDefault();
+  if(isRecording) return;
+  if(!recognition && !initRecognition()){
+    alert('Tu dispositivo no soporta reconocimiento de voz.\nUsa Chrome en Android.');
+    return;
+  }
+  isRecording=true;
+  document.getElementById('mic-btn').classList.add('recording');
+  document.getElementById('mic-hint').textContent='🔴 Grabando... suelta para analizar';
+  try{ recognition.start(); } catch(err){ isRecording=false; }
+}
+
+function stopRec(e){
+  e.preventDefault();
+  if(!isRecording) return;
+  try{ recognition.stop(); } catch(err){}
+  document.getElementById('mic-hint').textContent='⏳ Analizando...';
+}
+
+function onRecResult(event){
+  const q=pronunQs[pronunIdx];
+  const expected=q.en.toLowerCase().trim();
+  const transcripts=[];
+  for(let i=0;i<event.results[0].length;i++) transcripts.push(event.results[0][i].transcript.toLowerCase().trim());
+  const best=transcripts[0]||'';
+  const exactOk=transcripts.some(t=>t===expected||t.replace(/[^a-z\s]/g,'')===expected);
+  const sim=calcSim(best,expected);
+  const fb=document.getElementById('pron-feedback');
+  fb.style.display='block';
+  if(exactOk||sim>=78){
+    fb.className='pron-feedback correct';
+    fb.innerHTML='✅ ¡Excelente! El micrófono escuchó: <strong>"'+best+'"</strong>';
+    pronunScore++; recordCorrect(q.en);
+  } else if(sim>=52){
+    fb.className='pron-feedback partial';
+    fb.innerHTML='⚠️ ¡Casi! Escuchó: <strong>"'+best+'"</strong><br>Se pronuncia: <strong>"'+q.en+'"</strong> · '+q.pron;
+  } else {
+    fb.className='pron-feedback wrong';
+    fb.innerHTML='❌ Escuchó: <strong>"'+best+'"</strong><br>Correcto: <strong>"'+q.en+'"</strong> · '+q.pron;
+    recordWrong(q.en);
+  }
+  document.getElementById('mic-hint').textContent='Mantén presionado para hablar';
+  document.getElementById('pronun-next-btn').style.display='flex';
+  markPracticed();
+}
+
+function onRecError(e){
+  document.getElementById('mic-hint').textContent='Error: '+e.error+'. Intenta de nuevo.';
+  document.getElementById('mic-btn').classList.remove('recording');
+  isRecording=false;
+}
+
+function calcSim(a,b){
+  if(!a||!b) return 0;
+  if(a===b) return 100;
+  if(a.includes(b)||b.includes(a)) return 82;
+  const dist=levenDist(a,b);
+  return Math.max(0,Math.round((1-dist/Math.max(a.length,b.length))*100));
+}
+function levenDist(a,b){
+  const m=a.length,n=b.length;
+  const dp=Array.from({length:m+1},(_,i)=>Array.from({length:n+1},(_,j)=>i===0?j:j===0?i:0));
+  for(let i=1;i<=m;i++) for(let j=1;j<=n;j++) dp[i][j]=a[i-1]===b[j-1]?dp[i-1][j-1]:1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
+  return dp[m][n];
+}
+
+function nextPronunQ(){ pronunIdx++; if(pronunIdx>=pronunQs.length) showPronunResult(); else showPronunQ(); }
+function showPronunResult(){
+  document.getElementById('pronun-game').style.display='none';
+  document.getElementById('pronun-result').style.display='block';
+  document.getElementById('pron-final-score').textContent=pronunScore;
+  document.getElementById('pron-final-total').textContent='de '+pronunQs.length+' palabras';
+  const pct=Math.round((pronunScore/pronunQs.length)*100);
+  const [e,m]=pct===100?['🏆','¡Pronunciación perfecta!']:pct>=80?['🌟','¡Muy bien! Tu pronunciación mejora.']:pct>=60?['💪','¡Buen intento! Sigue practicando.']:['🎤','Escucha el modelo y vuelve a intentarlo.'];
+  document.getElementById('pron-result-emoji').textContent=e;
+  document.getElementById('pron-result-msg').textContent=m;
+}
+
+// ═══════════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════════
 applyTheme(currentTheme);
+// Restore theme-color meta
+const savedHex = localStorage.getItem('themeHex') || THEME_HEX[currentTheme] || '#6c63ff';
+document.querySelector('meta[name="theme-color"]').content = savedHex;
 if(isDark){ document.body.classList.add('dark'); document.getElementById('dark-btn').textContent='☀️'; }
 populateSelects();
 updateNavStreak();
 initFlash();
-if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js');
+  // Re-schedule notifications on app open
+  setTimeout(scheduleAllNotifs, 1500);
+}
 </script>
 </body>
 </html>
