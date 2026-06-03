@@ -25,7 +25,7 @@
 [data-theme="lilac"] {--p1:#ab47bc;--p2:#7b1fa2;--p-light:#f3e5f5;--border:#e1bee7;--shadow:0 8px 30px rgba(171,71,188,0.13)}
 
 body.dark{--bg:#12111a;--card-bg:#1e1c2e;--text:#e8e8f0;--muted:#8888aa;--border:#2e2c45;--stat-bg:#1e1c2e;--shadow:0 8px 30px rgba(0,0,0,0.5)}
-body.dark .tabs,.dark .option,.dark .stat-chip,.dark .word-item,.dark .streak-bar,.dark .quiz-question,.dark .score-card,.dark .prog-block{background:#1e1c2e}
+body.dark .tabs,body.dark .option,body.dark .stat-chip,body.dark .word-item,body.dark .streak-bar,body.dark .quiz-question,body.dark .score-card,body.dark .prog-block{background:#1e1c2e}
 body.dark .write-input{background:#1e1c2e;color:var(--text)}
 body.dark .btn-ghost{background:#2a2840}
 body.dark .card-back{background:#1e1c2e}
@@ -265,7 +265,7 @@ body.dark .time-input{background:#1e1c2e;color:var(--text);border-color:#2e2c45}
     <select class="cat-select" id="flash-cat" onchange="initFlash()"></select>
   </div>
   <div class="session-banner" id="session-banner" style="display:none">
-    <span>📍 Continuaste en la <strong><span id="session-pos">0</span></strong> de <strong><span id="session-tot">0</span></strong></span>
+    <span>📍 Tarjeta <strong><span id="session-pos">0</span></strong> de <strong><span id="session-tot">0</span></strong> — continuando sesión</span>
     <div class="session-banner-btns">
       <button class="btn btn-ghost" style="padding:8px 12px;font-size:12px" onclick="initFlash(true)">↺ Reiniciar</button>
     </div>
@@ -659,7 +659,7 @@ const vocab = [
   {en:"computer",     es:"computadora",          pron:"kom-PIU-ter",   cat:"Objetos",     ex:"I use my computer for work."},
   {en:"keys",         es:"llaves",               pron:"kiz",           cat:"Objetos",     ex:"I can not find my keys."},
   {en:"money",        es:"dinero",               pron:"MAN-i",         cat:"Objetos",     ex:"I do not have enough money."},
-  {en:"water",        es:"agua",                 pron:"WO-ter",        cat:"Objetos",     ex:"Drink water every day."},
+  {en:"bottle",        es:"botella",              pron:"BOT-el",        cat:"Objetos",     ex:"I always carry a water bottle."},
   {en:"flower",       es:"flor",                 pron:"FLAU-er",       cat:"Objetos",     ex:"She gave me a beautiful flower."},
 
   // ── LUGARES ──
@@ -1040,8 +1040,10 @@ function initFlash(forceNew){
   showFlashCard(); updateStreakUI();
 }
 function showFlashCard(){
+  if(!flashQueue.length){ initFlash(true); return; } // protección contra estado vacío
   if(flashIdx>=flashQueue.length){ showFlashDone(); return; }
   const card=flashQueue[flashIdx];
+  if(!card){ initFlash(true); return; } // protección contra entrada corrupta
   currentWord=card.en;
   document.getElementById('flash-translation').textContent='';
   document.getElementById('flash-pron-back-text').textContent='';
@@ -1072,6 +1074,8 @@ function markCard(known){
 }
 function updateStreakUI(){ document.getElementById('streak-count').textContent=flashStreak; }
 function showFlashDone(){
+  clearSession(); // sesión completada → limpiar para no restaurar la próxima vez
+  document.getElementById('session-banner').style.display='none';
   document.getElementById('flash-done').style.display='block';
   document.getElementById('flash-count').textContent=flashTotal+' / '+flashTotal;
   document.getElementById('flash-progress').style.width='100%';
@@ -1088,10 +1092,12 @@ const ESC_LEN=10;
 
 function startEscucha(){
   const pool=getFiltered('escucha-cat');
-  if(pool.length<4){ alert('Necesitas al menos 4 palabras en esta categoría.'); return; }
-  let p=[...pool];
-  hardWords.forEach(w=>{ const f=pool.find(v=>v.en===w); if(f) p.push(f); });
-  escQs=shuffleArr(p).slice(0,Math.min(ESC_LEN,p.length));
+  if(pool.length<4){ alert('Necesitas al menos 4 palabras en esta categoría.\n(Selecciona "Todas las categorías" o practica más para acumular difíciles.)'); return; }
+  // Unique pool — sin duplicados
+  const seen=new Set(pool.map(v=>v.en));
+  const extras=hardWords.filter(w=>!seen.has(w)).map(w=>vocab.find(v=>v.en===w)).filter(Boolean);
+  const p=shuffleArr([...pool,...extras]);
+  escQs=p.slice(0,Math.min(ESC_LEN,p.length));
   escIdx=0; escScore=0;
   document.getElementById('escucha-game').style.display='block';
   document.getElementById('escucha-result').style.display='none';
@@ -1148,10 +1154,10 @@ const QUIZ_LEN=12;
 
 function startQuiz(){
   const pool=getFiltered('quiz-cat');
-  if(pool.length<4){ alert('Necesitas al menos 4 palabras en esta categoría.'); return; }
-  let p=[...pool];
-  hardWords.forEach(w=>{ const f=pool.find(v=>v.en===w); if(f) p.push(f); });
-  const sel=shuffleArr(p).slice(0,Math.min(QUIZ_LEN,p.length));
+  if(pool.length<4){ alert('Necesitas al menos 4 palabras en esta categoría.\n(Selecciona "Todas las categorías" o practica más para acumular difíciles.)'); return; }
+  const seen=new Set(pool.map(v=>v.en));
+  const extras=hardWords.filter(w=>!seen.has(w)).map(w=>vocab.find(v=>v.en===w)).filter(Boolean);
+  const sel=shuffleArr([...pool,...extras]).slice(0,Math.min(QUIZ_LEN,pool.length+extras.length));
   quizQuestions=sel.map(item=>{
     const others=vocab.filter(v=>v.en!==item.en);
     const wrong=shuffleArr(others).slice(0,3).map(v=>v.es);
@@ -1205,10 +1211,10 @@ const FR_LEN=10;
 
 function startFrases(){
   const pool=getFiltered('frases-cat').filter(v=>v.ex);
-  if(pool.length<4){ alert('No hay suficientes palabras con oraciones en esta categoría.'); return; }
-  let p=[...pool];
-  hardWords.forEach(w=>{ const f=pool.find(v=>v.en===w); if(f) p.push(f); });
-  fraseQs=shuffleArr(p).slice(0,Math.min(FR_LEN,p.length));
+  if(pool.length<4){ alert('No hay suficientes palabras en esta categoría.\n(Selecciona "Todas las categorías" o practica más.)'); return; }
+  const seen=new Set(pool.map(v=>v.en));
+  const extras=hardWords.filter(w=>!seen.has(w)).map(w=>vocab.find(v=>v.en===w&&v.ex)).filter(Boolean);
+  fraseQs=shuffleArr([...pool,...extras]).slice(0,Math.min(FR_LEN,pool.length+extras.length));
   frIdx=0; frScore=0;
   document.getElementById('frases-game').style.display='block';
   document.getElementById('frases-result').style.display='none';
@@ -1268,10 +1274,10 @@ const WRITE_LEN=10;
 
 function startWrite(){
   const pool=getFiltered('write-cat');
-  if(pool.length<1){ alert('No hay palabras en esta categoría.'); return; }
-  let p=[...pool];
-  hardWords.forEach(w=>{ const f=pool.find(v=>v.en===w); if(f) p.push(f); });
-  writeQuestions=shuffleArr(p).slice(0,Math.min(WRITE_LEN,p.length));
+  if(pool.length<1){ alert('No hay palabras en esta categoría.\n(Practica primero para acumular palabras difíciles.)'); return; }
+  const seen=new Set(pool.map(v=>v.en));
+  const extras=hardWords.filter(w=>!seen.has(w)).map(w=>vocab.find(v=>v.en===w)).filter(Boolean);
+  writeQuestions=shuffleArr([...pool,...extras]).slice(0,Math.min(WRITE_LEN,pool.length+extras.length));
   writeIdx=0; writeScore=0;
   document.getElementById('write-game').style.display='block';
   document.getElementById('write-result').style.display='none';
@@ -1331,6 +1337,14 @@ function renderWordList(){
   const pool=getFiltered('words-cat');
   const list=document.getElementById('word-list');
   list.innerHTML='';
+  if(pool.length===0){
+    list.innerHTML='<div style="text-align:center;color:var(--muted);padding:24px;font-size:14px">🔴 Aún no tienes palabras difíciles.<br>Practica en los otros modos primero.</div>';
+    document.getElementById('stat-total').textContent=vocab.length;
+    document.getElementById('stat-mastered').textContent=masteredWords.length;
+    document.getElementById('stat-known').textContent=knownWords.length;
+    document.getElementById('stat-hard').textContent=hardWords.length;
+    return;
+  }
   const sorted=[...pool].sort((a,b)=>{
     const r=w=>masteredWords.includes(w.en)?0:knownWords.includes(w.en)?1:hardWords.includes(w.en)?3:2;
     return r(a)-r(b);
@@ -1527,11 +1541,18 @@ function initRecognition(){
 
 function startPronun(){
   const pool=getFiltered('pronun-cat');
-  if(pool.length===0){ alert('No hay palabras difíciles aún.' ); return; }
-  let p=[...pool];
-  if(document.getElementById('pronun-cat').value!=='hard')
-    hardWords.forEach(w=>{ const f=pool.find(v=>v.en===w); if(f) p.push(f); });
-  pronunQs=shuffleArr(p).slice(0,Math.min(10,p.length));
+  if(pool.length===0){
+    const msg=document.getElementById('pronun-cat').value==='hard'
+      ?'Aún no tienes palabras difíciles.\nPractica en otros modos para acumularlas.'
+      :'No hay palabras en esta categoría.';
+    alert(msg); return;
+  }
+  // Reiniciar recognition para evitar estado corrupto entre sesiones
+  recognition=null;
+  const catVal=document.getElementById('pronun-cat').value;
+  const seen=new Set(pool.map(v=>v.en));
+  const extras=catVal==='hard'?[]:hardWords.filter(w=>!seen.has(w)).map(w=>vocab.find(v=>v.en===w)).filter(Boolean);
+  pronunQs=shuffleArr([...pool,...extras]).slice(0,Math.min(10,pool.length+extras.length));
   pronunIdx=0; pronunScore=0;
   document.getElementById('pronun-game').style.display='block';
   document.getElementById('pronun-result').style.display='none';
