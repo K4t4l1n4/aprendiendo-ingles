@@ -218,6 +218,49 @@ main{padding:24px 20px 100px;flex:1}
 .time-input:focus{border-color:var(--p1)}
 body.dark .time-input{background:#1e1c2e;color:var(--text);border-color:#2e2c45}
 .notif-status{font-size:12px;color:var(--muted);margin-top:8px;text-align:center}
+
+/* SEARCH */
+.search-input{width:100%;padding:10px 14px 10px 38px;border:2px solid var(--border);border-radius:12px;font-size:14px;color:var(--text);background:var(--card-bg);outline:none;transition:border .2s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23888'%3E%3Cpath d='M11.7 10.3l2.9 2.9-1.4 1.4-2.9-2.9A6 6 0 1 1 11.7 10.3zm-5.7 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:12px center;margin-bottom:12px}
+.search-input:focus{border-color:var(--p1)}
+body.dark .search-input{background-color:#1e1c2e;color:var(--text);border-color:#2e2c45}
+
+/* WORD MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.55);align-items:flex-end;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal-card{background:var(--card-bg);border-radius:24px 24px 0 0;padding:28px 24px 40px;width:100%;max-width:480px;animation:slideUp .3s ease}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted)}
+body.dark .modal-card{background:#1e1c2e}
+
+/* CONTRARRELOJ */
+.timer-display{font-size:64px;font-weight:900;color:var(--p1);text-align:center;line-height:1;margin:10px 0}
+.timer-label{font-size:12px;color:var(--muted);text-align:center;margin-bottom:16px;text-transform:uppercase;letter-spacing:1px;font-weight:700}
+.timer-word{font-size:38px;font-weight:800;color:var(--p1);text-align:center;margin:20px 0 8px;letter-spacing:-1px}
+.timer-es{font-size:16px;color:var(--muted);text-align:center;margin-bottom:24px;font-style:italic;min-height:22px}
+.timer-actions{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.timer-chip{background:var(--card-bg);border-radius:16px;padding:14px;text-align:center;box-shadow:var(--shadow)}
+.timer-chip-num{font-size:28px;font-weight:900;color:var(--p1)}
+.timer-chip-label{font-size:11px;color:var(--muted);margin-top:2px}
+body.dark .timer-chip{background:#1e1c2e}
+
+/* DIALOGUES */
+.dialogue-card{background:var(--card-bg);border-radius:var(--radius);padding:0;box-shadow:var(--shadow);margin-bottom:16px;overflow:hidden}
+.dialogue-header{background:var(--p1);color:var(--p-text);padding:14px 18px;display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px}
+.dialogue-body{padding:14px 18px}
+.dialogue-line{display:flex;gap:10px;margin-bottom:12px;align-items:flex-start}
+.dialogue-spk{font-size:10px;font-weight:800;color:var(--p1);background:var(--p-light);border-radius:6px;padding:3px 7px;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.dialogue-en{font-size:14px;font-weight:600;color:var(--text);line-height:1.4}
+.dialogue-es{font-size:12px;color:var(--muted);margin-top:2px;display:none}
+.dialogue-es.show{display:block}
+.dialogue-toggle{width:100%;background:var(--p-light);color:var(--p1);border:none;border-radius:10px;padding:9px;font-size:13px;font-weight:700;cursor:pointer;margin-top:4px}
+
+/* CUSTOM WORDS */
+.custom-form{background:var(--card-bg);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:16px}
+body.dark .custom-form{background:#1e1c2e}
+.form-label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;display:block}
+.form-input{width:100%;padding:10px 14px;border:2px solid var(--border);border-radius:12px;font-size:15px;color:var(--text);background:var(--bg);outline:none;transition:border .2s;margin-bottom:12px}
+.form-input:focus{border-color:var(--p1)}
+body.dark .form-input{background:#12111a;color:var(--text);border-color:#2e2c45}
 </style>
 </head>
 <body>
@@ -253,6 +296,9 @@ body.dark .time-input{background:#1e1c2e;color:var(--text);border-color:#2e2c45}
   <div class="tab" onclick="switchTab('frases')"><span class="tab-icon">📝</span>Frases</div>
   <div class="tab" onclick="switchTab('write')"><span class="tab-icon">✏️</span>Escribir</div>
   <div class="tab" onclick="switchTab('pronun')"><span class="tab-icon">🎤</span>Pronunciar</div>
+  <div class="tab" onclick="switchTab('rapido')"><span class="tab-icon">⏱️</span>Rápido</div>
+  <div class="tab" onclick="switchTab('dialogos')"><span class="tab-icon">💬</span>Diálogos</div>
+  <div class="tab" onclick="switchTab('mis-palabras')"><span class="tab-icon">➕</span>Mis Palabras</div>
   <div class="tab" onclick="switchTab('words')"><span class="tab-icon">📖</span>Glosario</div>
   <div class="tab" onclick="switchTab('progreso')"><span class="tab-icon">📊</span>Progreso</div>
 </div>
@@ -491,6 +537,71 @@ body.dark .time-input{background:#1e1c2e;color:var(--text);border-color:#2e2c45}
   </div>
 </div>
 
+<!-- ═══ CONTRARRELOJ ═══ -->
+<div id="section-rapido" class="section">
+  <div class="cat-filter"><select class="cat-select" id="rapido-cat"></select></div>
+  <div id="rapido-start-screen">
+    <div class="score-card">
+      <div class="score-emoji">⏱️</div>
+      <div class="score-title">Modo Rápido</div>
+      <div class="score-subtitle">60 segundos · Responde lo más rápido que puedas</div>
+      <button class="btn btn-primary btn-lg" onclick="startRapido()">▶ Comenzar</button>
+    </div>
+  </div>
+  <div id="rapido-game" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div class="timer-chip" style="flex:1;margin-right:10px"><div class="timer-display" id="rapido-timer">60</div><div class="timer-label">segundos</div></div>
+      <div class="timer-chip" style="flex:1"><div class="timer-chip-num" id="rapido-score" style="font-size:40px">0</div><div class="timer-chip-label">✅ correctas</div></div>
+    </div>
+    <div class="quiz-question" style="margin-bottom:16px">
+      <div class="q-label">¿Cómo se dice en español?</div>
+      <div class="timer-word" id="rapido-word">-</div>
+      <div class="timer-es" id="rapido-es"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <button class="btn btn-success btn-lg" onclick="rapidAnswer(true)">✅ Lo sé</button>
+      <button class="btn btn-danger btn-lg" onclick="rapidAnswer(false)">❌ No sé</button>
+    </div>
+  </div>
+  <div id="rapido-result" style="display:none">
+    <div class="score-card pop-in">
+      <div class="score-emoji" id="rapido-emoji">⏱️</div>
+      <div class="score-title">¡Tiempo!</div>
+      <div class="score-num" id="rapido-final-score">-</div>
+      <div class="score-total" id="rapido-final-total">correctas</div>
+      <div class="score-subtitle" id="rapido-acc"></div>
+      <button class="btn btn-primary btn-lg" onclick="resetRapido()">🔄 Jugar de nuevo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DIÁLOGOS ═══ -->
+<div id="section-dialogos" class="section">
+  <div class="section-title">💬 Diálogos cotidianos</div>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:16px">Toca 🔊 para escuchar cada línea. Toca <em>"Ver traducción"</em> para revelar el español.</p>
+  <div id="dialogos-list"></div>
+</div>
+
+<!-- ═══ MIS PALABRAS ═══ -->
+<div id="section-mis-palabras" class="section">
+  <div class="section-title">➕ Agregar mis palabras</div>
+  <div class="custom-form">
+    <label class="form-label">Palabra en inglés</label>
+    <input class="form-input" id="cw-en" type="text" placeholder="Ej: dog" autocorrect="off" spellcheck="false"/>
+    <label class="form-label">Traducción en español</label>
+    <input class="form-input" id="cw-es" type="text" placeholder="Ej: perro"/>
+    <label class="form-label">Pronunciación (opcional)</label>
+    <input class="form-input" id="cw-pron" type="text" placeholder="Ej: dog"/>
+    <label class="form-label">Oración de ejemplo (opcional)</label>
+    <input class="form-input" id="cw-ex" type="text" placeholder="Ej: My dog is very friendly."/>
+    <button class="btn btn-primary btn-lg" onclick="addCustomWord()">➕ Agregar palabra</button>
+    <p id="cw-status" style="font-size:13px;color:var(--p1);margin-top:10px;text-align:center;min-height:18px"></p>
+  </div>
+  <div class="section-title" style="margin-top:8px">📋 Mis palabras guardadas</div>
+  <div id="cw-list"></div>
+  <div id="cw-empty" style="color:var(--muted);font-size:13px;text-align:center;padding:20px">Aún no has agregado palabras personalizadas.</div>
+</div>
+
 <!-- ═══ GLOSARIO ═══ -->
 <div id="section-words" class="section">
   <div class="stats-row">
@@ -502,6 +613,7 @@ body.dark .time-input{background:#1e1c2e;color:var(--text);border-color:#2e2c45}
   <div class="cat-filter">
     <select class="cat-select" id="words-cat" onchange="renderWordList()"></select>
   </div>
+  <input class="search-input" id="word-search" type="text" placeholder="Buscar palabra..." oninput="renderWordList()"/>
   <div class="section-title">📖 Todas las palabras</div>
   <div class="word-list" id="word-list"></div>
 </div>
@@ -529,6 +641,19 @@ body.dark .time-input{background:#1e1c2e;color:var(--text);border-color:#2e2c45}
     <div id="prog-no-hard" style="color:var(--muted);font-size:13px;text-align:center;padding:8px">¡Sin palabras difíciles! 🎉</div>
   </div>
   <div class="prog-block">
+    <div class="prog-block-title">🏅 Estadísticas detalladas</div>
+    <div class="stats-row" style="margin-bottom:0">
+      <div class="stat-chip"><div class="stat-num" id="prog-best-streak" style="color:#f7c948">0</div><div class="stat-label">🔥 Mejor racha</div></div>
+      <div class="stat-chip"><div class="stat-num" id="prog-reviewed">0</div><div class="stat-label">Revisadas</div></div>
+      <div class="stat-chip"><div class="stat-num" id="prog-accuracy">0%</div><div class="stat-label">Precisión</div></div>
+    </div>
+  </div>
+  <div class="prog-block" style="border:2px solid #ff6584">
+    <div class="prog-block-title" style="color:#ff6584">⚠️ Zona de peligro</div>
+    <button class="btn btn-danger btn-lg" onclick="resetAllProgress()">🗑️ Reiniciar todo el progreso</button>
+    <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:8px">Esto borrará palabras aprendidas, racha y sesiones</p>
+  </div>
+  <div class="prog-block">
     <div class="prog-block-title">🔔 Recordatorios de práctica</div>
     <div id="notif-perm-area">
       <button class="btn btn-primary btn-lg" onclick="requestNotifPerm()" id="notif-perm-btn">🔔 Activar notificaciones</button>
@@ -546,6 +671,24 @@ body.dark .time-input{background:#1e1c2e;color:var(--text);border-color:#2e2c45}
 </div>
 
 </main>
+
+<!-- WORD DETAIL MODAL -->
+<div class="modal-overlay" id="word-modal" onclick="closeWordModal(event)">
+  <div class="modal-card" style="position:relative">
+    <button class="modal-close" onclick="document.getElementById('word-modal').classList.remove('open')">✕</button>
+    <div style="text-align:center;margin-bottom:16px">
+      <div style="font-size:36px;font-weight:900;color:var(--p1)" id="modal-en"></div>
+      <div style="font-size:20px;color:var(--text);margin-top:4px;font-weight:600" id="modal-es"></div>
+      <button class="btn btn-ghost" onclick="speak(document.getElementById('modal-en').textContent)" style="margin:10px auto;display:flex">🔊 Escuchar</button>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+      <span class="cat-tag" id="modal-cat"></span>
+      <span style="font-size:13px;color:var(--muted);font-style:italic" id="modal-pron"></span>
+    </div>
+    <div style="background:var(--p-light);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--p2);font-style:italic;line-height:1.5" id="modal-ex"></div>
+  </div>
+</div>
+
 <script>
 // ═══════════════════════════════════════════════════════════
 // VOCABULARY  (en, es, pron, cat, ex)
@@ -900,9 +1043,9 @@ function updateNavStreak(){
 // ═══════════════════════════════════════════════════════════
 // CATEGORIES — populate all selects
 // ═══════════════════════════════════════════════════════════
-const CATS = [...new Set(vocab.map(v=>v.cat))].sort();
+const CATS = [...new Set(vocab.map(v=>v.cat))].sort(); // se puede mutar con custom vocab
 function populateSelects(){
-  const ids = ['flash-cat','escucha-cat','quiz-cat','frases-cat','write-cat','pronun-cat','words-cat'];
+  const ids = ['flash-cat','escucha-cat','quiz-cat','frases-cat','write-cat','pronun-cat','rapido-cat','words-cat'];
   ids.forEach(id=>{
     const sel = document.getElementById(id);
     if(!sel) return;
@@ -979,18 +1122,23 @@ function showMasteryToast(w){
 // ═══════════════════════════════════════════════════════════
 // TABS
 // ═══════════════════════════════════════════════════════════
-const TAB_IDS = ['flash','escucha','quiz','frases','write','pronun','words','progreso'];
+const TAB_IDS = ['flash','escucha','quiz','frases','write','pronun','rapido','dialogos','mis-palabras','words','progreso'];
 function switchTab(id){
   document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',TAB_IDS[i]===id));
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.getElementById('section-'+id).classList.add('active');
-  if(id==='quiz')    startQuiz();
-  if(id==='write')   startWrite();
-  if(id==='escucha') startEscucha();
-  if(id==='frases')  startFrases();
-  if(id==='pronun')  startPronun();
-  if(id==='words')   renderWordList();
-  if(id==='progreso'){renderProgress(); renderNotifUI();}
+  if(id==='quiz')        startQuiz();
+  if(id==='write')       startWrite();
+  if(id==='escucha')     startEscucha();
+  if(id==='frases')      startFrases();
+  if(id==='pronun')      startPronun();
+  if(id==='rapido')      resetRapido();
+  if(id==='dialogos')    renderDialogues();
+  if(id==='mis-palabras')renderCustomList();
+  if(id==='words')       renderWordList();
+  if(id==='progreso')    {renderProgress();renderNotifUI();}
+  // Detener contrarreloj si se cambia de tab
+  if(id!=='rapido'&&rapidTimer){clearInterval(rapidTimer);rapidTimer=null;}
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1334,11 +1482,17 @@ function showWriteResult(){
 // GLOSARIO
 // ═══════════════════════════════════════════════════════════
 function renderWordList(){
-  const pool=getFiltered('words-cat');
+  const searchEl=document.getElementById('word-search');
+  const query=(searchEl?searchEl.value:'').toLowerCase().trim();
+  let pool=getFiltered('words-cat');
+  if(query) pool=pool.filter(v=>v.en.toLowerCase().includes(query)||v.es.toLowerCase().includes(query));
   const list=document.getElementById('word-list');
   list.innerHTML='';
   if(pool.length===0){
-    list.innerHTML='<div style="text-align:center;color:var(--muted);padding:24px;font-size:14px">🔴 Aún no tienes palabras difíciles.<br>Practica en los otros modos primero.</div>';
+    const msg=getFiltered('words-cat').length===0
+      ?'🔴 Aún no tienes palabras difíciles.<br>Practica en los otros modos primero.'
+      :'🔍 Sin resultados para "'+query+'"';
+    list.innerHTML='<div style="text-align:center;color:var(--muted);padding:24px;font-size:14px">'+msg+'</div>';
     document.getElementById('stat-total').textContent=vocab.length;
     document.getElementById('stat-mastered').textContent=masteredWords.length;
     document.getElementById('stat-known').textContent=knownWords.length;
@@ -1358,7 +1512,9 @@ function renderWordList(){
     const badge=isMast?'<span style="font-size:16px">🏆</span>':'<span class="cat-tag">'+item.cat+'</span>';
     const bar=!isMast&&streak>0?'<div style="margin-top:4px;height:3px;background:var(--border);border-radius:99px;overflow:hidden"><div style="height:100%;width:'+Math.min(streak/MASTERY*100,100)+'%;background:var(--p1);border-radius:99px"></div></div>':'';
     const d=document.createElement('div'); d.className='word-item'+cls;
+    d.style.cursor='pointer';
     d.innerHTML='<div style="flex:1;min-width:0"><span class="word-en">'+item.en+'</span><span style="color:var(--muted)"> — </span><span class="word-es">'+item.es+'</span><div style="font-size:11px;color:var(--muted);margin-top:2px;font-style:italic">'+item.pron+(streak>0&&!isMast?' · '+streak+'/'+MASTERY:'')+'</div>'+bar+'</div><div style="margin-left:8px">'+badge+'</div>';
+    d.onclick=()=>openWordModal(item);
     list.appendChild(d);
   });
   document.getElementById('stat-total').textContent=vocab.length;
@@ -1393,6 +1549,12 @@ function renderProgress(){
   document.getElementById('prog-mastered').textContent=masteredWords.length;
   document.getElementById('prog-pct').textContent=Math.round((knownWords.length/vocab.length)*100)+'%';
   document.getElementById('prog-hard').textContent=hardWords.length;
+  // estadísticas detalladas
+  document.getElementById('prog-best-streak').textContent=localStorage.getItem('bestStreak')||'0';
+  const tr=parseInt(localStorage.getItem('totalReviewed')||'0');
+  const tc=parseInt(localStorage.getItem('totalCorrect')||'0');
+  document.getElementById('prog-reviewed').textContent=tr;
+  document.getElementById('prog-accuracy').textContent=tr?Math.round(tc/tr*100)+'%':'—';
   // category bars
   const catDiv=document.getElementById('prog-cats'); catDiv.innerHTML='';
   CATS.forEach(cat=>{
@@ -1524,7 +1686,7 @@ async function scheduleAllNotifs(){
 // PRONUNCIACIÓN
 // ═══════════════════════════════════════════════════════════
 let pronunQs=[],pronunIdx=0,pronunScore=0;
-let recognition=null,isRecording=false;
+let recognition=null,isRecording=false,gotResult=false;
 
 function initRecognition(){
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
@@ -1533,9 +1695,21 @@ function initRecognition(){
   recognition.lang='en-US';
   recognition.interimResults=false;
   recognition.maxAlternatives=5;
+  recognition.continuous=false;
   recognition.onresult=onRecResult;
   recognition.onerror=onRecError;
-  recognition.onend=()=>{ isRecording=false; document.getElementById('mic-btn').classList.remove('recording'); };
+  recognition.onspeechstart=()=>{
+    document.getElementById('mic-hint').textContent='🎙️ Escuchando... suelta al terminar';
+  };
+  recognition.onend=()=>{
+    isRecording=false;
+    const btn=document.getElementById('mic-btn');
+    if(btn) btn.classList.remove('recording');
+    // Si no se capturó ningún resultado, avisar al usuario
+    if(!gotResult && document.getElementById('pronun-next-btn').style.display==='none'){
+      document.getElementById('mic-hint').textContent='🔇 No te escuché. Acércate más y habla un poco más fuerte.';
+    }
+  };
   return true;
 }
 
@@ -1579,24 +1753,36 @@ function speakPronunModel(){ speak(pronunQs[pronunIdx]?.en||''); }
 function startRec(e){
   e.preventDefault();
   if(isRecording) return;
-  if(!recognition && !initRecognition()){
+  // Reinicializar siempre para evitar estado corrupto
+  recognition=null;
+  if(!initRecognition()){
     alert('Tu dispositivo no soporta reconocimiento de voz.\nUsa Chrome en Android.');
     return;
   }
+  gotResult=false;
   isRecording=true;
   document.getElementById('mic-btn').classList.add('recording');
-  document.getElementById('mic-hint').textContent='🔴 Grabando... suelta para analizar';
-  try{ recognition.start(); } catch(err){ isRecording=false; }
+  document.getElementById('mic-hint').textContent='🔴 Mantén presionado y habla...';
+  document.getElementById('pron-feedback').style.display='none';
+  // Pequeña pausa para estabilizar antes de iniciar
+  setTimeout(()=>{
+    try{ recognition.start(); }
+    catch(err){ isRecording=false; document.getElementById('mic-btn').classList.remove('recording'); document.getElementById('mic-hint').textContent='Error al iniciar. Intenta de nuevo.'; }
+  },120);
 }
 
 function stopRec(e){
   e.preventDefault();
   if(!isRecording) return;
-  try{ recognition.stop(); } catch(err){}
   document.getElementById('mic-hint').textContent='⏳ Analizando...';
+  // Esperar 400ms antes de cortar para no truncar la palabra
+  setTimeout(()=>{
+    try{ recognition.stop(); } catch(err){}
+  },400);
 }
 
 function onRecResult(event){
+  gotResult=true;
   const q=pronunQs[pronunIdx];
   const expected=q.en.toLowerCase().trim();
   const transcripts=[];
@@ -1656,20 +1842,248 @@ function showPronunResult(){
 }
 
 // ═══════════════════════════════════════════════════════════
+// CONTRARRELOJ
+// ═══════════════════════════════════════════════════════════
+let rapidTimer=null,rapidTimeLeft=60,rapidScore=0,rapidTotal=0,rapidQueue=[],rapidIdx=0;
+
+function startRapido(){
+  const pool=getFiltered('rapido-cat');
+  if(!pool.length){alert('No hay palabras en esta categoría.');return;}
+  rapidQueue=shuffleArr([...pool,...pool]); // double para no quedarse sin cartas
+  rapidIdx=0;rapidScore=0;rapidTotal=0;rapidTimeLeft=60;
+  document.getElementById('rapido-start-screen').style.display='none';
+  document.getElementById('rapido-game').style.display='block';
+  document.getElementById('rapido-result').style.display='none';
+  document.getElementById('rapido-score').textContent='0';
+  document.getElementById('rapido-timer').textContent='60';
+  showRapidoCard();
+  clearInterval(rapidTimer);
+  rapidTimer=setInterval(()=>{
+    rapidTimeLeft--;
+    const el=document.getElementById('rapido-timer');
+    if(el) el.textContent=rapidTimeLeft;
+    if(rapidTimeLeft<=0) endRapido();
+  },1000);
+}
+function showRapidoCard(){
+  if(rapidIdx>=rapidQueue.length){rapidQueue=shuffleArr([...getFiltered('rapido-cat'),...getFiltered('rapido-cat')]);rapidIdx=0;}
+  const c=rapidQueue[rapidIdx];
+  document.getElementById('rapido-word').textContent=c.en;
+  document.getElementById('rapido-es').textContent='';
+}
+function rapidAnswer(known){
+  const c=rapidQueue[rapidIdx];
+  document.getElementById('rapido-es').textContent=c.es;
+  rapidTotal++;
+  if(known){rapidScore++;recordCorrect(c.en);}else recordWrong(c.en);
+  markPracticed();
+  document.getElementById('rapido-score').textContent=rapidScore;
+  rapidIdx++;
+  setTimeout(()=>{if(rapidTimeLeft>0)showRapidoCard();},250);
+}
+function endRapido(){
+  clearInterval(rapidTimer);rapidTimer=null;
+  document.getElementById('rapido-game').style.display='none';
+  document.getElementById('rapido-result').style.display='block';
+  document.getElementById('rapido-final-score').textContent=rapidScore;
+  document.getElementById('rapido-final-total').textContent='de '+rapidTotal+' intentos';
+  const acc=rapidTotal?Math.round(rapidScore/rapidTotal*100):0;
+  const [e,m]=acc>=80?['🏆','¡Velocidad increíble!']:acc>=60?['⚡','¡Muy bien!']:['💪','¡Sigue practicando!'];
+  document.getElementById('rapido-emoji').textContent=e;
+  document.getElementById('rapido-acc').textContent=acc+'% de precisión · '+m;
+}
+function resetRapido(){
+  clearInterval(rapidTimer);rapidTimer=null;
+  document.getElementById('rapido-start-screen').style.display='block';
+  document.getElementById('rapido-game').style.display='none';
+  document.getElementById('rapido-result').style.display='none';
+}
+
+// ═══════════════════════════════════════════════════════════
+// DIÁLOGOS
+// ═══════════════════════════════════════════════════════════
+const dialogues=[
+  {title:"Conociendo a alguien",emoji:"👋",lines:[
+    {spk:"A",en:"Hi! My name is Ana. What's your name?",es:"¡Hola! Me llamo Ana. ¿Cómo te llamas?"},
+    {spk:"B",en:"Hi Ana! I'm Carlos. Nice to meet you.",es:"¡Hola Ana! Soy Carlos. Mucho gusto."},
+    {spk:"A",en:"Nice to meet you too! Where are you from?",es:"Igualmente. ¿De dónde eres?"},
+    {spk:"B",en:"I'm from Chile. And you?",es:"Soy de Chile. ¿Y tú?"},
+    {spk:"A",en:"Me too! Small world!",es:"¡Yo también! ¡Qué pequeño es el mundo!"},
+  ]},
+  {title:"En la tienda",emoji:"🛍️",lines:[
+    {spk:"Cliente",en:"Excuse me, how much is this shirt?",es:"Disculpe, ¿cuánto cuesta esta camisa?"},
+    {spk:"Vendedor",en:"It's twenty dollars.",es:"Son veinte dólares."},
+    {spk:"Cliente",en:"Can I pay with a card?",es:"¿Puedo pagar con tarjeta?"},
+    {spk:"Vendedor",en:"Of course! Here you go.",es:"¡Claro! Aquí tiene."},
+    {spk:"Cliente",en:"Thank you very much!",es:"¡Muchas gracias!"},
+  ]},
+  {title:"En el restaurante",emoji:"🍽️",lines:[
+    {spk:"Mesero",en:"Good evening! A table for two?",es:"¡Buenas noches! ¿Mesa para dos?"},
+    {spk:"Cliente",en:"Yes, please.",es:"Sí, por favor."},
+    {spk:"Mesero",en:"Here is the menu. What would you like?",es:"Aquí está el menú. ¿Qué desea?"},
+    {spk:"Cliente",en:"I would like chicken soup and a salad.",es:"Quisiera sopa de pollo y una ensalada."},
+    {spk:"Mesero",en:"Anything to drink?",es:"¿Algo para tomar?"},
+    {spk:"Cliente",en:"Water, please. Thank you.",es:"Agua, por favor. Gracias."},
+  ]},
+  {title:"Pidiendo ayuda",emoji:"🗺️",lines:[
+    {spk:"A",en:"Excuse me, where is the bank?",es:"Disculpe, ¿dónde está el banco?"},
+    {spk:"B",en:"Go straight and turn right.",es:"Siga derecho y gire a la derecha."},
+    {spk:"A",en:"Is it far from here?",es:"¿Está lejos de aquí?"},
+    {spk:"B",en:"No, about five minutes on foot.",es:"No, unos cinco minutos a pie."},
+    {spk:"A",en:"Thank you so much!",es:"¡Muchísimas gracias!"},
+    {spk:"B",en:"You're welcome! Have a great day!",es:"¡De nada! ¡Que tenga un buen día!"},
+  ]},
+  {title:"En el trabajo",emoji:"💼",lines:[
+    {spk:"Jefe",en:"Good morning! Are you ready for the meeting?",es:"¡Buenos días! ¿Estás listo/a para la reunión?"},
+    {spk:"Tú",en:"Yes! I already prepared the report.",es:"¡Sí! Ya preparé el informe."},
+    {spk:"Jefe",en:"Excellent! The meeting starts at nine.",es:"¡Excelente! La reunión empieza a las nueve."},
+    {spk:"Tú",en:"Should I bring my laptop?",es:"¿Debo traer mi laptop?"},
+    {spk:"Jefe",en:"Yes, please. See you there!",es:"Sí, por favor. ¡Nos vemos!"},
+  ]},
+];
+
+function renderDialogues(){
+  const cont=document.getElementById('dialogos-list');
+  cont.innerHTML='';
+  dialogues.forEach((d,di)=>{
+    const card=document.createElement('div'); card.className='dialogue-card';
+    const showId='dlg-show-'+di;
+    card.innerHTML='<div class="dialogue-header"><span style="font-size:22px">'+d.emoji+'</span>'+d.title+'</div>'
+      +'<div class="dialogue-body">'
+      +d.lines.map((l,li)=>
+        '<div class="dialogue-line">'
+        +'<span class="dialogue-spk">'+l.spk+'</span>'
+        +'<div style="flex:1"><div class="dialogue-en">'+l.en
+        +' <button onclick="speak(\''+l.en.replace(/'/g,"\\'")+'\')" style="background:none;border:none;cursor:pointer;font-size:13px">🔊</button></div>'
+        +'<div class="dialogue-es" id="des-'+di+'-'+li+'">'+l.es+'</div></div>'
+        +'</div>'
+      ).join('')
+      +'<button class="dialogue-toggle" onclick="toggleDialogueES('+di+')">👁️ Ver / ocultar traducción</button>'
+      +'</div>';
+    cont.appendChild(card);
+  });
+}
+function toggleDialogueES(di){
+  document.querySelectorAll('[id^="des-'+di+'-"]').forEach(el=>el.classList.toggle('show'));
+}
+
+// ═══════════════════════════════════════════════════════════
+// MIS PALABRAS (CUSTOM VOCAB)
+// ═══════════════════════════════════════════════════════════
+function getCustomVocab(){ return JSON.parse(localStorage.getItem('customVocab')||'[]'); }
+function saveCustomVocab(cv){ localStorage.setItem('customVocab',JSON.stringify(cv)); }
+
+function addCustomWord(){
+  const en=document.getElementById('cw-en').value.trim();
+  const es=document.getElementById('cw-es').value.trim();
+  const pron=document.getElementById('cw-pron').value.trim();
+  const ex=document.getElementById('cw-ex').value.trim();
+  if(!en||!es){document.getElementById('cw-status').textContent='⚠️ Inglés y español son obligatorios.';return;}
+  const cv=getCustomVocab();
+  if(cv.some(w=>w.en.toLowerCase()===en.toLowerCase())){document.getElementById('cw-status').textContent='⚠️ Esta palabra ya existe.';return;}
+  cv.push({en,es,pron:pron||en,cat:'Mis Palabras',ex:ex||'',custom:true});
+  saveCustomVocab(cv);
+  mergeCustomVocab();
+  document.getElementById('cw-en').value='';
+  document.getElementById('cw-es').value='';
+  document.getElementById('cw-pron').value='';
+  document.getElementById('cw-ex').value='';
+  document.getElementById('cw-status').textContent='✅ "'+en+'" agregada correctamente.';
+  setTimeout(()=>{document.getElementById('cw-status').textContent='';},3000);
+  renderCustomList();
+}
+function deleteCustomWord(en){
+  const cv=getCustomVocab().filter(w=>w.en!==en);
+  saveCustomVocab(cv);
+  // Remove from vocab array
+  const idx=vocab.findIndex(v=>v.en===en&&v.custom);
+  if(idx>-1) vocab.splice(idx,1);
+  populateSelects();
+  renderCustomList();
+}
+function mergeCustomVocab(){
+  const cv=getCustomVocab();
+  cv.forEach(w=>{
+    if(!vocab.some(v=>v.en===w.en&&v.custom)) vocab.push(w);
+  });
+  // Rebuild CATS (re-derive from vocab)
+  CATS.length=0;
+  [...new Set(vocab.map(v=>v.cat))].sort().forEach(c=>CATS.push(c));
+  populateSelects();
+}
+function renderCustomList(){
+  const cv=getCustomVocab();
+  const list=document.getElementById('cw-list');
+  const empty=document.getElementById('cw-empty');
+  list.innerHTML='';
+  if(!cv.length){empty.style.display='block';return;}
+  empty.style.display='none';
+  cv.forEach(w=>{
+    const d=document.createElement('div'); d.className='word-item';
+    d.innerHTML='<div><span class="word-en">'+w.en+'</span> — <span class="word-es">'+w.es+'</span><div style="font-size:11px;color:var(--muted);margin-top:2px">'+w.pron+'</div></div>'
+      +'<button onclick="deleteCustomWord(\''+w.en.replace(/'/g,"\\'")+'\')" style="background:none;border:none;cursor:pointer;font-size:18px;color:#ff6584">🗑️</button>';
+    list.appendChild(d);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════
+// WORD MODAL
+// ═══════════════════════════════════════════════════════════
+function openWordModal(item){
+  document.getElementById('modal-en').textContent=item.en;
+  document.getElementById('modal-es').textContent=item.es;
+  document.getElementById('modal-cat').textContent=item.cat;
+  document.getElementById('modal-pron').textContent='🔉 '+item.pron;
+  document.getElementById('modal-ex').textContent=item.ex||'(sin oración de ejemplo)';
+  document.getElementById('word-modal').classList.add('open');
+}
+function closeWordModal(e){
+  if(e.target===document.getElementById('word-modal')) document.getElementById('word-modal').classList.remove('open');
+}
+
+// ═══════════════════════════════════════════════════════════
+// RESET PROGRESS
+// ═══════════════════════════════════════════════════════════
+function resetAllProgress(){
+  if(!confirm('¿Estás segura? Esto borrará TODO tu progreso: palabras aprendidas, racha y sesiones guardadas.\n\nEsta acción no se puede deshacer.')) return;
+  ['known','hard','mastered','streaks','dailyStreak','lastPractice','practiceHist','flashSession','totalReviewed','totalCorrect','bestStreak'].forEach(k=>localStorage.removeItem(k));
+  knownWords=[];hardWords=[];masteredWords=[];wordStreaks={};
+  updateNavStreak();
+  renderProgress();
+  alert('✅ Progreso reiniciado. ¡Empieza desde cero!');
+}
+
+// ═══════════════════════════════════════════════════════════
+// STATS DETALLADAS
+// ═══════════════════════════════════════════════════════════
+function trackStat(correct){
+  const tr=parseInt(localStorage.getItem('totalReviewed')||'0')+1;
+  const tc=parseInt(localStorage.getItem('totalCorrect')||'0')+(correct?1:0);
+  localStorage.setItem('totalReviewed',tr);
+  localStorage.setItem('totalCorrect',tc);
+  // update best streak
+  const cur=loadStreak();
+  const best=parseInt(localStorage.getItem('bestStreak')||'0');
+  if(cur>best) localStorage.setItem('bestStreak',cur);
+}
+
+// ═══════════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════════
 applyTheme(currentTheme);
-// Restore theme-color meta
 const savedHex = localStorage.getItem('themeHex') || THEME_HEX[currentTheme] || '#6c63ff';
 document.querySelector('meta[name="theme-color"]').content = savedHex;
 if(isDark){ document.body.classList.add('dark'); document.getElementById('dark-btn').textContent='☀️'; }
+mergeCustomVocab(); // carga palabras personalizadas antes de popular selects
 populateSelects();
 updateNavStreak();
 initFlash();
+// Actualizar best streak al abrir
+const curStr=loadStreak(),bStr=parseInt(localStorage.getItem('bestStreak')||'0');
+if(curStr>bStr) localStorage.setItem('bestStreak',curStr);
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('sw.js');
-  // Re-schedule notifications on app open
-  setTimeout(scheduleAllNotifs, 1500);
+  setTimeout(scheduleAllNotifs,1500);
 }
 </script>
 </body>
