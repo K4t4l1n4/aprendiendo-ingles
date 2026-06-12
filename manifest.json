@@ -4,8 +4,8 @@
   "description": "Aprende vocabulario en inglés con tarjetas, quiz y ejercicios de escritura",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#f4f3ff",
-  "theme_color": "#6c63ff",
+  "background_color": "#09071a",
+  "theme_color": "#8b5cf6",
   "orientation": "portrait",
   "icons": [
     {"src":"icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
