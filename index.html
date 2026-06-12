@@ -309,40 +309,40 @@ main{padding:20px 20px 90px;flex:1}
 
 /* ── HOME SCREEN ── */
 .home-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-.home-greeting{font-size:13px;color:rgba(255,255,255,.5);margin:0 0 4px;font-weight:500}
-.home-title{font-size:24px;font-weight:900;margin:0;color:#fff;letter-spacing:-.5px}
+.home-greeting{font-size:13px;color:#94a3b8;margin:0 0 4px;font-weight:500}
+.home-title{font-size:24px;font-weight:900;margin:0;color:#ffffff;letter-spacing:-.5px}
 
-/* Streak: naranja neon visible */
-.streak-badge{background:rgba(255,140,0,.12);border:1px solid rgba(255,140,0,.45);border-radius:18px;padding:8px 14px;display:flex;align-items:center;gap:6px;box-shadow:0 0 18px rgba(255,140,0,.12);}
+/* Streak badge — fondo sólido naranja visible en OLED */
+.streak-badge{background:#1f1208;border:1px solid #ff9f43;border-radius:18px;padding:8px 14px;display:flex;align-items:center;gap:6px;box-shadow:0 0 16px rgba(255,159,67,.3);}
 .streak-badge-icon{font-size:22px;line-height:1}
 .streak-badge-num{font-size:22px;font-weight:900;color:#ff9f43;line-height:1}
-.streak-badge-lbl{font-size:10px;color:rgba(255,159,67,.65);font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+.streak-badge-lbl{font-size:10px;color:#c87f30;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
 
-/* Lección del día: borde neon + fondo tintado (visible sobre negro) */
-.lesson-card{background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.55);border-radius:20px;padding:18px;margin-bottom:16px;box-shadow:0 0 28px rgba(139,92,246,.18),inset 0 1px 0 rgba(255,255,255,.06);position:relative;overflow:hidden;}
-.lesson-card::before{content:'';position:absolute;top:-20px;right:-20px;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,.3),transparent 70%);pointer-events:none}
+/* Lección del día — fondo sólido distinto del body */
+.lesson-card{background:#1e0d38;border:1px solid #7c3aed;border-radius:20px;padding:18px;margin-bottom:16px;box-shadow:0 0 24px rgba(139,92,246,.4);position:relative;overflow:hidden;}
+.lesson-card::before{content:'';position:absolute;top:-20px;right:-20px;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,.4),transparent 70%);pointer-events:none}
 .lesson-label{font-size:10px;color:#06b6d4;letter-spacing:1.5px;text-transform:uppercase;margin:0 0 6px;font-weight:800}
-.lesson-title{color:#fff;font-size:16px;font-weight:700;margin:0 0 12px}
+.lesson-title{color:#ffffff;font-size:16px;font-weight:700;margin:0 0 12px}
 .lesson-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
-.lesson-chip{background:rgba(6,182,212,.15);color:#67e8f9;padding:5px 11px;border-radius:10px;font-size:12px;border:1px solid rgba(6,182,212,.35);font-weight:600}
-.lesson-btn{width:100%;background:rgba(139,92,246,.22);color:#fff;border:1px solid rgba(139,92,246,.5);border-radius:12px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
-.lesson-btn:active{background:rgba(139,92,246,.4)}
+.lesson-chip{background:#0e2233;color:#67e8f9;padding:5px 11px;border-radius:10px;font-size:12px;border:1px solid #0e7490;font-weight:600}
+.lesson-btn{width:100%;background:#2d1a52;color:#ffffff;border:1px solid #7c3aed;border-radius:12px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
+.lesson-btn:active{background:#3d2268}
 
-/* Stats: fondo tintado claramente visible */
+/* Stats — fondos sólidos visibles */
 .home-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-.home-stat{background:rgba(139,92,246,.09);border:1px solid rgba(139,92,246,.3);border-radius:14px;padding:14px;position:relative;overflow:hidden;}
+.home-stat{background:#14102a;border:1px solid #5b21b6;border-radius:14px;padding:14px;position:relative;overflow:hidden;}
 .home-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#8b5cf6,#06b6d4)}
-.home-stat-lbl{font-size:11px;color:rgba(255,255,255,.5);margin:0 0 6px;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
-.home-stat-num{font-size:26px;font-weight:900;color:#fff;margin:0;line-height:1}
-.home-stat-bar{height:4px;background:rgba(139,92,246,.15);border-radius:2px;margin-top:8px;overflow:hidden}
+.home-stat-lbl{font-size:11px;color:#94a3b8;margin:0 0 6px;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.home-stat-num{font-size:26px;font-weight:900;color:#ffffff;margin:0;line-height:1}
+.home-stat-bar{height:4px;background:#2d1a52;border-radius:2px;margin-top:8px;overflow:hidden}
 .home-stat-fill{height:100%;border-radius:2px}
 
-/* Quick cards: fondo tintado visible */
+/* Quick cards — fondos sólidos visibles */
 .home-quick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.quick-card{background:rgba(255,255,255,.04);border:1px solid rgba(139,92,246,.25);border-radius:14px;padding:14px 12px;display:flex;align-items:center;gap:11px;cursor:pointer;width:100%;text-align:left;color:#fff;transition:border-color .2s,transform .15s,background .2s,box-shadow .2s;}
-.quick-card:active{transform:scale(.96);background:rgba(139,92,246,.12);border-color:rgba(139,92,246,.6)}
+.quick-card{background:#13102a;border:1px solid #4c1d95;border-radius:14px;padding:14px 12px;display:flex;align-items:center;gap:11px;cursor:pointer;width:100%;text-align:left;color:#ffffff;transition:border-color .2s,transform .15s,background .2s;}
+.quick-card:active{transform:scale(.96);background:#1e1640;border-color:#7c3aed}
 .quick-icon-wrap{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-.quick-label{font-size:13px;font-weight:700;color:#fff}
+.quick-label{font-size:13px;font-weight:700;color:#ffffff}
 
 /* ── PROGRESS DOTS (flashcard) ── */
 .prog-track{display:flex;gap:3px;margin-bottom:16px;}
@@ -366,18 +366,18 @@ main{padding:20px 20px 90px;flex:1}
 @keyframes fall{from{transform:translateY(-20px) rotate(0deg);opacity:1}to{transform:translateY(110vh) rotate(720deg);opacity:0}}
 
 /* ── LEVEL / XP CARD ── */
-.level-card-neon{background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.4);border-radius:18px;padding:16px 18px;margin-bottom:16px;position:relative;overflow:hidden;box-shadow:0 0 22px rgba(139,92,246,.12);}
-.level-card-neon::before{content:'';position:absolute;top:-30px;right:-30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,.25),transparent 70%);pointer-events:none;}
+.level-card-neon{background:#14102a;border:1px solid #5b21b6;border-radius:18px;padding:16px 18px;margin-bottom:16px;position:relative;overflow:hidden;box-shadow:0 0 20px rgba(139,92,246,.25);}
+.level-card-neon::before{content:'';position:absolute;top:-30px;right:-30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,.3),transparent 70%);pointer-events:none;}
 
 /* ── PRÁCTICA HUB ── */
 .practica-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
-.mode-card{background:rgba(255,255,255,.04);border:1px solid rgba(139,92,246,.22);border-radius:16px;padding:16px 12px;text-align:center;cursor:pointer;width:100%;transition:transform .15s,border-color .2s,background .2s,box-shadow .2s;color:#fff;position:relative;overflow:hidden;}
-.mode-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#8b5cf6,#06b6d4);opacity:0;transition:opacity .2s;}
-.mode-card:active{transform:scale(.96);background:rgba(139,92,246,.12);border-color:rgba(139,92,246,.5);}
+.mode-card{background:#13102a;border:1px solid #4c1d95;border-radius:16px;padding:16px 12px;text-align:center;cursor:pointer;width:100%;transition:transform .15s,border-color .15s,background .15s;color:#ffffff;position:relative;overflow:hidden;}
+.mode-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#8b5cf6,#06b6d4);opacity:0;transition:opacity .15s;}
+.mode-card:active{transform:scale(.96);background:#1e1640;border-color:#7c3aed;}
 .mode-card:active::after{opacity:1}
 .mode-icon-wrap{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:22px}
-.mode-name{font-size:13px;font-weight:700;margin:0 0 2px;color:#fff}
-.mode-desc{font-size:11px;color:rgba(255,255,255,.45);margin:0}
+.mode-name{font-size:13px;font-weight:700;margin:0 0 2px;color:#ffffff}
+.mode-desc{font-size:11px;color:#94a3b8;margin:0}
 </style>
 </head>
 <body>
