@@ -16,8 +16,8 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --p1:#8b5cf6;--p2:#7c3aed;--p-light:rgba(139,92,246,0.12);--p-text:#fff;
-  --bg:#070710;--card-bg:#0f0d1f;--text:#e2e8f0;--muted:#94a3b8;
-  --border:rgba(139,92,246,0.28);--stat-bg:#0f0d1f;--radius:20px;
+  --bg:#09071a;--card-bg:#1a1535;--text:#e2e8f0;--muted:#94a3b8;
+  --border:rgba(139,92,246,0.5);--stat-bg:#1a1535;--radius:20px;
   --shadow:0 0 20px rgba(139,92,246,0.3);
   --neon-c:#06b6d4;--neon-g:#10b981;--neon-r:#f43f5e;--neon-y:#f59e0b;
   --glow-p:0 0 20px rgba(139,92,246,0.5);
@@ -299,7 +299,7 @@ main{padding:24px 20px 100px;flex:1}
 main{padding:20px 20px 90px;flex:1}
 
 /* ── BOTTOM NAV ── */
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(14,13,28,.92);backdrop-filter:blur(16px);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0 14px;z-index:200;}
+.bottom-nav{position:fixed;bottom:0;top:auto;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(14,13,28,.92);backdrop-filter:blur(16px);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0 14px;z-index:200;}
 .bn-item{display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;padding:6px 14px;border-radius:12px;transition:all .15s;color:var(--muted);position:relative;}
 .bn-item.active{color:var(--p1)}
 .bn-item.active::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:20px;height:2px;background:var(--p1);border-radius:99px;box-shadow:var(--glow-p);}
@@ -318,29 +318,29 @@ main{padding:20px 20px 90px;flex:1}
 .streak-badge-num{font-size:22px;font-weight:900;color:#ff9f43;line-height:1}
 .streak-badge-lbl{font-size:10px;color:#c87f30;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
 
-/* Lección del día — fondo sólido distinto del body */
-.lesson-card{background:#1e0d38;border:1px solid #7c3aed;border-radius:20px;padding:18px;margin-bottom:16px;box-shadow:0 0 24px rgba(139,92,246,.4);position:relative;overflow:hidden;}
-.lesson-card::before{content:'';position:absolute;top:-20px;right:-20px;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,.4),transparent 70%);pointer-events:none}
-.lesson-label{font-size:10px;color:#06b6d4;letter-spacing:1.5px;text-transform:uppercase;margin:0 0 6px;font-weight:800}
+/* Lección del día */
+.lesson-card{background:linear-gradient(135deg,#2d1155,#1a0d40);border:2px solid #7c3aed;border-radius:20px;padding:18px;margin-bottom:16px;box-shadow:0 0 32px rgba(124,58,237,.5);position:relative;overflow:hidden;}
+.lesson-card::before{content:'';position:absolute;top:-20px;right:-20px;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,.5),transparent 70%);pointer-events:none}
+.lesson-label{font-size:10px;color:#22d3ee;letter-spacing:1.5px;text-transform:uppercase;margin:0 0 6px;font-weight:800}
 .lesson-title{color:#ffffff;font-size:16px;font-weight:700;margin:0 0 12px}
 .lesson-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
-.lesson-chip{background:#0e2233;color:#67e8f9;padding:5px 11px;border-radius:10px;font-size:12px;border:1px solid #0e7490;font-weight:600}
-.lesson-btn{width:100%;background:#2d1a52;color:#ffffff;border:1px solid #7c3aed;border-radius:12px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
-.lesson-btn:active{background:#3d2268}
+.lesson-chip{background:#0d3348;color:#67e8f9;padding:5px 11px;border-radius:10px;font-size:12px;border:1px solid #0891b2;font-weight:600}
+.lesson-btn{width:100%;background:#3b1d7a;color:#ffffff;border:1px solid #8b5cf6;border-radius:12px;padding:11px;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
+.lesson-btn:active{background:#4c2898}
 
-/* Stats — fondos sólidos visibles */
+/* Stats */
 .home-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-.home-stat{background:#14102a;border:1px solid #5b21b6;border-radius:14px;padding:14px;position:relative;overflow:hidden;}
-.home-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#8b5cf6,#06b6d4)}
+.home-stat{background:#1e1840;border:2px solid #5b21b6;border-radius:14px;padding:14px;position:relative;overflow:hidden;}
+.home-stat::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#8b5cf6,#06b6d4)}
 .home-stat-lbl{font-size:11px;color:#94a3b8;margin:0 0 6px;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
 .home-stat-num{font-size:26px;font-weight:900;color:#ffffff;margin:0;line-height:1}
-.home-stat-bar{height:4px;background:#2d1a52;border-radius:2px;margin-top:8px;overflow:hidden}
+.home-stat-bar{height:4px;background:#3b1d7a;border-radius:2px;margin-top:8px;overflow:hidden}
 .home-stat-fill{height:100%;border-radius:2px}
 
-/* Quick cards — fondos sólidos visibles */
+/* Quick cards */
 .home-quick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.quick-card{background:#13102a;border:1px solid #4c1d95;border-radius:14px;padding:14px 12px;display:flex;align-items:center;gap:11px;cursor:pointer;width:100%;text-align:left;color:#ffffff;transition:border-color .2s,transform .15s,background .2s;}
-.quick-card:active{transform:scale(.96);background:#1e1640;border-color:#7c3aed}
+.quick-card{background:#1a1640;border:2px solid #4c1d95;border-radius:14px;padding:14px 12px;display:flex;align-items:center;gap:11px;cursor:pointer;width:100%;text-align:left;color:#ffffff;transition:border-color .2s,transform .15s,background .2s;}
+.quick-card:active{transform:scale(.96);background:#241e54;border-color:#7c3aed}
 .quick-icon-wrap{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .quick-label{font-size:13px;font-weight:700;color:#ffffff}
 
@@ -366,14 +366,14 @@ main{padding:20px 20px 90px;flex:1}
 @keyframes fall{from{transform:translateY(-20px) rotate(0deg);opacity:1}to{transform:translateY(110vh) rotate(720deg);opacity:0}}
 
 /* ── LEVEL / XP CARD ── */
-.level-card-neon{background:#14102a;border:1px solid #5b21b6;border-radius:18px;padding:16px 18px;margin-bottom:16px;position:relative;overflow:hidden;box-shadow:0 0 20px rgba(139,92,246,.25);}
-.level-card-neon::before{content:'';position:absolute;top:-30px;right:-30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,.3),transparent 70%);pointer-events:none;}
+.level-card-neon{background:#1e1840;border:2px solid #5b21b6;border-radius:18px;padding:16px 18px;margin-bottom:16px;position:relative;overflow:hidden;box-shadow:0 0 24px rgba(139,92,246,.35);}
+.level-card-neon::before{content:'';position:absolute;top:-30px;right:-30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,.4),transparent 70%);pointer-events:none;}
 
 /* ── PRÁCTICA HUB ── */
 .practica-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
-.mode-card{background:#13102a;border:1px solid #4c1d95;border-radius:16px;padding:16px 12px;text-align:center;cursor:pointer;width:100%;transition:transform .15s,border-color .15s,background .15s;color:#ffffff;position:relative;overflow:hidden;}
-.mode-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#8b5cf6,#06b6d4);opacity:0;transition:opacity .15s;}
-.mode-card:active{transform:scale(.96);background:#1e1640;border-color:#7c3aed;}
+.mode-card{background:#1a1640;border:2px solid #4c1d95;border-radius:16px;padding:16px 12px;text-align:center;cursor:pointer;width:100%;transition:transform .15s,border-color .15s,background .15s;color:#ffffff;position:relative;overflow:hidden;}
+.mode-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#8b5cf6,#06b6d4);opacity:0;transition:opacity .15s;}
+.mode-card:active{transform:scale(.96);background:#241e54;border-color:#7c3aed;}
 .mode-card:active::after{opacity:1}
 .mode-icon-wrap{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:22px}
 .mode-name{font-size:13px;font-weight:700;margin:0 0 2px;color:#ffffff}
