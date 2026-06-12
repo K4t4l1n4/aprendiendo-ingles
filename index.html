@@ -389,7 +389,6 @@ main{padding:20px 20px 90px;flex:1}
     <span id="nav-streak-num" style="display:none"></span>
   </div>
   <div class="nav-actions">
-    <button class="nav-btn" id="dark-btn" onclick="toggleDark()">🌙</button>
     <button class="nav-btn" id="color-btn" onclick="toggleColorPanel()">🎨</button>
   </div>
   <div class="color-panel" id="color-panel">
@@ -1240,11 +1239,6 @@ function setTheme(t){
   document.querySelector('meta[name="theme-color"]').content=hex;
   localStorage.setItem('themeHex',hex);
   document.getElementById('color-panel').classList.remove('open');
-}
-function toggleDark(){
-  isDark=!isDark; document.body.classList.toggle('dark',isDark);
-  document.getElementById('dark-btn').textContent=isDark?'☀️':'🌙';
-  localStorage.setItem('dark',isDark?'1':'0');
 }
 function toggleColorPanel(){ document.getElementById('color-panel').classList.toggle('open'); }
 document.addEventListener('click',e=>{
@@ -2579,9 +2573,8 @@ function renderAchievements(){
 applyTheme(currentTheme);
 const savedHex = localStorage.getItem('themeHex') || THEME_HEX[currentTheme] || '#6c63ff';
 document.querySelector('meta[name="theme-color"]').content = savedHex;
-// dark by default
-document.body.classList.toggle('dark', isDark);
-document.getElementById('dark-btn').textContent = isDark ? '☀️' : '🌙';
+// siempre oscuro
+document.body.classList.add('dark');
 mergeCustomVocab();
 populateSelects();
 updateFlashStats();
