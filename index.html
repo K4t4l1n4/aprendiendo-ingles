@@ -422,81 +422,7 @@ main{padding:20px 20px 90px;flex:1}
 
 <main>
 
-<!-- ═══ INICIO ═══ -->
-<div id="section-inicio" class="section active">
-  <div class="home-header">
-    <div>
-      <p class="home-greeting">Hola 👋</p>
-      <h1 class="home-title">Learning English</h1>
-    </div>
-    <div class="streak-badge">
-      <span class="streak-badge-icon">🔥</span>
-      <div>
-        <div class="streak-badge-num" id="home-streak-num">0</div>
-        <div class="streak-badge-lbl">días</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="racha-warning" style="display:none;background:rgba(244,63,94,.1);border:1px solid rgba(244,63,94,.3);border-radius:14px;padding:12px 16px;margin-bottom:16px;font-size:13px;font-weight:600;color:#f43f5e;">
-    ⚠️ ¡Tu racha de <span id="racha-warning-num">0</span> días está en peligro! Practica hoy para no perderla.
-  </div>
-
-  <div class="level-card-neon" id="home-level-card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-      <div>
-        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;">Nivel</div>
-        <div style="font-size:26px;font-weight:900;color:var(--p1)" id="home-level-num">1</div>
-      </div>
-      <span style="font-size:32px;filter:drop-shadow(0 0 8px var(--p1))">⚡</span>
-    </div>
-    <div style="background:rgba(139,92,246,.15);border-radius:99px;height:6px;overflow:hidden;position:relative;">
-      <div id="home-xp-bar" style="height:100%;border-radius:99px;background:linear-gradient(90deg,var(--p1),var(--neon-c));width:0%;transition:width .6s ease;position:relative;overflow:hidden;">
-        <div style="position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);animation:shimmer 2s infinite;"></div>
-      </div>
-    </div>
-    <div id="home-xp-label" style="font-size:11px;color:var(--muted);margin-top:6px;text-align:right;">0 / 200 XP</div>
-  </div>
-
-  <div class="lesson-card" id="lesson-card">
-    <p class="lesson-label">Lección del día</p>
-    <p class="lesson-title" id="lesson-title">Cargando palabras...</p>
-    <div class="lesson-chips" id="lesson-chips"></div>
-    <button class="lesson-btn" onclick="switchTab('flash')">Empezar tarjetas →</button>
-  </div>
-
-  <div class="home-stats">
-    <div class="home-stat">
-      <p class="home-stat-lbl">Palabras dominadas</p>
-      <p class="home-stat-num" id="home-mastered">0</p>
-      <div class="home-stat-bar"><div class="home-stat-fill" id="home-mastered-fill" style="background:var(--p1);width:0%"></div></div>
-    </div>
-    <div class="home-stat">
-      <p class="home-stat-lbl">Precisión total</p>
-      <p class="home-stat-num" id="home-accuracy">—</p>
-      <div class="home-stat-bar"><div class="home-stat-fill" id="home-accuracy-fill" style="background:#27ae60;width:0%"></div></div>
-    </div>
-  </div>
-
-  <div class="home-quick">
-    <button class="quick-card" onclick="switchTab('rapido')">
-      <div class="quick-icon-wrap" style="background:rgba(231,76,60,.12)">⏱️</div>
-      <span class="quick-label">Contrarreloj</span>
-    </button>
-    <button class="quick-card" onclick="switchTab('quiz')">
-      <div class="quick-icon-wrap" style="background:rgba(39,174,96,.12)">🎯</div>
-      <span class="quick-label">Quiz</span>
-    </button>
-    <button class="quick-card" onclick="switchTab('dialogos')">
-      <div class="quick-icon-wrap" style="background:rgba(22,160,133,.12)">💬</div>
-      <span class="quick-label">Diálogos</span>
-    </button>
-    <button class="quick-card" onclick="switchTab('mis-palabras')">
-      <div class="quick-icon-wrap" style="background:rgba(241,196,15,.12)">➕</div>
-      <span class="quick-label">Mis Palabras</span>
-    </button>
-  </div>
-</div>
+<!-- ═══ INICIO eliminado: la app abre directo en Tarjetas ═══ -->
 
 <!-- ═══ PRÁCTICA HUB ═══ -->
 <div id="section-practica" class="section">
@@ -546,7 +472,22 @@ main{padding:20px 20px 90px;flex:1}
 </div>
 
 <!-- ═══ FLASHCARDS ═══ -->
-<div id="section-flash" class="section">
+<div id="section-flash" class="section active">
+  <div id="fh-racha-warning" style="display:none;background:rgba(244,63,94,.1);border:1px solid rgba(244,63,94,.3);border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:13px;font-weight:600;color:#f43f5e;">⚠️ ¡Tu racha de <span id="fh-racha-num">0</span> días está en peligro! Practica hoy.</div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+    <div style="background:#1f1208;border:1px solid #ff9f43;border-radius:14px;padding:6px 12px;display:flex;align-items:center;gap:6px;">
+      <span style="font-size:16px;">🔥</span>
+      <span style="font-size:16px;font-weight:800;color:#ff9f43;" id="fh-streak">0</span>
+      <span style="font-size:11px;color:#94a3b8;font-weight:600;">días</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span style="font-size:13px;font-weight:700;color:var(--p1);">⚡ Niv. <span id="fh-level">1</span></span>
+      <div style="width:56px;background:rgba(139,92,246,.2);border-radius:99px;height:5px;overflow:hidden;">
+        <div id="fh-xp-bar" style="height:100%;border-radius:99px;background:var(--p1);width:0%;transition:width .4s;"></div>
+      </div>
+      <span id="fh-xp-label" style="font-size:10px;color:var(--muted);font-weight:600;">0/200</span>
+    </div>
+  </div>
   <div class="cat-filter">
     <select class="cat-select" id="flash-cat" onchange="initFlash()"></select>
   </div>
@@ -949,10 +890,7 @@ main{padding:20px 20px 90px;flex:1}
 
 <!-- ═══ BOTTOM NAV ═══ -->
 <nav class="bottom-nav" id="bottom-nav">
-  <button class="bn-item active" id="bn-inicio" onclick="switchTab('inicio')">
-    <span class="bn-icon">🏠</span><span class="bn-label">Inicio</span>
-  </button>
-  <button class="bn-item" id="bn-flash" onclick="switchTab('flash')">
+  <button class="bn-item active" id="bn-flash" onclick="switchTab('flash')">
     <span class="bn-icon">🃏</span><span class="bn-label">Tarjetas</span>
   </button>
   <button class="bn-item" id="bn-practica" onclick="switchTab('practica')">
@@ -1346,8 +1284,27 @@ function markPracticed(){
 function updateNavStreak(){
   const s = loadStreak();
   document.getElementById('nav-streak-num').textContent = s;
-  const homeEl = document.getElementById('home-streak-num');
-  if(homeEl) homeEl.textContent = s;
+  const fhEl = document.getElementById('fh-streak');
+  if(fhEl) fhEl.textContent = s;
+}
+function updateFlashStats(){
+  updateNavStreak();
+  // Racha warning
+  const warn = document.getElementById('fh-racha-warning');
+  const warnNum = document.getElementById('fh-racha-num');
+  if(warn && warnNum){
+    const streak = parseInt(localStorage.getItem('dailyStreak')||'0');
+    warnNum.textContent = streak;
+    warn.style.display = isRachaEnPeligro() ? 'block' : 'none';
+  }
+  // Level + XP
+  const xp = getXP(), lvl = getLevel(), xpInLvl = getXPInLevel();
+  const lvlEl = document.getElementById('fh-level');
+  const xpBarEl = document.getElementById('fh-xp-bar');
+  const xpLblEl = document.getElementById('fh-xp-label');
+  if(lvlEl) lvlEl.textContent = lvl;
+  if(xpBarEl) xpBarEl.style.width = Math.round(xpInLvl/XP_PER_LEVEL*100)+'%';
+  if(xpLblEl) xpLblEl.textContent = xpInLvl+'/'+XP_PER_LEVEL+' XP';
 }
 
 function getGreeting(){
@@ -1521,19 +1478,19 @@ function showMasteryToast(w){
 // ═══════════════════════════════════════════════════════════
 // TABS
 // ═══════════════════════════════════════════════════════════
-const TAB_IDS = ['inicio','practica','flash','escucha','quiz','frases','write','pronun','rapido','dialogos','mis-palabras','words','progreso'];
+const TAB_IDS = ['practica','flash','escucha','quiz','frases','write','pronun','rapido','dialogos','mis-palabras','words','progreso'];
 // Bottom nav maps each section to which bn-item should be active
-const BN_MAP = {inicio:'bn-inicio',flash:'bn-flash',practica:'bn-practica',escucha:'bn-practica',quiz:'bn-practica',frases:'bn-practica',write:'bn-practica',pronun:'bn-practica',rapido:'bn-practica',dialogos:'bn-practica','mis-palabras':'bn-practica',words:'bn-words',progreso:'bn-progreso'};
+const BN_MAP = {flash:'bn-flash',practica:'bn-practica',escucha:'bn-practica',quiz:'bn-practica',frases:'bn-practica',write:'bn-practica',pronun:'bn-practica',rapido:'bn-practica',dialogos:'bn-practica','mis-palabras':'bn-practica',words:'bn-words',progreso:'bn-progreso'};
 function switchTab(id){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   const sec = document.getElementById('section-'+id);
   if(sec) sec.classList.add('active');
   // update bottom nav
   document.querySelectorAll('.bn-item').forEach(b=>b.classList.remove('active'));
-  const bnId = BN_MAP[id] || 'bn-inicio';
+  const bnId = BN_MAP[id] || 'bn-flash';
   const bnEl = document.getElementById(bnId);
   if(bnEl) bnEl.classList.add('active');
-  if(id==='inicio')      initHome();
+  if(id==='flash')       updateFlashStats();
   if(id==='quiz')        startQuiz();
   if(id==='write')       startWrite();
   if(id==='escucha')     startEscucha();
@@ -2610,9 +2567,8 @@ document.body.classList.toggle('dark', isDark);
 document.getElementById('dark-btn').textContent = isDark ? '☀️' : '🌙';
 mergeCustomVocab();
 populateSelects();
-updateNavStreak();
+updateFlashStats();
 initFlash();
-initHome();
 const curStr=loadStreak(),bStr=parseInt(localStorage.getItem('bestStreak')||'0');
 if(curStr>bStr) localStorage.setItem('bestStreak',curStr);
 if('serviceWorker' in navigator){
