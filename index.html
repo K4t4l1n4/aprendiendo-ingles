@@ -1390,30 +1390,28 @@ function getFiltered(selectId){
 // SPEECH
 // ═══════════════════════════════════════════════════════════
 let currentWord = '';
-// Android Chrome carga las voces de forma asíncrona; las guardamos cuando estén listas
+// Voces TTS — se cargan asíncronamente en móviles (Chrome y Firefox)
 let _ttsVoices = [];
+function _loadVoices(){ _ttsVoices = window.speechSynthesis.getVoices(); }
 if(window.speechSynthesis){
-  const _loadVoices = () => { _ttsVoices = window.speechSynthesis.getVoices(); };
   window.speechSynthesis.addEventListener('voiceschanged', _loadVoices);
-  _loadVoices(); // en desktop ya están disponibles al cargar
+  _loadVoices();
+  // Firefox Android a veces no dispara voiceschanged — reintentamos con delay
+  setTimeout(_loadVoices, 500);
+  setTimeout(_loadVoices, 2000);
 }
 function speak(word){
   if(!word||!window.speechSynthesis) return;
-  const _doSpeak = () => {
-    // Resume si Android dejó speechSynthesis en pausa (bug conocido de Chrome móvil)
-    if(window.speechSynthesis.paused) window.speechSynthesis.resume();
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(word);
-    u.lang='en-US'; u.rate=0.85;
-    const voices = _ttsVoices.length ? _ttsVoices : window.speechSynthesis.getVoices();
-    const usVoice = voices.find(v=>v.lang==='en-US' && /google|microsoft/i.test(v.name))
-      || voices.find(v=>v.lang==='en-US')
-      || voices.find(v=>v.lang.startsWith('en'));
-    if(usVoice) u.voice = usVoice;
-    window.speechSynthesis.speak(u);
-  };
-  // Pequeño delay: Android Chrome necesita que el event loop esté libre
-  setTimeout(_doSpeak, 50);
+  // Cancelar solo si ya está hablando (más compatible con Firefox)
+  if(window.speechSynthesis.speaking) window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(word);
+  u.lang='en-US'; u.rate=0.85;
+  const voices = _ttsVoices.length ? _ttsVoices : window.speechSynthesis.getVoices();
+  const usVoice = voices.find(v=>v.lang==='en-US' && /google|microsoft/i.test(v.name))
+    || voices.find(v=>v.lang==='en-US')
+    || voices.find(v=>v.lang.startsWith('en'));
+  if(usVoice) u.voice = usVoice;
+  window.speechSynthesis.speak(u);
 }
 function speakWord(){ speak(currentWord); }
 function speakCurrent(mode){
