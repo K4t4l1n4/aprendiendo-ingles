@@ -2527,6 +2527,7 @@ function addXP(amount){
   localStorage.setItem('totalXP', xp);
   const next = getLevel();
   if(next > prev) showToast('⬆️ ¡Subiste al nivel '+next+'!','success',4000);
+  updateFlashStats();
 }
 
 // ═══════════════════════════════════════════════════════════
