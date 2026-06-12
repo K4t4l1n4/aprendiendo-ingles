@@ -2,7 +2,7 @@
   "name": "Learning English",
   "short_name": "Learning English",
   "description": "Aprende vocabulario en inglés con tarjetas, quiz y ejercicios de escritura",
-  "start_url": "./index.html",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#09071a",
   "theme_color": "#8b5cf6",
