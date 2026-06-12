@@ -2,7 +2,11 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Aprende vocabulario en inglés con flashcards, quiz, dictado y pronunciación. App gratuita para hispanohablantes.">
+<meta property="og:title" content="Learning English — Aprende vocabulario">
+<meta property="og:description" content="Flashcards, quiz, escritura y pronunciación para aprender inglés">
+<meta property="og:type" content="website">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#6c63ff">
@@ -12,7 +16,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --p1:#6c63ff;--p2:#5a52d5;--p-light:#ede9ff;--p-text:#fff;
-  --bg:#f4f3ff;--card-bg:#fff;--text:#2d2d2d;--muted:#888;
+  --bg:#f4f3ff;--card-bg:#fff;--text:#2d2d2d;--muted:#767676;
   --border:#e0deff;--stat-bg:#fff;--radius:20px;
   --shadow:0 8px 30px rgba(108,99,255,0.13);
 }
@@ -122,7 +126,7 @@ main{padding:24px 20px 100px;flex:1}
 .q-word{font-size:34px;font-weight:800;color:var(--p1);letter-spacing:-1px}
 .q-context{font-size:12px;color:var(--muted);margin-top:6px}
 .options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-.option{background:var(--card-bg);border:2px solid var(--border);border-radius:14px;padding:14px 12px;font-size:14px;font-weight:600;text-align:center;cursor:pointer;transition:all .15s;user-select:none;color:var(--text)}
+.option{background:var(--card-bg);border:2px solid var(--border);border-radius:14px;padding:14px 12px;font-size:14px;font-weight:600;text-align:center;cursor:pointer;transition:all .15s;user-select:none;color:var(--text);width:100%;font-family:inherit}
 .option:active{transform:scale(.97)}
 .option.correct{background:#d4f5e4;border-color:#43c67a;color:#1d8a50}
 .option.wrong{background:#ffe0e7;border-color:#ff6584;color:#c0334e}
@@ -262,6 +266,23 @@ body.dark .custom-form{background:#1e1c2e}
 .form-input:focus{border-color:var(--p1)}
 body.dark .form-input{background:#12111a;color:var(--text);border-color:#2e2c45}
 
+/* ── TOAST ── */
+.app-toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);border-radius:14px;padding:12px 20px;font-size:14px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.25);opacity:0;transition:all .3s ease;z-index:999;white-space:nowrap;pointer-events:none;max-width:320px;text-align:center}
+.app-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.app-toast.info{background:#6c63ff;color:#fff}
+.app-toast.success{background:#27ae60;color:#fff}
+.app-toast.error{background:#e74c3c;color:#fff}
+.app-toast.warning{background:#f0b429;color:#2d2d2d}
+/* ── CONFIRM MODAL ── */
+.confirm-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.6);align-items:center;justify-content:center}
+.confirm-overlay.open{display:flex}
+.confirm-box{background:var(--card-bg);border-radius:20px;padding:28px 24px;width:calc(100% - 48px);max-width:360px;text-align:center}
+body.dark .confirm-box{background:#1e1c2e}
+.confirm-title{font-size:18px;font-weight:700;margin-bottom:10px;color:var(--text)}
+.confirm-msg{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.5}
+.confirm-btns{display:flex;gap:10px}
+.confirm-cancel{flex:1;padding:12px;border-radius:12px;border:2px solid var(--border);background:var(--card-bg);color:var(--text);font-size:14px;font-weight:600;cursor:pointer}
+.confirm-ok{flex:1;padding:12px;border-radius:12px;border:none;background:#e74c3c;color:#fff;font-size:14px;font-weight:600;cursor:pointer}
 /* ── HIDE OLD TABS, UPDATE PADDING ── */
 .tabs{display:none!important}
 nav{padding-bottom:16px;border-radius:0 0 24px 24px}
@@ -502,7 +523,7 @@ body.dark .mode-card{background:#161628}
       </div>
     </div>
   </div>
-  <div class="swipe-hint">¿La sabes?</div>
+  <div class="swipe-hint">👈 Difícil &nbsp;·&nbsp; Toca para ver &nbsp;·&nbsp; La sé 👉</div>
   <div class="card-actions" style="margin-top:12px">
     <button class="btn btn-danger"  onclick="markCard(false)">❌ Difícil</button>
     <button class="btn btn-outline" onclick="flipCard()">🔄 Ver</button>
@@ -810,6 +831,7 @@ body.dark .mode-card{background:#161628}
   </div>
   <div class="prog-block">
     <div class="prog-block-title">🔔 Recordatorios de práctica</div>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.5">⚠️ Los recordatorios solo funcionan mientras la app está abierta en pantalla. Para notificaciones en segundo plano se requiere una app nativa.</p>
     <div id="notif-perm-area">
       <button class="btn btn-primary btn-lg" onclick="requestNotifPerm()" id="notif-perm-btn">🔔 Activar notificaciones</button>
       <p class="notif-status" id="notif-perm-status"></p>
@@ -841,6 +863,18 @@ body.dark .mode-card{background:#161628}
       <span style="font-size:13px;color:var(--muted);font-style:italic" id="modal-pron"></span>
     </div>
     <div style="background:var(--p-light);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--p2);font-style:italic;line-height:1.5" id="modal-ex"></div>
+  </div>
+</div>
+
+<!-- ═══ CONFIRM MODAL ═══ -->
+<div class="confirm-overlay" id="confirm-overlay">
+  <div class="confirm-box">
+    <div class="confirm-title" id="confirm-title">¿Estás segura?</div>
+    <div class="confirm-msg" id="confirm-msg"></div>
+    <div class="confirm-btns">
+      <button class="confirm-cancel" onclick="resolveConfirm(false)">Cancelar</button>
+      <button class="confirm-ok" id="confirm-ok-btn" onclick="resolveConfirm(true)">Confirmar</button>
+    </div>
   </div>
 </div>
 
@@ -889,7 +923,7 @@ const vocab = [
   {en:"entrance",     es:"entrada",              pron:"EN-trans",      cat:"Casa",        ex:"Leave your shoes at the entrance."},
   {en:"swimming pool",es:"piscina",              pron:"SWIM-ing pul",  cat:"Casa",        ex:"We swim in the swimming pool."},
   {en:"cushions",     es:"cojines",              pron:"CUSH-enz",      cat:"Casa",        ex:"The cushions on the sofa are soft."},
-  {en:"rug",          es:"alfombra",             pron:"rag",           cat:"Casa",        ex:"There is a rug under the table."},
+  {en:"rug",          es:"alfombra",             pron:"rog",           cat:"Casa",        ex:"There is a rug under the table."},
 
   // ── PROFESIONES ──
   {en:"nurse",        es:"enfermera/o",          pron:"ners",          cat:"Profesiones", ex:"The nurse helps the doctor."},
@@ -1184,7 +1218,8 @@ const vocab = [
 // THEME & DARK MODE
 // ═══════════════════════════════════════════════════════════
 let currentTheme = localStorage.getItem('theme') || 'purple';
-let isDark = localStorage.getItem('dark') !== '0'; // dark by default
+const _savedDark = localStorage.getItem('dark');
+let isDark = _savedDark !== null ? _savedDark === '1' : window.matchMedia('(prefers-color-scheme: dark)').matches;
 
 function applyTheme(t){
   document.documentElement.setAttribute('data-theme',t);
@@ -1325,6 +1360,7 @@ function saveState(){
   localStorage.setItem('streaks',  JSON.stringify(wordStreaks));
 }
 function recordCorrect(w){
+  trackStat(true);
   wordStreaks[w]=(wordStreaks[w]||0)+1;
   knownWords=[...new Set([...knownWords,w])];
   hardWords=hardWords.filter(x=>x!==w);
@@ -1335,11 +1371,36 @@ function recordCorrect(w){
   saveState();
 }
 function recordWrong(w){
+  trackStat(false);
   wordStreaks[w]=0;
   hardWords=[...new Set([...hardWords,w])];
   knownWords=knownWords.filter(x=>x!==w);
   saveState();
 }
+function showToast(msg, type='info', duration=3000){
+  let t=document.getElementById('app-toast');
+  if(!t){ t=document.createElement('div'); t.id='app-toast'; t.className='app-toast'; document.body.appendChild(t); }
+  t.textContent=msg; t.className='app-toast '+type;
+  clearTimeout(t._t);
+  requestAnimationFrame(()=>{ t.classList.add('show'); });
+  t._t=setTimeout(()=>t.classList.remove('show'), duration);
+}
+
+let _confirmResolve=null;
+function showConfirm(msg, title='¿Estás segura?', okLabel='Confirmar'){
+  return new Promise(res=>{
+    _confirmResolve=res;
+    document.getElementById('confirm-title').textContent=title;
+    document.getElementById('confirm-msg').textContent=msg;
+    document.getElementById('confirm-ok-btn').textContent=okLabel;
+    document.getElementById('confirm-overlay').classList.add('open');
+  });
+}
+function resolveConfirm(val){
+  document.getElementById('confirm-overlay').classList.remove('open');
+  if(_confirmResolve){ _confirmResolve(val); _confirmResolve=null; }
+}
+
 function showMasteryToast(w){
   let t=document.getElementById('mastery-toast');
   if(!t){ t=document.createElement('div'); t.id='mastery-toast';
@@ -1396,6 +1457,20 @@ function saveSession(){
   }));
 }
 function clearSession(){ localStorage.removeItem('flashSession'); }
+
+// Swipe gesture on flashcard
+(function(){
+  let _startX=0, _startY=0;
+  const card=document.getElementById('flashcard');
+  card.addEventListener('touchstart',e=>{_startX=e.touches[0].clientX;_startY=e.touches[0].clientY;},{passive:true});
+  card.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-_startX;
+    const dy=Math.abs(e.changedTouches[0].clientY-_startY);
+    if(dy>40) return; // vertical scroll, ignore
+    if(Math.abs(dx)>60) markCard(dx>0); // right=sé, left=difícil
+  });
+})();
+
 function initFlash(forceNew){
   const currentCat = document.getElementById('flash-cat').value;
   // Try to restore session
@@ -1420,7 +1495,7 @@ function initFlash(forceNew){
   clearSession();
   document.getElementById('session-banner').style.display='none';
   const pool = getFiltered('flash-cat');
-  if(pool.length===0){ alert('No hay palabras difíciles aún. Practica un poco primero.'); return; }
+  if(pool.length===0){ showToast('No hay palabras difíciles aún. ¡Practica un poco primero!','warning'); return; }
   let q=[...pool];
   if(currentCat!=='hard') hardWords.forEach(w=>{ const f=pool.find(v=>v.en===w); if(f) q.push(f); });
   flashQueue=shuffleArr(q); flashIdx=0; flashStreak=0; flashTotal=flashQueue.length;
@@ -1480,7 +1555,7 @@ const ESC_LEN=10;
 
 function startEscucha(){
   const pool=getFiltered('escucha-cat');
-  if(pool.length<4){ alert('Necesitas al menos 4 palabras en esta categoría.\n(Selecciona "Todas las categorías" o practica más para acumular difíciles.)'); return; }
+  if(pool.length<4){ showToast('Necesitas al menos 4 palabras. Selecciona Todas las categorías.','warning'); return; }
   // Unique pool — sin duplicados
   const seen=new Set(pool.map(v=>v.en));
   const extras=hardWords.filter(w=>!seen.has(w)).map(w=>vocab.find(v=>v.en===w)).filter(Boolean);
@@ -1507,7 +1582,7 @@ function showEscuchaQ(){
   const div=document.getElementById('esc-options');
   div.innerHTML='';
   opts.forEach(opt=>{
-    const b=document.createElement('div'); b.className='option'; b.textContent=opt;
+    const b=document.createElement('button'); b.type='button'; b.className='option'; b.textContent=opt;
     b.onclick=()=>selectEscuchaOpt(b,opt,q.es,q.en);
     div.appendChild(b);
   });
@@ -1542,7 +1617,7 @@ const QUIZ_LEN=12;
 
 function startQuiz(){
   const pool=getFiltered('quiz-cat');
-  if(pool.length<4){ alert('Necesitas al menos 4 palabras en esta categoría.\n(Selecciona "Todas las categorías" o practica más para acumular difíciles.)'); return; }
+  if(pool.length<4){ showToast('Necesitas al menos 4 palabras. Selecciona Todas las categorías.','warning'); return; }
   const seen=new Set(pool.map(v=>v.en));
   const extras=hardWords.filter(w=>!seen.has(w)).map(w=>vocab.find(v=>v.en===w)).filter(Boolean);
   const sel=shuffleArr([...pool,...extras]).slice(0,Math.min(QUIZ_LEN,pool.length+extras.length));
@@ -1567,7 +1642,7 @@ function showQuizQ(){
   document.getElementById('quiz-next-btn').style.display='none';
   const div=document.getElementById('quiz-options'); div.innerHTML='';
   q.options.forEach(opt=>{
-    const b=document.createElement('div'); b.className='option'; b.textContent=opt;
+    const b=document.createElement('button'); b.type='button'; b.className='option'; b.textContent=opt;
     b.onclick=()=>selectQuizOpt(b,opt,q.correct,q.en);
     div.appendChild(b);
   });
@@ -1599,7 +1674,7 @@ const FR_LEN=10;
 
 function startFrases(){
   const pool=getFiltered('frases-cat').filter(v=>v.ex);
-  if(pool.length<4){ alert('No hay suficientes palabras en esta categoría.\n(Selecciona "Todas las categorías" o practica más.)'); return; }
+  if(pool.length<4){ showToast('No hay suficientes palabras. Selecciona Todas las categorías.','warning'); return; }
   const seen=new Set(pool.map(v=>v.en));
   const extras=hardWords.filter(w=>!seen.has(w)).map(w=>vocab.find(v=>v.en===w&&v.ex)).filter(Boolean);
   fraseQs=shuffleArr([...pool,...extras]).slice(0,Math.min(FR_LEN,pool.length+extras.length));
@@ -1628,7 +1703,7 @@ function showFraseQ(){
   const opts=shuffleArr([q.en,...wrong]);
   const div=document.getElementById('fr-options'); div.innerHTML='';
   opts.forEach(opt=>{
-    const b=document.createElement('div'); b.className='option'; b.textContent=opt;
+    const b=document.createElement('button'); b.type='button'; b.className='option'; b.textContent=opt;
     b.onclick=()=>selectFraseOpt(b,opt,q.en);
     div.appendChild(b);
   });
@@ -1662,7 +1737,7 @@ const WRITE_LEN=10;
 
 function startWrite(){
   const pool=getFiltered('write-cat');
-  if(pool.length<1){ alert('No hay palabras en esta categoría.\n(Practica primero para acumular palabras difíciles.)'); return; }
+  if(pool.length<1){ showToast('No hay palabras aquí. Practica más primero.','warning'); return; }
   const seen=new Set(pool.map(v=>v.en));
   const extras=hardWords.filter(w=>!seen.has(w)).map(w=>vocab.find(v=>v.en===w)).filter(Boolean);
   writeQuestions=shuffleArr([...pool,...extras]).slice(0,Math.min(WRITE_LEN,pool.length+extras.length));
@@ -1826,7 +1901,7 @@ function getNotifTimes(){ return JSON.parse(localStorage.getItem('notifTimes')||
 function saveNotifTimes(t){ localStorage.setItem('notifTimes',JSON.stringify(t)); }
 
 async function requestNotifPerm(){
-  if(!('Notification' in window)){ alert('Tu navegador no soporta notificaciones.'); return; }
+  if(!('Notification' in window)){ showToast('Tu navegador no soporta notificaciones.','error'); return; }
   const p = await Notification.requestPermission();
   if(p==='granted'){
     document.getElementById('notif-perm-btn').style.display='none';
@@ -1868,10 +1943,10 @@ function renderNotifTimes(){
 async function addNotifTime(){
   const inp = document.getElementById('notif-time-input');
   const t = inp.value;
-  if(!t){ alert('Elige un horario válido.'); return; }
+  if(!t){ showToast('Elige un horario válido.','warning'); return; }
   const times = getNotifTimes();
-  if(times.includes(t)){ alert('Este horario ya está configurado.'); return; }
-  if(times.length>=5){ alert('Máximo 5 horarios.'); return; }
+  if(times.includes(t)){ showToast('Este horario ya está configurado.','warning'); return; }
+  if(times.length>=5){ showToast('Máximo 5 horarios configurados.','warning'); return; }
   times.push(t);
   times.sort();
   saveNotifTimes(times);
@@ -1959,7 +2034,7 @@ function startPronun(){
     const msg=document.getElementById('pronun-cat').value==='hard'
       ?'Aún no tienes palabras difíciles.\nPractica en otros modos para acumularlas.'
       :'No hay palabras en esta categoría.';
-    alert(msg); return;
+    showToast(msg,'warning'); return;
   }
   // Reiniciar recognition para evitar estado corrupto entre sesiones
   recognition=null;
@@ -1996,7 +2071,7 @@ function startRec(e){
   // Reinicializar siempre para evitar estado corrupto
   recognition=null;
   if(!initRecognition()){
-    alert('Tu dispositivo no soporta reconocimiento de voz.\nUsa Chrome en Android.');
+    showToast('Reconocimiento de voz no disponible. Usa Chrome en Android.','error');
     return;
   }
   gotResult=false;
@@ -2088,7 +2163,7 @@ let rapidTimer=null,rapidTimeLeft=60,rapidScore=0,rapidTotal=0,rapidQueue=[],rap
 
 function startRapido(){
   const pool=getFiltered('rapido-cat');
-  if(!pool.length){alert('No hay palabras en esta categoría.');return;}
+  if(!pool.length){showToast('No hay palabras en esta categoría.','warning');return;}
   rapidQueue=shuffleArr([...pool,...pool]); // double para no quedarse sin cartas
   rapidIdx=0;rapidScore=0;rapidTotal=0;rapidTimeLeft=60;
   document.getElementById('rapido-start-screen').style.display='none';
@@ -2235,6 +2310,12 @@ function addCustomWord(){
 function deleteCustomWord(en){
   const cv=getCustomVocab().filter(w=>w.en!==en);
   saveCustomVocab(cv);
+  // Clean progress
+  knownWords=knownWords.filter(x=>x!==en);
+  hardWords=hardWords.filter(x=>x!==en);
+  masteredWords=masteredWords.filter(x=>x!==en);
+  delete wordStreaks[en];
+  saveState();
   // Remove from vocab array
   const idx=vocab.findIndex(v=>v.en===en&&v.custom);
   if(idx>-1) vocab.splice(idx,1);
@@ -2260,8 +2341,18 @@ function renderCustomList(){
   empty.style.display='none';
   cv.forEach(w=>{
     const d=document.createElement('div'); d.className='word-item';
-    d.innerHTML='<div><span class="word-en">'+w.en+'</span> — <span class="word-es">'+w.es+'</span><div style="font-size:11px;color:var(--muted);margin-top:2px">'+w.pron+'</div></div>'
-      +'<button onclick="deleteCustomWord(\''+w.en.replace(/'/g,"\\'")+'\')" style="background:none;border:none;cursor:pointer;font-size:18px;color:#ff6584">🗑️</button>';
+    // Build content safely with textContent to prevent XSS
+    const info=document.createElement('div');
+    const enSpan=document.createElement('span'); enSpan.className='word-en'; enSpan.textContent=w.en;
+    const sep=document.createTextNode(' — ');
+    const esSpan=document.createElement('span'); esSpan.className='word-es'; esSpan.textContent=w.es;
+    const pronDiv=document.createElement('div'); pronDiv.style.cssText='font-size:11px;color:var(--muted);margin-top:2px'; pronDiv.textContent=w.pron;
+    info.appendChild(enSpan); info.appendChild(sep); info.appendChild(esSpan); info.appendChild(pronDiv);
+    const del=document.createElement('button'); del.type='button';
+    del.style.cssText='background:none;border:none;cursor:pointer;font-size:18px;color:#ff6584';
+    del.textContent='🗑️'; del.dataset.word=w.en;
+    del.addEventListener('click',()=>deleteCustomWord(del.dataset.word));
+    d.appendChild(info); d.appendChild(del);
     list.appendChild(d);
   });
 }
@@ -2269,28 +2360,42 @@ function renderCustomList(){
 // ═══════════════════════════════════════════════════════════
 // WORD MODAL
 // ═══════════════════════════════════════════════════════════
+let _modalLastFocused=null;
 function openWordModal(item){
+  _modalLastFocused=document.activeElement;
   document.getElementById('modal-en').textContent=item.en;
   document.getElementById('modal-es').textContent=item.es;
   document.getElementById('modal-cat').textContent=item.cat;
   document.getElementById('modal-pron').textContent='🔉 '+item.pron;
   document.getElementById('modal-ex').textContent=item.ex||'(sin oración de ejemplo)';
-  document.getElementById('word-modal').classList.add('open');
+  const overlay=document.getElementById('word-modal');
+  overlay.classList.add('open');
+  overlay.setAttribute('role','dialog');
+  overlay.setAttribute('aria-modal','true');
+  setTimeout(()=>{ const btn=overlay.querySelector('.modal-close'); if(btn) btn.focus(); },50);
 }
 function closeWordModal(e){
-  if(e.target===document.getElementById('word-modal')) document.getElementById('word-modal').classList.remove('open');
+  const overlay=document.getElementById('word-modal');
+  if(e.target===overlay || e.currentTarget===overlay){
+    overlay.classList.remove('open');
+    if(_modalLastFocused) _modalLastFocused.focus();
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
 // RESET PROGRESS
 // ═══════════════════════════════════════════════════════════
-function resetAllProgress(){
-  if(!confirm('¿Estás segura? Esto borrará TODO tu progreso: palabras aprendidas, racha y sesiones guardadas.\n\nEsta acción no se puede deshacer.')) return;
+async function resetAllProgress(){
+  const ok=await showConfirm(
+    'Esto borrará palabras aprendidas, racha y sesiones. Esta acción no se puede deshacer.',
+    '¿Resetear todo el progreso?','Sí, borrar todo'
+  );
+  if(!ok) return;
   ['known','hard','mastered','streaks','dailyStreak','lastPractice','practiceHist','flashSession','totalReviewed','totalCorrect','bestStreak'].forEach(k=>localStorage.removeItem(k));
   knownWords=[];hardWords=[];masteredWords=[];wordStreaks={};
   updateNavStreak();
   renderProgress();
-  alert('✅ Progreso reiniciado. ¡Empieza desde cero!');
+  showToast('Progreso reiniciado. ¡Empieza desde cero!','success');
 }
 
 // ═══════════════════════════════════════════════════════════
