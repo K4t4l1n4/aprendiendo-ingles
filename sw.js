@@ -1,4 +1,4 @@
-const CACHE = 'ingles-v10';
+const CACHE = 'ingles-v11';
 const FILES = [
   './',
   './index.html',
