@@ -321,7 +321,7 @@ body.dark .mode-card{background:#161628}
   <div class="nav-title">
     <h1>📚 Learning English</h1>
     <p>¡Aprende vocabulario paso a paso!</p>
-    <div class="nav-streak">🔥 <span id="nav-streak-num">0</span> días seguidos</div>
+    <span id="nav-streak-num" style="display:none"></span>
   </div>
   <div class="nav-actions">
     <button class="nav-btn" id="dark-btn" onclick="toggleDark()">🌙</button>
@@ -394,21 +394,21 @@ body.dark .mode-card{background:#161628}
   </div>
 
   <div class="home-quick">
-    <button class="quick-card" onclick="switchTab('flash')">
-      <div class="quick-icon-wrap" style="background:rgba(108,99,255,.15)">🃏</div>
-      <span class="quick-label">Tarjetas</span>
-    </button>
     <button class="quick-card" onclick="switchTab('rapido')">
       <div class="quick-icon-wrap" style="background:rgba(231,76,60,.12)">⏱️</div>
       <span class="quick-label">Contrarreloj</span>
     </button>
-    <button class="quick-card" onclick="switchTab('words')">
-      <div class="quick-icon-wrap" style="background:rgba(39,174,96,.12)">📖</div>
-      <span class="quick-label">Glosario</span>
+    <button class="quick-card" onclick="switchTab('quiz')">
+      <div class="quick-icon-wrap" style="background:rgba(39,174,96,.12)">🎯</div>
+      <span class="quick-label">Quiz</span>
     </button>
-    <button class="quick-card" onclick="switchTab('practica')">
-      <div class="quick-icon-wrap" style="background:rgba(52,152,219,.12)">🎯</div>
-      <span class="quick-label">Práctica</span>
+    <button class="quick-card" onclick="switchTab('dialogos')">
+      <div class="quick-icon-wrap" style="background:rgba(22,160,133,.12)">💬</div>
+      <span class="quick-label">Diálogos</span>
+    </button>
+    <button class="quick-card" onclick="switchTab('mis-palabras')">
+      <div class="quick-icon-wrap" style="background:rgba(241,196,15,.12)">➕</div>
+      <span class="quick-label">Mis Palabras</span>
     </button>
   </div>
 </div>
