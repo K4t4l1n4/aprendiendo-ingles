@@ -261,6 +261,58 @@ body.dark .custom-form{background:#1e1c2e}
 .form-input{width:100%;padding:10px 14px;border:2px solid var(--border);border-radius:12px;font-size:15px;color:var(--text);background:var(--bg);outline:none;transition:border .2s;margin-bottom:12px}
 .form-input:focus{border-color:var(--p1)}
 body.dark .form-input{background:#12111a;color:var(--text);border-color:#2e2c45}
+
+/* ── HIDE OLD TABS, UPDATE PADDING ── */
+.tabs{display:none!important}
+nav{padding-bottom:16px;border-radius:0 0 24px 24px}
+main{padding:20px 20px 90px;flex:1}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--card-bg);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0 14px;z-index:200;transition:background .3s}
+body.dark .bottom-nav{background:#0f0f1a;border-top-color:#1e1e38}
+.bn-item{display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;padding:6px 14px;border-radius:12px;transition:all .15s;color:var(--muted)}
+.bn-item.active{color:var(--p1)}
+.bn-icon{font-size:22px;line-height:1}
+.bn-label{font-size:10px;font-weight:600}
+
+/* ── HOME SCREEN ── */
+.home-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.home-greeting{font-size:12px;color:var(--muted);margin:0 0 2px}
+.home-title{font-size:20px;font-weight:700;margin:0;color:var(--text)}
+.streak-badge{background:var(--card-bg);border-radius:20px;padding:8px 14px;display:flex;align-items:center;gap:6px;box-shadow:0 2px 12px rgba(0,0,0,.12)}
+body.dark .streak-badge{background:#1a1a2e}
+.streak-badge-icon{font-size:22px;line-height:1}
+.streak-badge-num{font-size:20px;font-weight:800;color:#ff9f43;line-height:1}
+.streak-badge-lbl{font-size:9px;color:var(--muted)}
+.lesson-card{background:var(--p1);border-radius:20px;padding:18px;margin-bottom:16px}
+.lesson-label{font-size:9px;color:rgba(255,255,255,.65);letter-spacing:.8px;text-transform:uppercase;margin:0 0 4px}
+.lesson-title{color:#fff;font-size:15px;font-weight:700;margin:0 0 12px}
+.lesson-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.lesson-chip{background:rgba(255,255,255,.2);color:#fff;padding:4px 10px;border-radius:10px;font-size:12px}
+.lesson-btn{width:100%;background:rgba(255,255,255,.18);color:#fff;border:none;border-radius:12px;padding:10px;font-size:13px;font-weight:700;cursor:pointer;transition:background .15s}
+.lesson-btn:active{background:rgba(255,255,255,.3)}
+.home-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.home-stat{background:var(--card-bg);border-radius:14px;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+body.dark .home-stat{background:#161628}
+.home-stat-lbl{font-size:10px;color:var(--muted);margin:0 0 4px}
+.home-stat-num{font-size:22px;font-weight:800;color:var(--text);margin:0;line-height:1.1}
+.home-stat-bar{height:3px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden}
+.home-stat-fill{height:100%;border-radius:2px}
+.home-quick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.quick-card{background:var(--card-bg);border-radius:14px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.06);border:none;width:100%;text-align:left;color:var(--text)}
+body.dark .quick-card{background:#161628}
+.quick-card:active{transform:scale(.97)}
+.quick-icon-wrap{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.quick-label{font-size:13px;font-weight:700}
+
+/* ── PRÁCTICA HUB ── */
+.practica-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.mode-card{background:var(--card-bg);border-radius:16px;padding:16px 12px;text-align:center;cursor:pointer;border:none;width:100%;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:transform .15s;color:var(--text)}
+body.dark .mode-card{background:#161628}
+.mode-card:active{transform:scale(.96)}
+.mode-icon-wrap{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:22px}
+.mode-name{font-size:13px;font-weight:700;margin:0 0 2px}
+.mode-desc{font-size:11px;color:var(--muted);margin:0}
 </style>
 </head>
 <body>
@@ -305,8 +357,111 @@ body.dark .form-input{background:#12111a;color:var(--text);border-color:#2e2c45}
 
 <main>
 
+<!-- ═══ INICIO ═══ -->
+<div id="section-inicio" class="section active">
+  <div class="home-header">
+    <div>
+      <p class="home-greeting">Hola 👋</p>
+      <h1 class="home-title">Learning English</h1>
+    </div>
+    <div class="streak-badge">
+      <span class="streak-badge-icon">🔥</span>
+      <div>
+        <div class="streak-badge-num" id="home-streak-num">0</div>
+        <div class="streak-badge-lbl">días</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lesson-card" id="lesson-card">
+    <p class="lesson-label">Lección del día</p>
+    <p class="lesson-title" id="lesson-title">Cargando palabras...</p>
+    <div class="lesson-chips" id="lesson-chips"></div>
+    <button class="lesson-btn" onclick="switchTab('flash')">Empezar tarjetas →</button>
+  </div>
+
+  <div class="home-stats">
+    <div class="home-stat">
+      <p class="home-stat-lbl">Palabras dominadas</p>
+      <p class="home-stat-num" id="home-mastered">0</p>
+      <div class="home-stat-bar"><div class="home-stat-fill" id="home-mastered-fill" style="background:var(--p1);width:0%"></div></div>
+    </div>
+    <div class="home-stat">
+      <p class="home-stat-lbl">Precisión total</p>
+      <p class="home-stat-num" id="home-accuracy">—</p>
+      <div class="home-stat-bar"><div class="home-stat-fill" id="home-accuracy-fill" style="background:#27ae60;width:0%"></div></div>
+    </div>
+  </div>
+
+  <div class="home-quick">
+    <button class="quick-card" onclick="switchTab('flash')">
+      <div class="quick-icon-wrap" style="background:rgba(108,99,255,.15)">🃏</div>
+      <span class="quick-label">Tarjetas</span>
+    </button>
+    <button class="quick-card" onclick="switchTab('rapido')">
+      <div class="quick-icon-wrap" style="background:rgba(231,76,60,.12)">⏱️</div>
+      <span class="quick-label">Contrarreloj</span>
+    </button>
+    <button class="quick-card" onclick="switchTab('words')">
+      <div class="quick-icon-wrap" style="background:rgba(39,174,96,.12)">📖</div>
+      <span class="quick-label">Glosario</span>
+    </button>
+    <button class="quick-card" onclick="switchTab('practica')">
+      <div class="quick-icon-wrap" style="background:rgba(52,152,219,.12)">🎯</div>
+      <span class="quick-label">Práctica</span>
+    </button>
+  </div>
+</div>
+
+<!-- ═══ PRÁCTICA HUB ═══ -->
+<div id="section-practica" class="section">
+  <div class="section-title">🎯 Práctica</div>
+  <div class="practica-grid">
+    <button class="mode-card" onclick="switchTab('quiz')">
+      <div class="mode-icon-wrap" style="background:rgba(39,174,96,.15)">🎯</div>
+      <div class="mode-name">Quiz</div>
+      <div class="mode-desc">Elige la opción</div>
+    </button>
+    <button class="mode-card" onclick="switchTab('write')">
+      <div class="mode-icon-wrap" style="background:rgba(108,99,255,.15)">✏️</div>
+      <div class="mode-name">Escribir</div>
+      <div class="mode-desc">Escribe la palabra</div>
+    </button>
+    <button class="mode-card" onclick="switchTab('escucha')">
+      <div class="mode-icon-wrap" style="background:rgba(52,152,219,.15)">🎧</div>
+      <div class="mode-name">Escucha</div>
+      <div class="mode-desc">Identifica la palabra</div>
+    </button>
+    <button class="mode-card" onclick="switchTab('pronun')">
+      <div class="mode-icon-wrap" style="background:rgba(255,159,67,.15)">🎤</div>
+      <div class="mode-name">Pronunciar</div>
+      <div class="mode-desc">Habla en inglés</div>
+    </button>
+    <button class="mode-card" onclick="switchTab('rapido')">
+      <div class="mode-icon-wrap" style="background:rgba(231,76,60,.15)">⏱️</div>
+      <div class="mode-name">Contrarreloj</div>
+      <div class="mode-desc">Modo rápido</div>
+    </button>
+    <button class="mode-card" onclick="switchTab('frases')">
+      <div class="mode-icon-wrap" style="background:rgba(155,89,182,.15)">📝</div>
+      <div class="mode-name">Frases</div>
+      <div class="mode-desc">Completa oraciones</div>
+    </button>
+    <button class="mode-card" onclick="switchTab('dialogos')">
+      <div class="mode-icon-wrap" style="background:rgba(22,160,133,.15)">💬</div>
+      <div class="mode-name">Diálogos</div>
+      <div class="mode-desc">Conversaciones</div>
+    </button>
+    <button class="mode-card" onclick="switchTab('mis-palabras')">
+      <div class="mode-icon-wrap" style="background:rgba(241,196,15,.15)">➕</div>
+      <div class="mode-name">Mis Palabras</div>
+      <div class="mode-desc">Vocabulario propio</div>
+    </button>
+  </div>
+</div>
+
 <!-- ═══ FLASHCARDS ═══ -->
-<div id="section-flash" class="section active">
+<div id="section-flash" class="section">
   <div class="cat-filter">
     <select class="cat-select" id="flash-cat" onchange="initFlash()"></select>
   </div>
@@ -689,6 +844,25 @@ body.dark .form-input{background:#12111a;color:var(--text);border-color:#2e2c45}
   </div>
 </div>
 
+<!-- ═══ BOTTOM NAV ═══ -->
+<nav class="bottom-nav" id="bottom-nav">
+  <button class="bn-item active" id="bn-inicio" onclick="switchTab('inicio')">
+    <span class="bn-icon">🏠</span><span class="bn-label">Inicio</span>
+  </button>
+  <button class="bn-item" id="bn-flash" onclick="switchTab('flash')">
+    <span class="bn-icon">🃏</span><span class="bn-label">Tarjetas</span>
+  </button>
+  <button class="bn-item" id="bn-practica" onclick="switchTab('practica')">
+    <span class="bn-icon">🎯</span><span class="bn-label">Práctica</span>
+  </button>
+  <button class="bn-item" id="bn-words" onclick="switchTab('words')">
+    <span class="bn-icon">📖</span><span class="bn-label">Glosario</span>
+  </button>
+  <button class="bn-item" id="bn-progreso" onclick="switchTab('progreso')">
+    <span class="bn-icon">📊</span><span class="bn-label">Progreso</span>
+  </button>
+</nav>
+
 <script>
 // ═══════════════════════════════════════════════════════════
 // VOCABULARY  (en, es, pron, cat, ex)
@@ -1010,7 +1184,7 @@ const vocab = [
 // THEME & DARK MODE
 // ═══════════════════════════════════════════════════════════
 let currentTheme = localStorage.getItem('theme') || 'purple';
-let isDark = localStorage.getItem('dark') === '1';
+let isDark = localStorage.getItem('dark') !== '0'; // dark by default
 
 function applyTheme(t){
   document.documentElement.setAttribute('data-theme',t);
@@ -1068,6 +1242,35 @@ function markPracticed(){
 function updateNavStreak(){
   const s = loadStreak();
   document.getElementById('nav-streak-num').textContent = s;
+  const homeEl = document.getElementById('home-streak-num');
+  if(homeEl) homeEl.textContent = s;
+}
+
+function initHome(){
+  updateNavStreak();
+  // Stats
+  const total = vocab.length;
+  const mastered = masteredWords.length;
+  const pct = total ? Math.round(mastered/total*100) : 0;
+  document.getElementById('home-mastered').textContent = mastered;
+  document.getElementById('home-mastered-fill').style.width = pct+'%';
+  const tr = parseInt(localStorage.getItem('totalReviewed')||'0');
+  const tc = parseInt(localStorage.getItem('totalCorrect')||'0');
+  const acc = tr>0 ? Math.round(tc/tr*100) : null;
+  document.getElementById('home-accuracy').textContent = acc!==null ? acc+'%' : '—';
+  document.getElementById('home-accuracy-fill').style.width = acc ? acc+'%' : '0%';
+  // Lección del día: 5 palabras al azar no dominadas
+  const pool = vocab.filter(v=>!masteredWords.includes(v.en));
+  const shuffled = pool.sort(()=>Math.random()-.5).slice(0,5);
+  const chips = document.getElementById('lesson-chips');
+  const title = document.getElementById('lesson-title');
+  if(shuffled.length){
+    title.textContent = shuffled.length+' palabras te esperan hoy';
+    chips.innerHTML = shuffled.map(v=>`<span class="lesson-chip">${v.en}</span>`).join('');
+  } else {
+    title.textContent = '¡Dominaste todo el vocabulario!';
+    chips.innerHTML = '<span class="lesson-chip">🏆 Experta</span>';
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1152,11 +1355,19 @@ function showMasteryToast(w){
 // ═══════════════════════════════════════════════════════════
 // TABS
 // ═══════════════════════════════════════════════════════════
-const TAB_IDS = ['flash','escucha','quiz','frases','write','pronun','rapido','dialogos','mis-palabras','words','progreso'];
+const TAB_IDS = ['inicio','practica','flash','escucha','quiz','frases','write','pronun','rapido','dialogos','mis-palabras','words','progreso'];
+// Bottom nav maps each section to which bn-item should be active
+const BN_MAP = {inicio:'bn-inicio',flash:'bn-flash',practica:'bn-practica',escucha:'bn-practica',quiz:'bn-practica',frases:'bn-practica',write:'bn-practica',pronun:'bn-practica',rapido:'bn-practica',dialogos:'bn-practica','mis-palabras':'bn-practica',words:'bn-words',progreso:'bn-progreso'};
 function switchTab(id){
-  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',TAB_IDS[i]===id));
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.getElementById('section-'+id).classList.add('active');
+  const sec = document.getElementById('section-'+id);
+  if(sec) sec.classList.add('active');
+  // update bottom nav
+  document.querySelectorAll('.bn-item').forEach(b=>b.classList.remove('active'));
+  const bnId = BN_MAP[id] || 'bn-inicio';
+  const bnEl = document.getElementById(bnId);
+  if(bnEl) bnEl.classList.add('active');
+  if(id==='inicio')      initHome();
   if(id==='quiz')        startQuiz();
   if(id==='write')       startWrite();
   if(id==='escucha')     startEscucha();
@@ -1167,7 +1378,6 @@ function switchTab(id){
   if(id==='mis-palabras')renderCustomList();
   if(id==='words')       renderWordList();
   if(id==='progreso')    {renderProgress();renderNotifUI();}
-  // Detener contrarreloj si se cambia de tab
   if(id!=='rapido'&&rapidTimer){clearInterval(rapidTimer);rapidTimer=null;}
 }
 
@@ -2103,12 +2313,14 @@ function trackStat(correct){
 applyTheme(currentTheme);
 const savedHex = localStorage.getItem('themeHex') || THEME_HEX[currentTheme] || '#6c63ff';
 document.querySelector('meta[name="theme-color"]').content = savedHex;
-if(isDark){ document.body.classList.add('dark'); document.getElementById('dark-btn').textContent='☀️'; }
-mergeCustomVocab(); // carga palabras personalizadas antes de popular selects
+// dark by default
+document.body.classList.toggle('dark', isDark);
+document.getElementById('dark-btn').textContent = isDark ? '☀️' : '🌙';
+mergeCustomVocab();
 populateSelects();
 updateNavStreak();
 initFlash();
-// Actualizar best streak al abrir
+initHome();
 const curStr=loadStreak(),bStr=parseInt(localStorage.getItem('bestStreak')||'0');
 if(curStr>bStr) localStorage.setItem('bestStreak',curStr);
 if('serviceWorker' in navigator){
